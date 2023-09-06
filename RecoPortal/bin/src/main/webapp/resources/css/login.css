@@ -1,0 +1,215 @@
+@import url("fontface.min.css");
+body{
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-align: center;
+	align-items: center;
+	padding-top: 40px;
+	padding-bottom: 40px;
+	font-family: 'OpenSans-Regular';	
+}
+/*---------------------------------------------*/
+.navbar-image img{
+	width:150px;
+}
+.navbar-image{
+	position: absolute;
+    top: 40px;
+    right: 185px;
+}
+form{
+	font-family:"OpenSans-SemiBold";
+	font-size:.9rem;
+}
+/*---------------------------------------------*/
+html,
+body {
+  height: 100%;
+}
+.login.login-lichfl {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    top: 0;
+}
+.login.login-lichfl .login-image {
+    position: fixed;
+    left: 0;
+    right: 500px;
+    top: 0;
+    bottom: 0;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    overflow: hidden;
+}
+.login.login-lichfl .right-content{
+    float: right;
+    width: 500px;
+}
+.header .navbar-logo, .login .login-header .brand .logo, .header .navbar-nav > li > a .label, .label.label-theme, .btn.btn-scroll-to-top {
+    background: #0093d1;
+}
+.login.login-lichfl .login-header .brand small {
+    color: #707478;
+}
+.login .login-header .brand small {
+    font-size: 14px;
+    display: block;
+    color: #707478;
+}
+.login.login-lichfl .news-image{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.login.login-lichfl .news-caption {
+    color: rgba(255,255,255,.75);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 60px 60px 30px;
+    font-size: 18px;
+    z-index: 20;
+    font-weight: 300;
+    background: -moz-linear-gradient(top,rgba(0,0,0,0) 0,rgba(0,0,0,1) 100%);
+    background: -webkit-linear-gradient(top,rgba(0,0,0,0) 0,rgba(0,0,0,1) 100%);
+    background: linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000', GradientType=0 );
+}
+.login.login-lichfl .login-header{
+      position: relative;
+    top: 0;
+    margin: 0;
+    left: 0;
+    right: 0;
+    padding: 0px 60px 0;
+}
+.login.login-lichfl .login-content{
+    width: auto;
+    padding: 30px 60px;
+}
+.login .login-content {
+    padding: 30px 40px;
+    color: #999;
+    width: 450px;
+    margin: 0 auto;
+}
+
+
+.login label {
+    color: #707478;
+}
+
+.btn.btn-success, .btn.btn-success.disabled, .btn.btn-success.disabled:focus, .btn.btn-success.disabled:hover, .btn.btn-success[disabled], .btn.btn-success[disabled]:focus, .btn.btn-success[disabled]:hover {
+    color: #fff;
+    background: #0093d1;
+    border-color: #0093d1;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background: #f1f3f5;
+}
+.text-grey-darker {
+    color: #929ba1!important;
+}
+.m-b-30 {
+    margin-bottom: 30px!important;
+}
+.btn.btn-lg, .input-group-lg>.input-group-append>.btn, .input-group-lg>.input-group-prepend>.btn {
+    font-size: 16px;
+    line-height: 24px;
+    padding: 10px 16px;
+     -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+.form-control.form-control-lg, .form-control.input-lg {
+    font-size: 14px;
+}
+.text-inverse,.text-grey-darker{
+	font-size: 12px;
+    font-family: 'OpenSans-Regular',"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.p-b-40 {
+    padding-bottom: 40px!important;
+}
+.m-b-40 {
+    margin-bottom: 40px!important;
+}
+.m-t-20 {
+    margin-top: 20px!important;
+}
+.login.login-lichfl .news-caption .caption-title{
+    color: #fff;
+    font-weight: 300;
+    font-size: 36px;
+}
+.btn-success:hover{
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=0, Color=#BFBFBF)";/*IE 8*/
+	-moz-box-shadow: 0 2px 1px 2px #BFBFBF;/*FF 3.5+*/
+	-webkit-box-shadow: 0 2px 1px 2px #BFBFBF;/*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+	box-shadow: 0 2px 1px 2px #BFBFBF;/* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=135, Color=#BFBFBF); /*IE 5.5-7*/
+}
+@media (max-width: 1024px){
+	.login.login-lichfl .right-content {
+    	width: 360px;
+	}
+	.login.login-lichfl {
+    	position: fixed;
+    	left: 0;
+    	right: 0;
+    	bottom: 0;
+    	top: 0;
+	}
+	.login.login-lichfl .login-content, .login.login-lichfl .login-header{
+   	 	padding-left: 45px;
+    	padding-right: 45px;
+	}
+	.login.login-lichfl .login-image {
+   	 right: 360px;
+	}
+}
+@media (max-width: 768px){
+	.login.login-lichfl .login-image {
+    	display: none;
+	}
+	.login.login-lichfl .right-content {
+   	 	float: none;
+   		 width: auto;
+	}
+}
+.bv-form .has-error .help-block{
+	color: rgb(255, 146, 146);
+}
+.bv-form .has-error input{
+	border: 1px solid rgb(255, 207, 207)
+}
+.bv-form .has-error .form-control:focus{
+	box-shadow: 0 0 0 0.1rem rgba(255, 35, 0, 0.25);
+}
+.notification {
+ 	width: 400px;
+    margin-left: -125px;
+    background-color: #ff8181;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: absolute;
+    z-index: 9999;
+    right: 50px;
+    bottom: 23%;
+    font-family: "OpenSans-SemiBold";
+}
+.writeuplink{font-family:'OpenSans-Bold';color:#f4d00c;border-bottom: 2px solid #0093d1;text-decoration: none !important;}
+.write-up{font-size: 12px;font-family: "OpenSans-SemiBold";color: #000;}
+.text-warning{color:#b38b12 !important};
+.write-up .fa{font-size: 18px;}
