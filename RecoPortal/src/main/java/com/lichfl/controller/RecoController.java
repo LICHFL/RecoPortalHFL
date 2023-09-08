@@ -1,17 +1,26 @@
 package com.lichfl.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import com.google.gson.Gson;
 import com.lichfl.model.BookDto;
+import com.lichfl.model.RecoFilter;
 import com.lichfl.service.RecoService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class RecoController {
+
+	@Autowired
+	private Gson gson;
 
 	@GetMapping("/")
 	public String home() {
@@ -23,28 +32,32 @@ public class RecoController {
 	@Autowired
 	RecoService recoService;
 
-	// @PostMapping("/main")
-	@GetMapping("/main")
-	// public String home(String glCode, String fromDate, String toDate, String
-	// catg, Map<String, Object> model) {
-	public String home(Model model) {
+	@GetMapping("/mainPage")
+	public String mainPageLoad() {
+		return "main";
+	}
+
+	// @ResponseBody
+	@PostMapping("/getBookRec")
+	public String home(RecoFilter recoFilter, Map<String, Object> model) {
+
+		log.info("recoFilter::" + recoFilter);
+
 		List<BookDto> bookDtoList = null;
 
-		String glCode = "LUHDFCCMS1";
-		String fromDate = "01-APR-2023";
-		String toDate = "30-JUN-2023";
-		String catg = "O";
-
 		try {
-			bookDtoList = recoService.fetchBookResults(glCode, fromDate, toDate, catg);
+			bookDtoList = recoService.fetchBookResults(recoFilter.getBankCode(), recoFilter.getDatetimepickerFrom(),
+					recoFilter.getDatetimepickerTo(), recoFilter.getMatchingType());
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		}
 		// bookDtoList.forEach(System.out::println);
-		model.addAttribute("bookDtoList", bookDtoList);
-
+		model.put("bookDtoList", bookDtoList);
 		return "main";
+		// return model;
+		// return bookDtoList;
+
 	}
 
 }
