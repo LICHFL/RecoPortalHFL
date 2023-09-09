@@ -39,6 +39,39 @@
 <link rel="stylesheet" href="resources/css/custom.css">
 <link rel="icon" href="resources/images/lichfl-favicon.png">
 <title>LICHFL - Feedback Client</title>
+
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="resources/vendor/bootstrap/js/jquery-3.3.1.min.js"></script>
+	<script src="resources/vendor/bootstrap/js/popper.min.js"></script>
+	<script src="resources/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!-- DataTables JavaScript -->
+	<script src="resources/vendor/datatables/js/jquery.dataTables.min.js"></script>
+	<script
+		src="resources/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
+	<script
+		src="resources/vendor/datatables-responsive/dataTables.responsive.js"></script>
+	<!-- MDB JS -->
+	<script src="resources/js/mdb.min.js"></script>
+	<!-- Bootstrap Validator JavaScript -->
+	<script
+		src="resources/vendor/bootstrapValidator/js/bootstrapValidator.min.js"></script>
+	<!-- Timeout JavaScript -->
+	<script src="resources/vendor/timeout/bootstrap-session-timeout.min.js"></script>
+	<!-- Select 2 -->
+	<script  src="resources/vendor/moment/moment.min.js"></script>
+	<!-- Date time picker -->
+	<script 
+		src="resources/vendor/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<!-- Select 2 -->
+	<script  src="resources/vendor/select2/js/select2.full.min.js"></script>
+	<script 
+		src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+	<script 
+		src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+	<script 
+		src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+	<script 
+		src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
 </head>
 
 <body>
@@ -248,65 +281,9 @@
 											<label class="section-label">Search <span
 												class="brsParam">Book</span> Results
 											</label>
-
-											<table id="paginationFullNumbers"
-												class="table table-striped table-hover dataTable no-footer table-responsive mt-2"
-												width="100%" style="margin-top: -30px;">
-												<thead>
-													<tr>
-														<th class="th-sm">Match</th>
-														<th class="th-sm">Tran Code</th>
-														<th class="th-sm">Doc No</th>
-														<th class="th-sm">Doc Date</th>
-														<th class="th-sm">Cheque No</th>
-														<th class="th-sm">P mode</th>
-														<th class="th-sm">Value Date</th>
-														<th class="th-sm">Micr Code</th>
-														<th class="th-sm">Loan Ac</th>
-														<th class="th-sm">PLF Receipt No</th>
-														<th class="th-sm">Org Amt</th>
-														<th class="th-sm">Unadj Amt</th>
-														<th class="th-sm">Dr/Cr</th>
-													</tr>
-												</thead>
-												<tbody>
-													<c:forEach items="${bookDtoList}" var="book">
-														<tr>
-															<td><input type="checkbox" name="" id=""></td>
-															<td>${book.tranCode}</td>
-															<td>${book.docNo}</td>
-															<td>${book.docDate}</td>
-															<td>${book.chequeNo}</td>
-															<td>${book.payMode}</td>
-
-															<td>${book.valueDate}</td>
-															<td>${book.micrCode}</td>
-															<td>${book.loanNo}</td>
-															<td>${book.receiptNo}</td>
-															<td>${book.orgAmnt}</td>
-															<td>${book.unadjAmnt}</td>
-															<td>${book.drCr}</td>
-														</tr>
-													</c:forEach>
-												</tbody>
-												<tfoot>
-													<tr>
-														<th class="th-sm">Match</th>
-														<th class="th-sm">Search Tran Code</th>
-														<th class="th-sm">Search Doc No</th>
-														<th class="th-sm">Search Doc Date</th>
-														<th class="th-sm">Search Cheque No</th>
-														<th class="th-sm">Search P mode</th>
-														<th class="th-sm">Search Value Date</th>
-														<th class="th-sm">Search Micr Code</th>
-														<th class="th-sm">Search Loan Ac</th>
-														<th class="th-sm">Search PLF Receipt No</th>
-														<th class="th-sm">Search Org Amt</th>
-														<th class="th-sm">Search Unadj Amt</th>
-														<th class="th-sm">Search Dr/Cr</th>
-													</tr>
-												</tfoot>
-											</table>
+											<div class="paramTable1">
+												 <%@ include file="matchingTable.jsp"%>
+											</div>
 										</section>
 									</div>
 									<div class="tab-pane fade" id="nav-profile" role="tabpanel"
@@ -315,61 +292,9 @@
 											<label class="section-label">Search <span
 												class="brsParam">Book</span> Results
 											</label>
-											<table id="freezeTable"
-												class="table table-striped table-hover dataTable no-footer table-responsive mt-2"
-												width="100%" style="margin-top: -30px;">
-												<thead>
-													<tr>
-														<th class="th-sm">Match</th>
-														<th class="th-sm">Tran Code</th>
-														<th class="th-sm">Doc No</th>
-														<th class="th-sm">Doc Date</th>
-														<th class="th-sm">Cheque No</th>
-														<th class="th-sm">P mode</th>
-														<th class="th-sm">Value Date</th>
-														<th class="th-sm">Micr Code</th>
-														<th class="th-sm">Loan Ac</th>
-														<th class="th-sm">PLF Receipt No</th>
-														<th class="th-sm">Org Amt</th>
-														<th class="th-sm">Unadj Amt</th>
-														<th class="th-sm">Dr/Cr</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td><input type="checkbox" name="" id=""></td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td></td>
-													</tr>
-												</tbody>
-												<tfoot>
-													<tr>
-														<th class="th-sm">Match</th>
-														<th class="th-sm">Search Tran Code</th>
-														<th class="th-sm">Search Doc No</th>
-														<th class="th-sm">Search Doc Date</th>
-														<th class="th-sm">Search Cheque No</th>
-														<th class="th-sm">Search P mode</th>
-														<th class="th-sm">Search Value Date</th>
-														<th class="th-sm">Search Micr Code</th>
-														<th class="th-sm">Search Loan Ac</th>
-														<th class="th-sm">Search PLF Receipt No</th>
-														<th class="th-sm">Search Org Amt</th>
-														<th class="th-sm">Search Unadj Amt</th>
-														<th class="th-sm">Search Dr/Cr</th>
-													</tr>
-												</tfoot>
-											</table>
+											<div class="paramTable2">											
+												<%@ include file="freezeTable.jsp"%>
+											</div>											
 										</section>
 									</div>
 									<div class="tab-pane fade" id="nav-contact" role="tabpanel"
@@ -398,38 +323,7 @@
 		<i class="fa fa-spinner fa-spin"></i>
 	</div>
 
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="resources/vendor/bootstrap/js/jquery-3.3.1.min.js"></script>
-	<script src="resources/vendor/bootstrap/js/popper.min.js"></script>
-	<script src="resources/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<!-- DataTables JavaScript -->
-	<script src="resources/vendor/datatables/js/jquery.dataTables.min.js"></script>
-	<script
-		src="resources/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
-	<script
-		src="resources/vendor/datatables-responsive/dataTables.responsive.js"></script>
-	<!-- MDB JS -->
-	<script src="resources/js/mdb.min.js"></script>
-	<!-- Bootstrap Validator JavaScript -->
-	<script
-		src="resources/vendor/bootstrapValidator/js/bootstrapValidator.min.js"></script>
-	<!-- Timeout JavaScript -->
-	<script src="resources/vendor/timeout/bootstrap-session-timeout.min.js"></script>
-	<!-- Select 2 -->
-	<script defer src="resources/vendor/moment/moment.min.js"></script>
-	<!-- Date time picker -->
-	<script defer
-		src="resources/vendor/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-	<!-- Select 2 -->
-	<script defer src="resources/vendor/select2/js/select2.full.min.js"></script>
-	<script defer
-		src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
-	<script defer
-		src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-	<script defer
-		src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
-	<script defer
-		src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
+
 	<!-- Optional JavaScript -->
 	<script src="resources/js/custom.js"></script>
 	<script type="text/javascript">
@@ -453,62 +347,7 @@
             window.onbeforeunload = function(evnt) {
                 logout();
             };
-
-            $('#paginationFullNumbers').dataTable({
-                initComplete: function() {
-                    this.api()
-                        .columns()
-                        .every(function() {
-                            let column = this;
-                            let title = column.footer().textContent;
-
-                            // Create input element
-                            let input = document.createElement('input');
-                            input.placeholder = title;
-                            column.footer().replaceChildren(input);
-
-                            // Event listener for user input
-                            input.addEventListener('keyup', () => {
-                                if (column.search() !== this.value) {
-                                    column.search(input.value).draw();
-                                }
-                            });
-                        });
-                },
-                dom: 'lfrtipB',
-                buttons: [
-                    'excelHtml5'
-                ]
-            });
-
-
-            $('#freezeTable').dataTable({
-                initComplete: function() {
-                    this.api()
-                        .columns()
-                        .every(function() {
-                            let column = this;
-                            let title = column.footer().textContent;
-
-                            // Create input element
-                            let input = document.createElement('input');
-                            input.placeholder = title;
-                            column.footer().replaceChildren(input);
-
-                            // Event listener for user input
-                            input.addEventListener('keyup', () => {
-                                if (column.search() !== this.value) {
-                                    column.search(input.value).draw();
-                                }
-                            });
-                        });
-                },
-                dom: 'lfrtipB',
-                buttons: [
-                    'excelHtml5'
-                ]
-            });
-
+            
             $('#datetimepickerFrom').datetimepicker({
                 format: 'DD/MM/YYYY',
                 maxDate: moment()
@@ -591,6 +430,7 @@
         	        contentType: false,
         	        success: function(data) {
         	        	console.log(data)
+        	        	$('.paramTable1').html(data);
         	        },
         	    	error: function(e) {
                 		console.log(e)

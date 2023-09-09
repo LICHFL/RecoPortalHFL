@@ -54,7 +54,7 @@ public class RecoController {
 		}
 		// bookDtoList.forEach(System.out::println);
 		model.put("bookDtoList", bookDtoList);
-		return "main";
+		return "matchingTable";
 		// return model;
 		// return bookDtoList;
 
