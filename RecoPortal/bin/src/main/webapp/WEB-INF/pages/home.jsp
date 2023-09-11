@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="resources/css/login.min.css">
 <!-- Favicon -->
 <link rel="icon" href="resources/images/lichfl-favicon.png">
-<title>LICHFL - Feedback Portal</title>
+<title>LICHFL - RECO Portal</title>
 </head>
 <body>
 	<header>
