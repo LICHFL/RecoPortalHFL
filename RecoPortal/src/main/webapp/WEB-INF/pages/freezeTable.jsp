@@ -21,9 +21,7 @@
     </thead>
     <tbody>
         <tr>
-            <td>
-                <input type="checkbox" name="" id="">
-            </td>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>
@@ -83,7 +81,18 @@ $('#freezeTable').dataTable({
     dom: 'lfrtipB',
     buttons: [
         'excelHtml5'
-    ]
+    ],
+    columnDefs: [
+        {
+            orderable: false,
+            className: 'select-checkbox',
+            targets: 0
+        }
+    ],
+    select: {
+        style: 'single',
+        selector: 'td:first-child'
+    },
 });
 
 </script>
