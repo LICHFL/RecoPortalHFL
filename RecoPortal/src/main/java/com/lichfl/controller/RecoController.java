@@ -37,7 +37,6 @@ public class RecoController {
 		return "main";
 	}
 
-	// @ResponseBody
 	@PostMapping("/getBookRec")
 	public String home(RecoFilter recoFilter, Map<String, Object> model) {
 
@@ -52,11 +51,9 @@ public class RecoController {
 			e.printStackTrace();
 
 		}
-		// bookDtoList.forEach(System.out::println);
 		model.put("bookDtoList", bookDtoList);
 		return "matchingTable";
-		// return model;
-		// return bookDtoList;
+
 
 	}
 
