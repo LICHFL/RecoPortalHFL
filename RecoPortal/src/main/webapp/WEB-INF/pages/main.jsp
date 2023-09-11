@@ -31,14 +31,15 @@
 <link rel="stylesheet"
 	href="resources/vendor/datetimepicker/css/bootstrap-datetimepicker.min.css">
 <!-- Select 2 -->
-<link rel="stylesheet"
-	href="resources/vendor/select2/css/select2.min.css">
+<!--<link rel="stylesheet"
+	href="resources/vendor/select2/css/select2.min.css">-->
+	 <link href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet"
 	href="resources/vendor/select2/css/select2-bootstrap.min.css">
 <!-- Custom CSS -->
 <link rel="stylesheet" href="resources/css/custom.css">
 <link rel="icon" href="resources/images/lichfl-favicon.png">
-<title>LICHFL - Feedback Client</title>
+<title>LICHFL - RECO PORTAL</title>
 
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="resources/vendor/bootstrap/js/jquery-3.3.1.min.js"></script>
@@ -63,15 +64,12 @@
 	<script 
 		src="resources/vendor/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 	<!-- Select 2 -->
-	<script  src="resources/vendor/select2/js/select2.full.min.js"></script>
-	<script 
-		src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
-	<script 
-		src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-	<script 
-		src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
-	<script 
-		src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
+	<!--  <script src="resources/vendor/select2/js/select2.full.min.js"></script>-->
+	<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+	<script src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
+	<script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
 </head>
 
 <body>
@@ -79,7 +77,7 @@
 	<div class="page-wrapper" id="page-wrapper">
 		<!-- Navbar -->
 		<nav class="navbar navbar-expand-md navbar-light mb-2 no-content">
-			<div class="web-page-title">BRS</div>
+			<div class="web-page-title"><i class="fa fa-random"></i> RECO PORTAL</div>
 			<ul class="navbar-nav ml-auto nav-flex-icons">
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333"
@@ -126,29 +124,31 @@
 													<label class="section-label">BRS Type</label>
 													<div class="row" style="margin-top: -30px">
 														<div class="col">
-															<div class="form-check form-check-inline">
+															<div class="form-group">
+																<div class="form-check form-check-inline">
 																<input type="radio" class="form-check-input"
 																	id="matchingType1" name="matchingType" value="O"
 																	required> <label class="form-check-label"
 																	for="matchingType1">Book V/S Bank</label>
-															</div>
-															<div class="form-check form-check-inline">
-																<input type="radio" class="form-check-input"
-																	id="matchingType2" name="matchingType" value="mt2">
-																<label class="form-check-label" for="matchingType2">
-																	Bank V/S Book</label>
-															</div>
-															<div class="form-check form-check-inline">
-																<input type="radio" class="form-check-input"
-																	id="matchingType3" name="matchingType" value="mt3">
-																<label class="form-check-label" for="matchingType3">
-																	Bank V/S Bank</label>
-															</div>
-															<div class="form-check form-check-inline">
-																<input type="radio" class="form-check-input"
-																	id="matchingType4" name="matchingType" value="mt4">
-																<label class="form-check-label" for="matchingType4">
-																	Book V/S Book</label>
+																</div>
+																<div class="form-check form-check-inline">
+																	<input type="radio" class="form-check-input"
+																		id="matchingType2" name="matchingType" value="mt2">
+																	<label class="form-check-label" for="matchingType2">
+																		Bank V/S Book</label>
+																</div>
+																<div class="form-check form-check-inline">
+																	<input type="radio" class="form-check-input"
+																		id="matchingType3" name="matchingType" value="mt3">
+																	<label class="form-check-label" for="matchingType3">
+																		Bank V/S Bank</label>
+																</div>
+																<div class="form-check form-check-inline">
+																	<input type="radio" class="form-check-input"
+																		id="matchingType4" name="matchingType" value="mt4">
+																	<label class="form-check-label" for="matchingType4">
+																		Book V/S Book</label>
+																</div>
 															</div>
 														</div>
 													</div>
@@ -229,13 +229,22 @@
 																<div class="col">
 																	<label>Order By</label>
 																	<div class="form-group">
-																		<select class="form-control"></select>
+																		<select class="form-control" name="orderBy" id="orderBy">
+																			<option value="">--Select--</option>
+																			<option value="bro_flex_15">Receipt</option>
+																			<option value="bro_doc_dt">Date</option>
+																			<option value="bro_chq_no">Cheque no</option>
+																			<option value="bro_flex_13">Loan no</option>
+																			<option value="bro_flex_27">Payment Mode</option>
+																		</select>
 																	</div>
 																</div>
 																<div class="col">
 																	<label>Payment Mode</label>
-																	<div class="form-group">
-																		<select class="form-control"></select>
+																	<div class="form-group" name="pMode" id="pMode">
+																		<select class="form-control">
+																			<option value="">--Select--</option>
+																		</select>
 																	</div>
 																</div>
 																<div class="col">
@@ -266,7 +275,7 @@
 																			<i class="fa fa-search"></i> Search
 																		</button>
 																		<button type="button"
-																			class="btn btn-primary btn-sm mr-1">
+																			class="btn btn-primary btn-sm mr-1" id="resetSearchParamBtn">
 																			<i class="fa fa-refresh"></i> Refresh
 																		</button>
 																	</div>
@@ -356,7 +365,7 @@
                 format: 'DD/MM/YYYY',
                 maxDate: moment()
             });
-            $('#bankCode').select2();
+            //$('#bankCode').select2();
 
             $('input[type="radio"][name="matchingType"]').change(function() {
                 if (this.value == 'mt1' || this.value == 'mt4') {
@@ -417,8 +426,9 @@
         	$('#searchParametersForm').data('bootstrapValidator').revalidateField('bankCode');
         });
         
-        $('#searhParamBtn').click(function(){        	
+        $('#searhParamBtn').click(function(){    
             $('#searchParametersForm').bootstrapValidator().off('success.form.bv').on('success.form.bv', function(e) {
+            	$('.lichfl-ajax-overlay').show();
             	var data = new FormData(searchParametersForm);
             	console.log(data);
         	    $.ajax({
@@ -428,17 +438,22 @@
         	        data: data,
         	       processData: false,
         	        contentType: false,
-        	        success: function(data) {
-        	        	console.log(data)
+        	        success: function(data) {        	        	
         	        	$('.paramTable1').html(data);
+        	        	$('.lichfl-ajax-overlay').hide();
         	        },
         	    	error: function(e) {
-                		console.log(e)
+                		console.log(e);
+                		$('.lichfl-ajax-overlay').hide();
                 	}
         	    });
         	});
         	$('#searchParametersForm').bootstrapValidator('validate');
         })
+        
+        $('#resetSearchParamBtn').click(function (){
+        	 $('#searchParametersForm').bootstrapValidator("resetForm",true); 
+        });
   
     </script>
 </body>
