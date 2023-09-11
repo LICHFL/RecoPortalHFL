@@ -17,21 +17,23 @@ public class RecoCustomRepo {
 	@PersistenceContext
 	EntityManager entityManager;
 
-	public List<BookDto> fetchBookResults(String glCode, String fromDate, String toDate, String catg) {
+	public List<BookDto> fetchBookResults(String glCode, String fromDate, String toDate, String catg, String tranType) {
 
-		String sqlQuery = "SELECT BRO_TRAN_CODE as tranCode,\r\n" + "       BRO_DOC_NO as docNo,\r\n"
-				+ "       BRO_DOC_DT as docDate,\r\n" + "       BRO_FLEX_11 as chequeNo,\r\n"
-				+ "       BRO_FLEX_25 as pMode,\r\n" + "       BRO_VALUE_DT as valueDate,\r\n"
-				+ "       '123456789' as micrCode,\r\n" + "       BRO_FLEX_13 as loanNo, BRO_FLEX_13 as receiptNo,\r\n"
-				+ "       BRO_FC_ORG_AMT as orgAmnt,\r\n" + "       BRO_LC_ORG_AMT as unadjAmnt,\r\n"
-				+ "       BRO_DRCR_FLAG as drCr\r\n" + "  FROM TABLE(BANK_RECO_PIPE_LIC(:glCode,\r\n"
-				+ "                                :fromDate,\r\n" + "                                :toDate,\r\n"
-				+ "                                :catg)) X\r\n" + " WHERE BRO_DRCR_FLAG = 'C'\r\n"
-				+ "   AND BRO_FLEX_27 = 'CQ'";
+		String sqlQuery = "SELECT to_char(BRO_TRAN_CODE) as tranCode,\r\n" + "       to_char(BRO_DOC_NO) as docNo,\r\n"
+				+ "       to_char(BRO_DOC_DT) as docDate,\r\n"
+				+ "        to_char(TRIM(LEADING '0' FROM BRO_chq_no))as chequeNo,\r\n"
+				+ "       ---to_char(BRO_chq_no) as chequeNo,\r\n" + "       to_char(BRO_FLEX_27) as pMode,\r\n"
+				+ "       to_char(BRO_VALUE_DT) as valueDate,\r\n" + "       to_char(BRO_FLEX_11) as micrCode,\r\n"
+				+ "      to_char(BRO_FLEX_13) as loanNo, \r\n" + "       to_char(BRO_FLEX_15) as receiptNo,\r\n"
+				+ "       to_char(BRO_FC_AMT) as orgAmnt,\r\n"
+				+ "       to_char(BRO_FC_AMT - BRO_fc_adj_AMT) as unadjAmnt,\r\n"
+				+ "       to_char(BRO_DRCR_FLAG) as drCr\r\n" + "    from    \r\n"
+				+ "  table(BANK_RECO_PIPE_LIC(:glCode,:fromDate,:toDate,:catg))X \r\n"
+				+ "         WHERE BRO_DRCR_FLAG = :tranType\r\n" + "    AND BRO_FLEX_27 = 'CQ'";
 
 		Query query = entityManager.createNativeQuery(sqlQuery);
 		query.setParameter("glCode", glCode).setParameter("fromDate", fromDate).setParameter("toDate", toDate)
-				.setParameter("catg", catg);
+				.setParameter("catg", catg).setParameter("tranType", tranType);
 
 		List<Object[]> resulList = query.getResultList();
 

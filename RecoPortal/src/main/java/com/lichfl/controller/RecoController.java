@@ -47,7 +47,7 @@ public class RecoController {
 
 		try {
 			bookDtoList = recoService.fetchBookResults(recoFilter.getBankCode(), recoFilter.getDatetimepickerFrom(),
-					recoFilter.getDatetimepickerTo(), recoFilter.getMatchingType());
+					recoFilter.getDatetimepickerTo(), recoFilter.getMatchingType(), recoFilter.getTranType());
 		} catch (Exception e) {
 			e.printStackTrace();
 

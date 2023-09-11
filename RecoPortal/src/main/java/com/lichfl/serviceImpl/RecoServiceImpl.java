@@ -20,9 +20,10 @@ public class RecoServiceImpl implements RecoService {
 	RecoCustomRepoTemplate cecoCustomRepoTemplate; // TO be corrected
 
 	@Override
-	public List<BookDto> fetchBookResults(String glCode, String fromDate, String toDate, String catg) throws Exception {
+	public List<BookDto> fetchBookResults(String glCode, String fromDate, String toDate, String catg, String tranType)
+			throws Exception {
 
-		List<BookDto> resList = customRepo.fetchBookResults(glCode, fromDate, toDate, catg);
+		List<BookDto> resList = customRepo.fetchBookResults(glCode, fromDate, toDate, catg, tranType);
 		return resList;
 
 	}
