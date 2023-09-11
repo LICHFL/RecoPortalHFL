@@ -214,13 +214,13 @@
 																		<div class="form-group">
 																			<div class="form-check form-check-inline">
 																				<input type="radio" class="form-check-input"
-																					id="tranTypeD" name="tranType" value="debit"
+																					id="tranTypeD" name="tranType" value="D"
 																					required> <label class="form-check-label"
 																					for="tranTypeD">DR</label>
 																			</div>
 																			<div class="form-check form-check-inline">
 																				<input type="radio" class="form-check-input"
-																					id="tranTypeC" name="tranType" value="credit">
+																					id="tranTypeC" name="tranType" value="C">
 																				<label class="form-check-label" for="tranTypeC">CR</label>
 																			</div>
 																		</div>
