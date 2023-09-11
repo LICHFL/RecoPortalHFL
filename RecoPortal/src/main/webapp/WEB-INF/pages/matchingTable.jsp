@@ -23,7 +23,7 @@
         <c:forEach items="${bookDtoList}" var="book">
             <tr>
                 <td>
-                    <input type="checkbox" name="" id="">
+                    
                 </td>
                 <td>${book.tranCode}</td>
                 <td>${book.docNo}</td>
@@ -81,11 +81,22 @@ $('#matchingTable').dataTable({
                     }
                 });
             });
-    },
+    },   
     dom: 'lfrtipB',
     buttons: [
         'excelHtml5'
-    ]
+    ],
+    columnDefs: [
+        {
+            orderable: false,
+            className: 'select-checkbox',
+            targets: 0
+        }
+    ],
+    select: {
+        style: 'multi',
+        selector: 'td:first-child'
+    },
 });
 
 </script>
