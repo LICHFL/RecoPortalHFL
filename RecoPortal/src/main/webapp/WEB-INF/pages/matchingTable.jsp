@@ -61,7 +61,7 @@
 </table>
 <script>
 
-$('#matchingTable').dataTable({
+matchTable = $('#matchingTable').DataTable({
     initComplete: function() {
         this.api()
             .columns()
