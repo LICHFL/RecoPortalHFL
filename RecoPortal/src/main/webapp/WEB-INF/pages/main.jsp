@@ -33,7 +33,9 @@
 <!-- Select 2 -->
 <!--<link rel="stylesheet"
 	href="resources/vendor/select2/css/select2.min.css">-->
-	 <link href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css" rel="stylesheet">
+<link
+	href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css"
+	rel="stylesheet">
 <link rel="stylesheet"
 	href="resources/vendor/select2/css/select2-bootstrap.min.css">
 <!-- Custom CSS -->
@@ -41,35 +43,40 @@
 <link rel="icon" href="resources/images/lichfl-favicon.png">
 <title>LICHFL - RECO PORTAL</title>
 
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="resources/vendor/bootstrap/js/jquery-3.3.1.min.js"></script>
-	<script src="resources/vendor/bootstrap/js/popper.min.js"></script>
-	<script src="resources/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<!-- DataTables JavaScript -->
-	<script src="resources/vendor/datatables/js/jquery.dataTables.min.js"></script>
-	<script
-		src="resources/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
-	<script
-		src="resources/vendor/datatables-responsive/dataTables.responsive.js"></script>
-	<!-- MDB JS -->
-	<script src="resources/js/mdb.min.js"></script>
-	<!-- Bootstrap Validator JavaScript -->
-	<script
-		src="resources/vendor/bootstrapValidator/js/bootstrapValidator.min.js"></script>
-	<!-- Timeout JavaScript -->
-	<script src="resources/vendor/timeout/bootstrap-session-timeout.min.js"></script>
-	<!-- Select 2 -->
-	<script  src="resources/vendor/moment/moment.min.js"></script>
-	<!-- Date time picker -->
-	<script 
-		src="resources/vendor/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-	<!-- Select 2 -->
-	<!--  <script src="resources/vendor/select2/js/select2.full.min.js"></script>-->
-	<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-	<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
-	<script src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
-	<script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="resources/vendor/bootstrap/js/jquery-3.3.1.min.js"></script>
+<script src="resources/vendor/bootstrap/js/popper.min.js"></script>
+<script src="resources/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!-- DataTables JavaScript -->
+<script src="resources/vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script
+	src="resources/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
+<script
+	src="resources/vendor/datatables-responsive/dataTables.responsive.js"></script>
+<!-- MDB JS -->
+<script src="resources/js/mdb.min.js"></script>
+<!-- Bootstrap Validator JavaScript -->
+<script
+	src="resources/vendor/bootstrapValidator/js/bootstrapValidator.min.js"></script>
+<!-- Timeout JavaScript -->
+<script src="resources/vendor/timeout/bootstrap-session-timeout.min.js"></script>
+<!-- Select 2 -->
+<script src="resources/vendor/moment/moment.min.js"></script>
+<!-- Date time picker -->
+<script
+	src="resources/vendor/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<!-- Select 2 -->
+<!--  <script src="resources/vendor/select2/js/select2.full.min.js"></script>-->
+<script
+	src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script
+	src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script
+	src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
+<script
+	src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
 </head>
 
 <body>
@@ -77,7 +84,9 @@
 	<div class="page-wrapper" id="page-wrapper">
 		<!-- Navbar -->
 		<nav class="navbar navbar-expand-md navbar-light mb-2 no-content">
-			<div class="web-page-title"><i class="fa fa-random"></i> RECO PORTAL</div>
+			<div class="web-page-title">
+				<i class="fa fa-random"></i> RECO PORTAL
+			</div>
 			<ul class="navbar-nav ml-auto nav-flex-icons">
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333"
@@ -90,6 +99,7 @@
 					</div>
 			</ul>
 		</nav>
+
 		<!-- Navbar -->
 		<!-- Page content -->
 		<div class="page-content">
@@ -130,6 +140,10 @@
 																	id="matchingType1" name="matchingType" value="O"
 																	required data-param1="O" data-param2="B"> <label class="form-check-label"
 																	for="matchingType1" >Book V/S Bank</label>
+																	<input type="radio" class="form-check-input"
+																		id="matchingType1" name="matchingType" value="O"
+																		required> <label class="form-check-label"
+																		for="matchingType1">Book V/S Bank</label>
 																</div>
 																<div class="form-check form-check-inline">
 																	<input type="radio" class="form-check-input"
@@ -214,14 +228,13 @@
 																		<div class="form-group">
 																			<div class="form-check form-check-inline">
 																				<input type="radio" class="form-check-input"
-																					id="tranTypeD" name="tranType" value="D"
-																					required> <label class="form-check-label"
-																					for="tranTypeD">DR</label>
+																					id="tranTypeD" name="tranType" value="D" required>
+																				<label class="form-check-label" for="tranTypeD">DR</label>
 																			</div>
 																			<div class="form-check form-check-inline">
 																				<input type="radio" class="form-check-input"
-																					id="tranTypeC" name="tranType" value="C">
-																				<label class="form-check-label" for="tranTypeC">CR</label>
+																					id="tranTypeC" name="tranType" value="C"> <label
+																					class="form-check-label" for="tranTypeC">CR</label>
 																			</div>
 																		</div>
 																	</div>
@@ -229,7 +242,8 @@
 																<div class="col">
 																	<label>Order By</label>
 																	<div class="form-group">
-																		<select class="form-control" name="orderBy" id="orderBy">
+																		<select class="form-control" name="orderBy"
+																			id="orderBy">
 																			<option value="">--Select--</option>
 																			<option value="bro_flex_15">Receipt</option>
 																			<option value="bro_doc_dt">Date</option>
@@ -275,7 +289,8 @@
 																			<i class="fa fa-search"></i> Search
 																		</button>
 																		<button type="button"
-																			class="btn btn-primary btn-sm mr-1" id="resetSearchParamBtn">
+																			class="btn btn-primary btn-sm mr-1"
+																			id="resetSearchParamBtn">
 																			<i class="fa fa-refresh"></i> Refresh
 																		</button>
 																	</div>
@@ -291,7 +306,7 @@
 												class="brsParam"></span> Results
 											</label>
 											<div class="paramTable1">
-												 <%@ include file="matchingTable.jsp"%>
+												<%@ include file="matchingTable.jsp"%>
 											</div>
 										</section>
 									</div>
@@ -308,7 +323,7 @@
 											</div>
 											<div class="paramTable2">											
 												<%@ include file="freezeTable.jsp"%>
-											</div>											
+											</div>
 										</section>
 									</div>
 									<div class="tab-pane fade" id="nav-contact" role="tabpanel"
@@ -434,6 +449,7 @@
 	<!-- Optional JavaScript -->
 	<script src="resources/js/custom.js"></script>
 	<script type="text/javascript">
+
         $(document).ready(function() {
         	var matchTable;
         	$('#freezeTable1,#freezeTable2').DataTable({
@@ -442,33 +458,28 @@
         	
             $('[data-toggle="tooltip"]').tooltip();
 
-            $.sessionTimeout({
-                keepAliveUrl: 'resources/keep.html',
-                keepAliveInterval: 300000,
-                ajaxType: 'GET',
-                warnAfter: 300000,
-                redirAfter: 310000,
-                onWarn: function() {
-                    $('#modalSessionTimout').modal('show');
-                },
-                onRedir: function() {
-                    logout();
-                }
-            });
+		$(document)
+				.ready(
+						function() {
+							$('[data-toggle="tooltip"]').tooltip();
+							$.sessionTimeout({
+								keepAliveUrl : 'resources/keep.html',
+								keepAliveInterval : 300000,
+								ajaxType : 'GET',
+								warnAfter : 300000,
+								redirAfter : 310000,
+								onWarn : function() {
+									$('#modalSessionTimout').modal('show');
+								},
+								onRedir : function() {
+									logout();
+								}
+							});
 
-            window.onbeforeunload = function(evnt) {
-                logout();
-            };
-            
-            $('#datetimepickerFrom').datetimepicker({
-                format: 'DD/MM/YYYY',
-                maxDate: moment()
-            });
-            $('#datetimepickerTo').datetimepicker({
-                format: 'DD/MM/YYYY',
-                maxDate: moment()
-            });
-            //$('#bankCode').select2();
+							window.onbeforeunload = function(evnt) {
+								logout();
+							};
+
 
             $('input[type="radio"][name="matchingType"]').change(function() {            	
             	var param1 =  $('input[type="radio"][name="matchingType"]:checked').attr('data-param1'),
@@ -496,7 +507,16 @@
     						notEmpty : {
     							message : 'This field is required'
     						}
-		
+
+							$('#datetimepickerFrom').datetimepicker({
+								format : 'DD/MM/YYYY',
+								maxDate : moment()
+							});
+							$('#datetimepickerTo').datetimepicker({
+								format : 'DD/MM/YYYY',
+								maxDate : moment()
+							});
+							//$('#bankCode').select2();
 
     					}
     				},
@@ -597,6 +617,120 @@
 			return true;
 		}
   
-    </script>
+
+
+							$('input[type="radio"][name="matchingType"]')
+									.change(
+											function() {
+												if (this.value == 'mt1'
+														|| this.value == 'mt4') {
+													$('.brsParam').html('Book')
+												} else {
+													$('.brsParam').html('Bank')
+												}
+											});
+
+							$('#searchParametersForm')
+									.bootstrapValidator(
+											{
+												trigger : 'blur',
+												fields : {
+													bankCode : {
+														validators : {
+															notEmpty : {
+																message : 'This field is required'
+															}
+
+														}
+													},
+													datetimepickerFrom : {
+														validators : {
+															notEmpty : {
+																message : 'This field is required'
+															},
+															date : {
+																max : 'datetimepickerTo',
+																format : 'DD/MM/YYYY',
+																message : 'From date should be less than To date'
+															}
+														}
+													},
+													datetimepickerTo : {
+														validators : {
+															notEmpty : {
+																message : 'This field is required'
+															},
+															date : {
+																min : 'datetimepickerFrom',
+																format : 'DD/MM/YYYY',
+																message : 'To Date should be greater than from date'
+															}
+														}
+													},
+												},
+											});
+						});
+
+		$('#datetimepickerFrom').change(
+				function() {
+					$('#searchParametersForm').data('bootstrapValidator')
+							.revalidateField('datetimepickerFrom');
+				});
+
+		$('#datetimepickerTo').change(
+				function() {
+					$('#searchParametersForm').data('bootstrapValidator')
+							.revalidateField('datetimepickerTo');
+				});
+
+		$('#bankCode').change(
+				function() {
+					$('#searchParametersForm').data('bootstrapValidator')
+							.revalidateField('bankCode');
+				});
+
+		$('#searhParamBtn').click(
+				function() {
+					$('#searchParametersForm').bootstrapValidator().off(
+							'success.form.bv').on('success.form.bv',
+							function(e) {
+								$('.lichfl-ajax-overlay').show();
+								var data = new FormData(searchParametersForm);
+								console.log(data);
+								$.ajax({
+									url : 'getBookRec',
+									type : 'post',
+									cache : false,
+									data : data,
+									processData : false,
+									contentType : false,
+									success : function(data) {
+										$('.paramTable1').html(data);
+										$('.lichfl-ajax-overlay').hide();
+									},
+									error : function(e) {
+										console.log(e);
+										$('.lichfl-ajax-overlay').hide();
+									}
+								});
+							});
+					$('#searchParametersForm').bootstrapValidator('validate');
+				})
+
+		var logout = function() {
+			console.log('logout')
+			$.post("/logout", function() {
+				$("#user").html('');
+				$(".unauthenticated").show();
+				$(".authenticated").hide();
+			})
+			return true;
+		}
+
+		$('#resetSearchParamBtn').click(function() {
+			$('#searchParametersForm').bootstrapValidator("resetForm", true);
+		});
+	</script>
+
 </body>
 </html>
