@@ -165,10 +165,11 @@
 																	<div class="form-group">
 																		<select id="bankCode" name="bankCode"
 																			class="form-control" required>
-																			<option value="">--Select--</option>
-																			<option value="LUHDFCCMS1">LUHDFCCMS1</option>
-																			<option>MAHDFCCMS1</option>
-																			<option>MAHDFCCMS3</option>
+																			<option value=" ">--Select--</option>
+																			<c:forEach var="item" items="${partnerBankList}">
+																			<option value="${item}">${item}</option>
+																			</c:forEach>
+																			
 																		</select>
 																	</div>
 																</div>
