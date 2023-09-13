@@ -92,7 +92,7 @@ public class RecoController {
 	}
 
 	@PostMapping("/getBookRec")
-	public String home(RecoFilter recoFilter, Map<String, Object> model) {
+	public String loadMatchScreen(RecoFilter recoFilter, Map<String, Object> model) {
 
 		log.info("recoFilter::" + recoFilter);
 
@@ -107,6 +107,25 @@ public class RecoController {
 		}
 		model.put("bookDtoList", bookDtoList);
 		return "matchingTable";
+
+	}
+
+	@PostMapping("/getFreezeRecords")
+	public String loadFreezeScreen(RecoFilter recoFilter, Map<String, Object> model) {
+
+		log.info("recoFilter::" + recoFilter);
+
+		List<BookDto> bookDtoList = null;
+
+		try {
+			bookDtoList = recoService.fetchBookResults(recoFilter.getBankCode(), recoFilter.getDatetimepickerFrom(),
+					recoFilter.getDatetimepickerTo(), recoFilter.getMatchingType(), recoFilter.getTranType());
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		model.put("bookDtoList", bookDtoList);
+		return "freezeTable";
 
 	}
 
