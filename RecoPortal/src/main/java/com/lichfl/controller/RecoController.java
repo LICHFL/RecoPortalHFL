@@ -1,9 +1,13 @@
 package com.lichfl.controller;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.gson.Gson;
+import com.lichfl.entity.BrsUserDetails;
 import com.lichfl.model.BookDto;
 import com.lichfl.model.RecoFilter;
+import com.lichfl.security.RecoUserDetails;
+import com.lichfl.service.BrsUserService;
 import com.lichfl.service.RecoService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,14 +31,12 @@ public class RecoController {
 
 	@Autowired
 	RecoService recoService;
+
 	@Autowired
 	private Gson gson;
 
-	/*
-	 * @GetMapping({"/"}) public String home() { System.out.println("Home Page");
-	 * 
-	 * return "home"; }
-	 */
+	@Autowired
+	private BrsUserService brsUserService;
 
 	@GetMapping({ "/", "/loginPage" })
 	public String loginPage(@RequestParam(value = "error", required = false) String error, Model model) {
@@ -43,7 +48,7 @@ public class RecoController {
 			System.out.println(error);
 
 		}
-		return "loginPage"; // Return the name of your login view template
+		return "loginPage";
 	}
 
 	@GetMapping("/main")
@@ -54,8 +59,23 @@ public class RecoController {
 	}
 
 	@PostMapping("/main")
-	public String homePage() {
-		System.out.println("RecoController.homePage()");
+	public String homePage(@AuthenticationPrincipal RecoUserDetails userDetails, Map<String, Object> model) {
+
+		String username = userDetails.getUsername();
+		Optional<BrsUserDetails> brsUser = null;
+		if (username != null) {
+			brsUser = brsUserService.getUserDetails(username);
+			log.info("brsUser ::" + brsUser);
+		}
+
+		List<String> partnerBankList = Arrays.stream(brsUser.get().getBankcode().split(","))
+				.collect(Collectors.toList());
+
+		log.info("partnerBankList ::" + partnerBankList);
+
+		model.put("userData", brsUser);
+		model.put("partnerBankList", partnerBankList);
+
 		return "main";
 	}
 
@@ -70,12 +90,6 @@ public class RecoController {
 	public String sessionOut(Model model) {
 		return "loginPage";
 	}
-
-	/*
-	 * @PostMapping("/successPage") public String success() {
-	 * 
-	 * System.out.println("RecoController.success()"); return "main"; }
-	 */
 
 	@PostMapping("/getBookRec")
 	public String home(RecoFilter recoFilter, Map<String, Object> model) {

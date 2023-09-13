@@ -58,6 +58,7 @@
 <script>
 
 $('#freezeTable').dataTable({
+	destroy: true,
     initComplete: function() {
         this.api()
             .columns()

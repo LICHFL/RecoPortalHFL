@@ -17,15 +17,8 @@ public class UserSecurityController {
 	String saveUsers(@RequestBody List<RecoUser> recouser) {
 
 		reoDetailsService.saveUsers(recouser);
-		return null;
+		return "User  created";
 
 	}
 
-	/*
-	 * @GetMapping("/products/new") String saveUsers() {
-	 * 
-	 * // reoDetailsService.saveUsers(recouser); return "Hi";
-	 * 
-	 * }
-	 */
 }

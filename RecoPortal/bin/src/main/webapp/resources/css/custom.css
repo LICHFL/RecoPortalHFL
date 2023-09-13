@@ -595,6 +595,10 @@ table.table tfoot th{
 	margin-top:-30px;
 	position: relative;
 }
+#freezeTable_wrapper{
+	margin-top:0;
+	position: relative;
+}
 .dataTables_filter{
 	position: absolute;
     right: 0;
@@ -605,7 +609,7 @@ table.table tfoot th{
     bottom: 4px;
     right: 0;
 }
-#matchingTable_paginate{
+#matchingTable_paginate,#freezeTable_paginate{
 	position: absolute;
     bottom: -3px;
     left: 44%;
@@ -678,4 +682,7 @@ table.dataTable>tbody>tr>td.select-checkbox, table.dataTable>tbody>tr>th.select-
     display: block;
     color: red;
     font-size: 11px;
+}
+#freezeTable1_wrapper,#freezeTable2_wrapper{
+	margin-top:-30px;
 }

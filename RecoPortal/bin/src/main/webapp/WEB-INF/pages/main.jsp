@@ -86,7 +86,7 @@
 				</a>
 					<div class="dropdown-menu dropdown-menu-right dropdown-default"
 						aria-labelledby="navbarDropdownMenuLink-333">
-						<a class="dropdown-item" href="#">Logout</a>
+						<a class="dropdown-item" href="#" onclick="logout()">Logout</a>
 					</div></li>
 			</ul>
 		</nav>
@@ -128,24 +128,24 @@
 																<div class="form-check form-check-inline">
 																<input type="radio" class="form-check-input"
 																	id="matchingType1" name="matchingType" value="O"
-																	required> <label class="form-check-label"
-																	for="matchingType1">Book V/S Bank</label>
+																	required data-param1="O" data-param2="B"> <label class="form-check-label"
+																	for="matchingType1" >Book V/S Bank</label>
 																</div>
 																<div class="form-check form-check-inline">
 																	<input type="radio" class="form-check-input"
-																		id="matchingType2" name="matchingType" value="mt2">
+																		id="matchingType2" name="matchingType" value="B" data-param1="B" data-param2="O">
 																	<label class="form-check-label" for="matchingType2">
 																		Bank V/S Book</label>
 																</div>
 																<div class="form-check form-check-inline">
 																	<input type="radio" class="form-check-input"
-																		id="matchingType3" name="matchingType" value="mt3">
+																		id="matchingType3" name="matchingType" value="B" data-param1="B" data-param2="B">
 																	<label class="form-check-label" for="matchingType3">
 																		Bank V/S Bank</label>
 																</div>
 																<div class="form-check form-check-inline">
 																	<input type="radio" class="form-check-input"
-																		id="matchingType4" name="matchingType" value="mt4">
+																		id="matchingType4" name="matchingType" value="O" data-param1="O" data-param2="O">
 																	<label class="form-check-label" for="matchingType4">
 																		Book V/S Book</label>
 																</div>
@@ -155,7 +155,7 @@
 												</section>
 												<section class="custom-section">
 													<label class="section-label">Search <span
-														class="brsParam">Book</span> Parameters
+														class="brsParam"></span> Parameters
 													</label>
 													<div class="row mb-2" style="margin-top: -30px">
 														<div class="col-sm-12">
@@ -288,7 +288,7 @@
 										</div>
 										<section class="custom-section">
 											<label class="section-label">Search <span
-												class="brsParam">Book</span> Results
+												class="brsParam"></span> Results
 											</label>
 											<div class="paramTable1">
 												 <%@ include file="matchingTable.jsp"%>
@@ -299,15 +299,113 @@
 										aria-labelledby="nav-profile-tab">
 										<section class="custom-section">
 											<label class="section-label">Search <span
-												class="brsParam">Book</span> Results
+												class="brsParam1"></span> Results
 											</label>
+											<div class="row" style="margin-top:-30px">
+												<div class="col-lg-12">
+													<button class="btn btn-sm btn-primary" id="loadFreezeTable" title="Please Search Main Screen First">Load <span class="brsParam1"></span> Results</button>
+												</div>
+											</div>
 											<div class="paramTable2">											
 												<%@ include file="freezeTable.jsp"%>
 											</div>											
 										</section>
 									</div>
 									<div class="tab-pane fade" id="nav-contact" role="tabpanel"
-										aria-labelledby="nav-contact-tab">...</div>
+										aria-labelledby="nav-contact-tab">
+										<section class="custom-section">
+											<label class="section-label">Verify <span class="brsParam"></span> VS <span class="brsParam1"></span> Matching Results
+											</label>
+											<div class="row" style="margin-top:-30px">
+												<div class="col-lg-12">
+													<button class="btn btn-sm btn-primary" id="loadMatchingResults" title="Please Search Main Screen First">Check Matching</button>
+												</div>
+											</div>
+											<div class="displayTable1">		
+												<section class="custom-section">
+													<label class="section-label">Check <span class="brsParam"></span> Matching Results
+													</label>									
+														<table id="freezeTable1" class="table table-striped table-hover dataTable no-footer table-responsive mt-2" width="100%" style="margin-top: -30px;">
+													    <thead>
+													        <tr>
+													            <th class="th-sm">Match</th>
+													            <th class="th-sm">Tran Code</th>
+													            <th class="th-sm">Doc No</th>
+													            <th class="th-sm">Doc Date</th>
+													            <th class="th-sm">Cheque No</th>
+													            <th class="th-sm">P mode</th>
+													            <th class="th-sm">Value Date</th>
+													            <th class="th-sm">Micr Code</th>
+													            <th class="th-sm">Loan Ac</th>
+													            <th class="th-sm">PLF Receipt No</th>
+													            <th class="th-sm">Org Amt</th>
+													            <th class="th-sm">Unadj Amt</th>
+													            <th class="th-sm">Dr/Cr</th>
+													        </tr>
+													    </thead>
+													    <tbody>
+													        <tr>
+													            <td></td>
+													            <td></td>
+													            <td></td>
+													            <td></td>
+													            <td></td>
+													            <td></td>
+													            <td></td>
+													            <td></td>
+													            <td></td>
+													            <td></td>
+													            <td></td>
+													            <td></td>
+													            <td></td>
+													        </tr>
+													    </tbody>
+													</table>
+												</section>
+												<section class="custom-section">
+													<label class="section-label">Check <span class="brsParam1"></span> Matching Results
+													</label>									
+														<table id="freezeTable2" class="table table-striped table-hover dataTable no-footer table-responsive mt-2" width="100%" style="margin-top: -30px;">
+													    <thead>
+													        <tr>
+													            <th class="th-sm">Match</th>
+													            <th class="th-sm">Tran Code</th>
+													            <th class="th-sm">Doc No</th>
+													            <th class="th-sm">Doc Date</th>
+													            <th class="th-sm">Cheque No</th>
+													            <th class="th-sm">P mode</th>
+													            <th class="th-sm">Value Date</th>
+													            <th class="th-sm">Micr Code</th>
+													            <th class="th-sm">Loan Ac</th>
+													            <th class="th-sm">PLF Receipt No</th>
+													            <th class="th-sm">Org Amt</th>
+													            <th class="th-sm">Unadj Amt</th>
+													            <th class="th-sm">Dr/Cr</th>
+													        </tr>
+													    </thead>
+													    <tbody>
+													        <tr>
+													            <td></td>
+													            <td></td>
+													            <td></td>
+													            <td></td>
+													            <td></td>
+													            <td></td>
+													            <td></td>
+													            <td></td>
+													            <td></td>
+													            <td></td>
+													            <td></td>
+													            <td></td>
+													            <td></td>
+													        </tr>
+													    </tbody>
+													</table>
+												</section>
+											</div>											
+										</section>
+											
+									</div>
 								</div>
 							</div>
 						</div>
@@ -337,6 +435,11 @@
 	<script src="resources/js/custom.js"></script>
 	<script type="text/javascript">
         $(document).ready(function() {
+        	var matchTable;
+        	$('#freezeTable1,#freezeTable2').DataTable({
+        		dom:'t'
+        	});
+        	
             $('[data-toggle="tooltip"]').tooltip();
 
             $.sessionTimeout({
@@ -367,11 +470,21 @@
             });
             //$('#bankCode').select2();
 
-            $('input[type="radio"][name="matchingType"]').change(function() {
-                if (this.value == 'mt1' || this.value == 'mt4') {
-                    $('.brsParam').html('Book')
+            $('input[type="radio"][name="matchingType"]').change(function() {            	
+            	var param1 =  $('input[type="radio"][name="matchingType"]:checked').attr('data-param1'),
+            		param2 =  $('input[type="radio"][name="matchingType"]:checked').attr('data-param2')
+                if (param1 == 'O') {
+                    $('.brsParam').html('Book');
+                    if(param2 == 'B')
+                    	$('.brsParam1').html('Bank');
+                    else
+                    	$('.brsParam1').html('Book');	
                 } else {
-                    $('.brsParam').html('Bank')
+                    $('.brsParam').html('Bank');
+                    if(param2 == 'B')
+                    	$('.brsParam1').html('Bank');
+                    else
+                    	$('.brsParam1').html('Book');
                 }
             });
             
@@ -440,6 +553,8 @@
         	        contentType: false,
         	        success: function(data) {        	        	
         	        	$('.paramTable1').html(data);
+        	        	//$('#loadFreezeTable').removeAttr('disabled');
+        	        	//$('#loadFreezeTable').removeAttr('title');
         	        	$('.lichfl-ajax-overlay').hide();
         	        },
         	    	error: function(e) {
@@ -449,12 +564,82 @@
         	    });
         	});
         	$('#searchParametersForm').bootstrapValidator('validate');
-        })
+        });
+        
+        $('#loadFreezeTable').click(function(){
+        	var data = new FormData(searchParametersForm);
+        	var param2 = $('input[type="radio"][name="matchingType"]:checked').attr('data-param2');
+        	var tranType = data.get('tranType');
+        	if(tranType == 'D'){
+        		tranType = 'C'
+        	} 
+        	else{
+        		tranType = 'D'
+        	}
+        	data.set('tranType',tranType);
+        	data.set('matchingType',param2);
+        	$.ajax({
+    	        url: 'getBookRec',
+    	        type: 'post',
+    	        cache: false,
+    	        data: data,
+    	       processData: false,
+    	        contentType: false,
+    	        success: function(data) {        	        	
+    	        	$('.paramTable2').html(data);
+    	        	//$('#loadFreezeTable').removeAttr('disabled');
+    	        	//$('#loadFreezeTable').removeAttr('title');
+    	        	$('.lichfl-ajax-overlay').hide();
+    	        },
+    	    	error: function(e) {
+            		console.log(e);
+            		$('.lichfl-ajax-overlay').hide();
+            	}
+    	    });
+        });
         
         $('#resetSearchParamBtn').click(function (){
         	 $('#searchParametersForm').bootstrapValidator("resetForm",true); 
         });
-  
+        
+        $('#loadMatchingResults').click(function(){
+        	var a = matchTable.rows({ selected: true }).data();     
+        	console.log(a[0]);        	
+        	$('#freezeTable1').DataTable({
+        		destroy: true,
+        		columnDefs: [
+        	        {
+        	            target: 0,
+        	            visible: false,
+        	            searchable: false
+        	        },
+        	    ],
+        		dom: 't',
+        		data:a
+        	}).draw();
+        })
+        
+       
+  		
+        function logout() {
+        	$('.lichfl-ajax-overlay').show();
+        	$.ajax({
+    	        url: 'logout',
+    	        type: 'post',
+    	        cache: false,
+    	        data: '',
+    	        processData: false,
+    	        contentType: false,
+    	        success: function(data) {
+    				window.location.href = 'login.jsp';
+    				$('.lichfl-ajax-overlay').hide();
+    	        },
+    	    	error: function(e) {
+            		console.log(e);   
+            		$('.lichfl-ajax-overlay').show();
+            	}
+    	    });
+        }
     </script>
 </body>
 </html>

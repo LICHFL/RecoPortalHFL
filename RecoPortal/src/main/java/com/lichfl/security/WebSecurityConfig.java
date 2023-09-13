@@ -23,7 +23,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 //@EnableWebSecurity(debug = true)
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity
 @EnableMethodSecurity
 public class WebSecurityConfig {
 
@@ -34,28 +34,6 @@ public class WebSecurityConfig {
 	PasswordEncoder encoder() {
 		return new BCryptPasswordEncoder();
 	}
-
-	/*
-	 * @Bean SecurityFilterChain securityFilterChain(HttpSecurity http) throws
-	 * Exception { return
-	 * http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(auth -> {
-	 * auth.requestMatchers("/addUsers", "/", "/WEB-INF/**", "/resources/**",
-	 * "/error").permitAll().anyRequest() .authenticated(); }).formLogin(form ->
-	 * form.usernameParameter("username").passwordParameter("password").loginPage(
-	 * "/loginPage")
-	 * .loginProcessingUrl("/validate").successForwardUrl("/main").failureUrl(
-	 * "/error").permitAll()) .logout((logout) -> logout.logoutRequestMatcher(new
-	 * AntPathRequestMatcher("/logout"))
-	 * .deleteCookies("JSESSIONID").invalidateHttpSession(true).logoutSuccessUrl(
-	 * "/logout") .permitAll()) .sessionManagement(session ->
-	 * session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-	 * .maximumSessions(1).maxSessionsPreventsLogin(true).sessionRegistry(
-	 * sessionRegistry()) .expiredUrl("/sessionout")
-	 * 
-	 * )
-	 * 
-	 * .authenticationProvider(authenticationProvider()).build(); }
-	 */
 
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
