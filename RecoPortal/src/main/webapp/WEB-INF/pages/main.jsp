@@ -580,7 +580,7 @@
         	data.set('tranType',tranType);
         	data.set('matchingType',param2);
         	$.ajax({
-    	        url: 'getBookRec',
+    	        url: 'getFreezeRecords',
     	        type: 'post',
     	        cache: false,
     	        data: data,
