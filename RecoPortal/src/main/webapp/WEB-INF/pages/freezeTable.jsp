@@ -20,21 +20,26 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
+        <c:forEach items="${bookDtoList}" var="book">
+            <tr>
+                <td>
+                    
+                </td>
+                <td>${book.tranCode}</td>
+                <td>${book.docNo}</td>
+                <td>${book.docDate}</td>
+                <td>${book.chequeNo}</td>
+                <td>${book.payMode}</td>
+
+                <td>${book.valueDate}</td>
+                <td>${book.micrCode}</td>
+                <td>${book.loanNo}</td>
+                <td>${book.receiptNo}</td>
+                <td>${book.orgAmnt}</td>
+                <td>${book.unadjAmnt}</td>
+                <td>${book.drCr}</td>
+            </tr>
+        </c:forEach>
     </tbody>
     <tfoot>
         <tr>
