@@ -38,6 +38,8 @@ public class RecoController {
 	@Autowired
 	private BrsUserService brsUserService;
 
+	private static final String RECO_CODE = "paymode";
+
 	@GetMapping({ "/", "/loginPage" })
 	public String loginPage(@RequestParam(value = "error", required = false) String error, Model model) {
 
@@ -71,9 +73,17 @@ public class RecoController {
 		List<String> partnerBankList = Arrays.stream(brsUser.get().getBankcode().split(","))
 				.collect(Collectors.toList());
 
+		String paymodes = recoService.getPayModes(RECO_CODE);
+
+		List<String> payModeList = Arrays.stream(paymodes.split(",")).collect(Collectors.toList());
+		log.info("payModeList ::" + payModeList);
+
+		// List<String>payModes= Arrays.stream(null)
+
 		log.info("partnerBankList ::" + partnerBankList);
 
 		model.put("userData", brsUser);
+		model.put("payModeList", payModeList);
 		model.put("partnerBankList", partnerBankList);
 
 		return "main";
