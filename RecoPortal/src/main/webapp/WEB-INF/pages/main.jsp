@@ -33,7 +33,9 @@
 <!-- Select 2 -->
 <!--<link rel="stylesheet"
 	href="resources/vendor/select2/css/select2.min.css">-->
-	 <link href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css" rel="stylesheet">
+<link
+	href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css"
+	rel="stylesheet">
 <link rel="stylesheet"
 	href="resources/vendor/select2/css/select2-bootstrap.min.css">
 <!-- Custom CSS -->
@@ -41,35 +43,40 @@
 <link rel="icon" href="resources/images/lichfl-favicon.png">
 <title>LICHFL - RECO PORTAL</title>
 
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="resources/vendor/bootstrap/js/jquery-3.3.1.min.js"></script>
-	<script src="resources/vendor/bootstrap/js/popper.min.js"></script>
-	<script src="resources/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<!-- DataTables JavaScript -->
-	<script src="resources/vendor/datatables/js/jquery.dataTables.min.js"></script>
-	<script
-		src="resources/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
-	<script
-		src="resources/vendor/datatables-responsive/dataTables.responsive.js"></script>
-	<!-- MDB JS -->
-	<script src="resources/js/mdb.min.js"></script>
-	<!-- Bootstrap Validator JavaScript -->
-	<script
-		src="resources/vendor/bootstrapValidator/js/bootstrapValidator.min.js"></script>
-	<!-- Timeout JavaScript -->
-	<script src="resources/vendor/timeout/bootstrap-session-timeout.min.js"></script>
-	<!-- Select 2 -->
-	<script  src="resources/vendor/moment/moment.min.js"></script>
-	<!-- Date time picker -->
-	<script 
-		src="resources/vendor/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-	<!-- Select 2 -->
-	<!--  <script src="resources/vendor/select2/js/select2.full.min.js"></script>-->
-	<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-	<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
-	<script src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
-	<script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="resources/vendor/bootstrap/js/jquery-3.3.1.min.js"></script>
+<script src="resources/vendor/bootstrap/js/popper.min.js"></script>
+<script src="resources/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!-- DataTables JavaScript -->
+<script src="resources/vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script
+	src="resources/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
+<script
+	src="resources/vendor/datatables-responsive/dataTables.responsive.js"></script>
+<!-- MDB JS -->
+<script src="resources/js/mdb.min.js"></script>
+<!-- Bootstrap Validator JavaScript -->
+<script
+	src="resources/vendor/bootstrapValidator/js/bootstrapValidator.min.js"></script>
+<!-- Timeout JavaScript -->
+<script src="resources/vendor/timeout/bootstrap-session-timeout.min.js"></script>
+<!-- Select 2 -->
+<script src="resources/vendor/moment/moment.min.js"></script>
+<!-- Date time picker -->
+<script
+	src="resources/vendor/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<!-- Select 2 -->
+<!--  <script src="resources/vendor/select2/js/select2.full.min.js"></script>-->
+<script
+	src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script
+	src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script
+	src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
+<script
+	src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
 </head>
 
 <body>
@@ -77,7 +84,9 @@
 	<div class="page-wrapper" id="page-wrapper">
 		<!-- Navbar -->
 		<nav class="navbar navbar-expand-md navbar-light mb-2 no-content">
-			<div class="web-page-title"><i class="fa fa-random"></i> RECO PORTAL</div>
+			<div class="web-page-title">
+				<i class="fa fa-random"></i> RECO PORTAL
+			</div>
 			<ul class="navbar-nav ml-auto nav-flex-icons">
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333"
@@ -126,27 +135,31 @@
 														<div class="col">
 															<div class="form-group">
 																<div class="form-check form-check-inline">
-																<input type="radio" class="form-check-input"
-																	id="matchingType1" name="matchingType" value="O"
-																	required data-param1="O" data-param2="B"> <label class="form-check-label"
-																	for="matchingType1" >Book V/S Bank</label>
+																	<input type="radio" class="form-check-input"
+																		id="matchingType1" name="matchingType" value="O"
+																		required data-param1="O" data-param2="B"> <label
+																		class="form-check-label" for="matchingType1">Book
+																		V/S Bank</label>
 																</div>
 																<div class="form-check form-check-inline">
 																	<input type="radio" class="form-check-input"
-																		id="matchingType2" name="matchingType" value="B" data-param1="B" data-param2="O">
-																	<label class="form-check-label" for="matchingType2">
+																		id="matchingType2" name="matchingType" value="B"
+																		data-param1="B" data-param2="O"> <label
+																		class="form-check-label" for="matchingType2">
 																		Bank V/S Book</label>
 																</div>
 																<div class="form-check form-check-inline">
 																	<input type="radio" class="form-check-input"
-																		id="matchingType3" name="matchingType" value="B" data-param1="B" data-param2="B">
-																	<label class="form-check-label" for="matchingType3">
+																		id="matchingType3" name="matchingType" value="B"
+																		data-param1="B" data-param2="B"> <label
+																		class="form-check-label" for="matchingType3">
 																		Bank V/S Bank</label>
 																</div>
 																<div class="form-check form-check-inline">
 																	<input type="radio" class="form-check-input"
-																		id="matchingType4" name="matchingType" value="O" data-param1="O" data-param2="O">
-																	<label class="form-check-label" for="matchingType4">
+																		id="matchingType4" name="matchingType" value="O"
+																		data-param1="O" data-param2="O"> <label
+																		class="form-check-label" for="matchingType4">
 																		Book V/S Book</label>
 																</div>
 															</div>
@@ -167,9 +180,9 @@
 																			class="form-control" required>
 																			<option value=" ">--Select--</option>
 																			<c:forEach var="item" items="${partnerBankList}">
-																			<option value="${item}">${item}</option>
+																				<option value="${item}">${item}</option>
 																			</c:forEach>
-																			
+
 																		</select>
 																	</div>
 																</div>
@@ -215,14 +228,13 @@
 																		<div class="form-group">
 																			<div class="form-check form-check-inline">
 																				<input type="radio" class="form-check-input"
-																					id="tranTypeD" name="tranType" value="D"
-																					required> <label class="form-check-label"
-																					for="tranTypeD">DR</label>
+																					id="tranTypeD" name="tranType" value="D" required>
+																				<label class="form-check-label" for="tranTypeD">DR</label>
 																			</div>
 																			<div class="form-check form-check-inline">
 																				<input type="radio" class="form-check-input"
-																					id="tranTypeC" name="tranType" value="C">
-																				<label class="form-check-label" for="tranTypeC">CR</label>
+																					id="tranTypeC" name="tranType" value="C"> <label
+																					class="form-check-label" for="tranTypeC">CR</label>
 																			</div>
 																		</div>
 																	</div>
@@ -230,7 +242,8 @@
 																<div class="col">
 																	<label>Order By</label>
 																	<div class="form-group">
-																		<select class="form-control" name="orderBy" id="orderBy">
+																		<select class="form-control" name="orderBy"
+																			id="orderBy">
 																			<option value="">--Select--</option>
 																			<option value="bro_flex_15">Receipt</option>
 																			<option value="bro_doc_dt">Date</option>
@@ -245,6 +258,11 @@
 																	<div class="form-group" name="pMode" id="pMode">
 																		<select class="form-control">
 																			<option value="">--Select--</option>
+
+																			<c:forEach var="item" items="${payModeList}">
+																				<option value="${item}">${item}</option>
+																			</c:forEach>
+
 																		</select>
 																	</div>
 																</div>
@@ -276,7 +294,8 @@
 																			<i class="fa fa-search"></i> Search
 																		</button>
 																		<button type="button"
-																			class="btn btn-primary btn-sm mr-1" id="resetSearchParamBtn">
+																			class="btn btn-primary btn-sm mr-1"
+																			id="resetSearchParamBtn">
 																			<i class="fa fa-refresh"></i> Refresh
 																		</button>
 																	</div>
@@ -292,7 +311,7 @@
 												class="brsParam"></span> Results
 											</label>
 											<div class="paramTable1">
-												 <%@ include file="matchingTable.jsp"%>
+												<%@ include file="matchingTable.jsp"%>
 											</div>
 										</section>
 									</div>
@@ -302,110 +321,124 @@
 											<label class="section-label">Search <span
 												class="brsParam1"></span> Results
 											</label>
-											<div class="row" style="margin-top:-30px">
+											<div class="row" style="margin-top: -30px">
 												<div class="col-lg-12">
-													<button class="btn btn-sm btn-primary" id="loadFreezeTable" title="Please Search Main Screen First">Load <span class="brsParam1"></span> Results</button>
+													<button class="btn btn-sm btn-primary" id="loadFreezeTable"
+														title="Please Search Main Screen First">
+														Load <span class="brsParam1"></span> Results
+													</button>
 												</div>
 											</div>
-											<div class="paramTable2">											
+											<div class="paramTable2">
 												<%@ include file="freezeTable.jsp"%>
-											</div>											
+											</div>
 										</section>
 									</div>
 									<div class="tab-pane fade" id="nav-contact" role="tabpanel"
 										aria-labelledby="nav-contact-tab">
 										<section class="custom-section">
-											<label class="section-label">Verify <span class="brsParam"></span> VS <span class="brsParam1"></span> Matching Results
+											<label class="section-label">Verify <span
+												class="brsParam"></span> VS <span class="brsParam1"></span>
+												Matching Results
 											</label>
-											<div class="row" style="margin-top:-30px">
+											<div class="row" style="margin-top: -30px">
 												<div class="col-lg-12">
-													<button class="btn btn-sm btn-primary" id="loadMatchingResults" title="Please Search Main Screen First">Check Matching</button>
+													<button class="btn btn-sm btn-primary"
+														id="loadMatchingResults"
+														title="Please Search Main Screen First">Check
+														Matching</button>
 												</div>
 											</div>
-											<div class="displayTable1">		
+											<div class="displayTable1">
 												<section class="custom-section">
-													<label class="section-label">Check <span class="brsParam"></span> Matching Results
-													</label>									
-														<table id="freezeTable1" class="table table-striped table-hover dataTable no-footer table-responsive mt-2" width="100%" style="margin-top: -30px;">
-													    <thead>
-													        <tr>
-													            <th class="th-sm">Match</th>
-													            <th class="th-sm">Tran Code</th>
-													            <th class="th-sm">Doc No</th>
-													            <th class="th-sm">Doc Date</th>
-													            <th class="th-sm">Cheque No</th>
-													            <th class="th-sm">P mode</th>
-													            <th class="th-sm">Value Date</th>
-													            <th class="th-sm">Micr Code</th>
-													            <th class="th-sm">Loan Ac</th>
-													            <th class="th-sm">PLF Receipt No</th>
-													            <th class="th-sm">Org Amt</th>
-													            <th class="th-sm">Unadj Amt</th>
-													            <th class="th-sm">Dr/Cr</th>
-													        </tr>
-													    </thead>
-													    <tbody>
-													        <tr>
-													            <td></td>
-													            <td></td>
-													            <td></td>
-													            <td></td>
-													            <td></td>
-													            <td></td>
-													            <td></td>
-													            <td></td>
-													            <td></td>
-													            <td></td>
-													            <td></td>
-													            <td></td>
-													            <td></td>
-													        </tr>
-													    </tbody>
+													<label class="section-label">Check <span
+														class="brsParam"></span> Matching Results
+													</label>
+													<table id="freezeTable1"
+														class="table table-striped table-hover dataTable no-footer table-responsive mt-2"
+														width="100%" style="margin-top: -30px;">
+														<thead>
+															<tr>
+																<th class="th-sm">Match</th>
+																<th class="th-sm">Tran Code</th>
+																<th class="th-sm">Doc No</th>
+																<th class="th-sm">Doc Date</th>
+																<th class="th-sm">Cheque No</th>
+																<th class="th-sm">P mode</th>
+																<th class="th-sm">Value Date</th>
+																<th class="th-sm">Micr Code</th>
+																<th class="th-sm">Loan Ac</th>
+																<th class="th-sm">PLF Receipt No</th>
+																<th class="th-sm">Org Amt</th>
+																<th class="th-sm">Unadj Amt</th>
+																<th class="th-sm">Dr/Cr</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+															</tr>
+														</tbody>
 													</table>
 												</section>
 												<section class="custom-section">
-													<label class="section-label">Check <span class="brsParam1"></span> Matching Results
-													</label>									
-														<table id="freezeTable2" class="table table-striped table-hover dataTable no-footer table-responsive mt-2" width="100%" style="margin-top: -30px;">
-													    <thead>
-													        <tr>
-													            <th class="th-sm">Match</th>
-													            <th class="th-sm">Tran Code</th>
-													            <th class="th-sm">Doc No</th>
-													            <th class="th-sm">Doc Date</th>
-													            <th class="th-sm">Cheque No</th>
-													            <th class="th-sm">P mode</th>
-													            <th class="th-sm">Value Date</th>
-													            <th class="th-sm">Micr Code</th>
-													            <th class="th-sm">Loan Ac</th>
-													            <th class="th-sm">PLF Receipt No</th>
-													            <th class="th-sm">Org Amt</th>
-													            <th class="th-sm">Unadj Amt</th>
-													            <th class="th-sm">Dr/Cr</th>
-													        </tr>
-													    </thead>
-													    <tbody>
-													        <tr>
-													            <td></td>
-													            <td></td>
-													            <td></td>
-													            <td></td>
-													            <td></td>
-													            <td></td>
-													            <td></td>
-													            <td></td>
-													            <td></td>
-													            <td></td>
-													            <td></td>
-													            <td></td>
-													            <td></td>
-													        </tr>
-													    </tbody>
+													<label class="section-label">Check <span
+														class="brsParam1"></span> Matching Results
+													</label>
+													<table id="freezeTable2"
+														class="table table-striped table-hover dataTable no-footer table-responsive mt-2"
+														width="100%" style="margin-top: -30px;">
+														<thead>
+															<tr>
+																<th class="th-sm">Match</th>
+																<th class="th-sm">Tran Code</th>
+																<th class="th-sm">Doc No</th>
+																<th class="th-sm">Doc Date</th>
+																<th class="th-sm">Cheque No</th>
+																<th class="th-sm">P mode</th>
+																<th class="th-sm">Value Date</th>
+																<th class="th-sm">Micr Code</th>
+																<th class="th-sm">Loan Ac</th>
+																<th class="th-sm">PLF Receipt No</th>
+																<th class="th-sm">Org Amt</th>
+																<th class="th-sm">Unadj Amt</th>
+																<th class="th-sm">Dr/Cr</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+															</tr>
+														</tbody>
 													</table>
 												</section>
-											</div>											
+											</div>
 										</section>
-											
+
 									</div>
 								</div>
 							</div>
@@ -435,69 +468,35 @@
 	<!-- Optional JavaScript -->
 	<script src="resources/js/custom.js"></script>
 	<script type="text/javascript">
-        $(document).ready(function() {
-        	var matchTable;
-        	$('#freezeTable1,#freezeTable2').DataTable({
-        		dom:'t'
-        	});
-        	
-            $('[data-toggle="tooltip"]').tooltip();
+		$(document)
+				.ready(
+						function() {
+							var matchTable;
+							$('#freezeTable1,#freezeTable2').DataTable({
+								dom : 't'
+							});
 
-            $.sessionTimeout({
-                keepAliveUrl: 'resources/keep.html',
-                keepAliveInterval: 300000,
-                ajaxType: 'GET',
-                warnAfter: 300000,
-                redirAfter: 310000,
-                onWarn: function() {
-                    $('#modalSessionTimout').modal('show');
-                },
-                onRedir: function() {
-                    logout();
-                }
-            });
+							$('[data-toggle="tooltip"]').tooltip();
 
-            window.onbeforeunload = function(evnt) {
-                logout();
-            };
-            
-            $('#datetimepickerFrom').datetimepicker({
-                format: 'DD/MM/YYYY',
-                maxDate: moment()
-            });
-            $('#datetimepickerTo').datetimepicker({
-                format: 'DD/MM/YYYY',
-                maxDate: moment()
-            });
-            //$('#bankCode').select2();
+							$.sessionTimeout({
+								keepAliveUrl : 'resources/keep.html',
+								keepAliveInterval : 300000,
+								ajaxType : 'GET',
+								warnAfter : 300000,
+								redirAfter : 310000,
+								onWarn : function() {
+									$('#modalSessionTimout').modal('show');
+								},
+								onRedir : function() {
+									logout();
+								}
+							});
 
-            $('input[type="radio"][name="matchingType"]').change(function() {            	
-            	var param1 =  $('input[type="radio"][name="matchingType"]:checked').attr('data-param1'),
-            		param2 =  $('input[type="radio"][name="matchingType"]:checked').attr('data-param2')
-                if (param1 == 'O') {
-                    $('.brsParam').html('Book');
-                    if(param2 == 'B')
-                    	$('.brsParam1').html('Bank');
-                    else
-                    	$('.brsParam1').html('Book');	
-                } else {
-                    $('.brsParam').html('Bank');
-                    if(param2 == 'B')
-                    	$('.brsParam1').html('Bank');
-                    else
-                    	$('.brsParam1').html('Book');
-                }
-            });
-            
-            $('#searchParametersForm').bootstrapValidator({
-            	trigger: 'blur',
-    			fields : {
-    				bankCode : {
-    					validators : {
-    						notEmpty : {
-    							message : 'This field is required'
-    						}
+							window.onbeforeunload = function(evnt) {
+								logout();
+							};
 
+<<<<<<< HEAD
     					}
     				},
     				datetimepickerFrom: {
@@ -642,5 +641,7 @@
     	    });
         }
     </script>
+
+
 </body>
 </html>
