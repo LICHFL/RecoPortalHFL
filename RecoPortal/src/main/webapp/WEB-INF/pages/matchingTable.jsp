@@ -5,6 +5,7 @@
     <thead>
         <tr>
             <th class="th-sm">Match</th>
+            <th class="th-sm">Match ID</th>
             <th class="th-sm">Tran Code</th>
             <th class="th-sm">Doc No</th>
             <th class="th-sm">Doc Date</th>
@@ -25,6 +26,7 @@
                 <td>
                     
                 </td>
+                <td>${book.broKeyNo}</td>
                 <td>${book.tranCode}</td>
                 <td>${book.docNo}</td>
                 <td>${book.docDate}</td>
@@ -44,6 +46,7 @@
     <tfoot>
         <tr>
             <th class="th-sm">Match</th>
+            <th class="th-sm">Search Match ID </th>
             <th class="th-sm">Search Tran Code</th>
             <th class="th-sm">Search Doc No</th>
             <th class="th-sm">Search Doc Date</th>

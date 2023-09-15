@@ -83,7 +83,7 @@ public class RecoController {
 
 		log.info("partnerBankList ::" + partnerBankList);
 
-		model.put("userData", brsUser);
+		model.put("userData", brsUser.get());
 		model.put("payModeList", payModeList);
 		model.put("partnerBankList", partnerBankList);
 
@@ -116,6 +116,9 @@ public class RecoController {
 			 * recoFilter.getMatchingType(), recoFilter.getTranType());
 			 */
 			bookDtoList = recoService.fetchBookResults(recoFilter);
+			
+		//	bookDtoList.forEach(System.out::println);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 
