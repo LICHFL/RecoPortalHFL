@@ -94,7 +94,7 @@ matchTable = $('#matchingTable').DataTable({
         }
     ],
     select: {
-        style: 'multi',
+        style: 'single',
         selector: 'td:first-child'
     },
 });
