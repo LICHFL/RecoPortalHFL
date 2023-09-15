@@ -37,7 +37,7 @@
 				style="background-image: url('resources/images/matching.jpg')"></div>
 			<div class="news-caption">
 				<h4 class="caption-title">
-					<b>BRS Application 
+					<b>RECO PORTAL 
 				</h4>
 				<p>
 					The new BRS application provides you a simple interface to resolve
@@ -45,7 +45,7 @@
 						href="http://10.0.0.196/upload/IT/writeups/Feedback_Portal.pdf"
 						class="writeuplink" target="_blank"> <i
 						class="fa fa-info-circle fa-fw"></i> Click here
-					</a> for the detailed write-up of the revamped feedback client.
+					</a> for the detailed write-up of the Reco Portal.
 				</p>
 			</div>
 		</div>
@@ -55,8 +55,8 @@
 			<!-- begin login-header -->
 			<div class="login-header">
 				<div class="brand text-center">
-					<b>BRS Application</b> <small>Application for BRS manual
-						matching.</small>
+					<b>RECO PORTAL</b> 
+					<small>Application for BRS</small>
 				</div>
 			</div>
 			<!-- end login-header -->
