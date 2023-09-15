@@ -82,7 +82,7 @@ public class RecoController {
 
 		log.info("partnerBankList ::" + partnerBankList);
 
-		model.put("userData", brsUser);
+		model.put("userData", brsUser.get());
 		model.put("payModeList", payModeList);
 		model.put("partnerBankList", partnerBankList);
 
