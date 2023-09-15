@@ -62,7 +62,7 @@
 
 <script>
 
-$('#freezeTable').dataTable({
+freezeTable = $('#freezeTable').DataTable({
 	destroy: true,
     initComplete: function() {
         this.api()
@@ -96,7 +96,7 @@ $('#freezeTable').dataTable({
         }
     ],
     select: {
-        style: 'single',
+        style: 'multi',
         selector: 'td:first-child'
     },
 });

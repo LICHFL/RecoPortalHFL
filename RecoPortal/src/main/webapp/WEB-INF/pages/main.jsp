@@ -91,12 +91,17 @@
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333"
 					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<i class="fa fa-user"></i>
+						<i class="fa fa-user"></i> ${userData} 
 				</a>
 					<div class="dropdown-menu dropdown-menu-right dropdown-default"
 						aria-labelledby="navbarDropdownMenuLink-333">
-						<a class="dropdown-item" href="#" onclick="logout()">Logout</a>
-					</div></li>
+						<a class="dropdown-item" href="javascript:void(0)">Back Office: </a>
+					</div>
+					<div class="dropdown-menu dropdown-menu-right dropdown-default"
+						aria-labelledby="navbarDropdownMenuLink-333">
+						<a class="dropdown-item" href="javascript:void(0)" onclick="logout()">Logout</a>
+					</div>
+				</li>
 			</ul>
 		</nav>
 		<!-- Navbar -->
@@ -255,8 +260,8 @@
 																</div>
 																<div class="col">
 																	<label>Payment Mode</label>
-																	<div class="form-group" name="pMode" id="pMode">
-																		<select class="form-control">
+																	<div class="form-group">
+																		<select class="form-control" name="pMode" id="pMode">
 																			<option value="">--Select--</option>
 
 																			<c:forEach var="item" items="${payModeList}">
@@ -468,37 +473,71 @@
 	<!-- Optional JavaScript -->
 	<script src="resources/js/custom.js"></script>
 	<script type="text/javascript">
-		$(document)
-				.ready(
-						function() {
-							var matchTable;
-							$('#freezeTable1,#freezeTable2').DataTable({
-								dom : 't'
-							});
+	$(document).ready(function() {
+    	var matchTable,freezeTable;
+    	$('#freezeTable1,#freezeTable2').DataTable({
+    		dom:'t'
+    	});
+    	
+        $('[data-toggle="tooltip"]').tooltip();
 
-							$('[data-toggle="tooltip"]').tooltip();
+        $.sessionTimeout({
+            keepAliveUrl: 'resources/keep.html',
+            keepAliveInterval: 300000,
+            ajaxType: 'GET',
+            warnAfter: 300000,
+            redirAfter: 310000,
+            onWarn: function() {
+                $('#modalSessionTimout').modal('show');
+            },
+            onRedir: function() {
+                logout();
+            }
+        });
 
-							$.sessionTimeout({
-								keepAliveUrl : 'resources/keep.html',
-								keepAliveInterval : 300000,
-								ajaxType : 'GET',
-								warnAfter : 300000,
-								redirAfter : 310000,
-								onWarn : function() {
-									$('#modalSessionTimout').modal('show');
-								},
-								onRedir : function() {
-									logout();
-								}
-							});
+        window.onbeforeunload = function(evnt) {
+            logout();
+        };
+        
+        $('#datetimepickerFrom').datetimepicker({
+            format: 'DD/MM/YYYY',
+            maxDate: moment()
+        });
+        $('#datetimepickerTo').datetimepicker({
+            format: 'DD/MM/YYYY',
+            maxDate: moment()
+        });
+        //$('#bankCode').select2();
 
-							window.onbeforeunload = function(evnt) {
-								logout();
-							};
+        $('input[type="radio"][name="matchingType"]').change(function() {            	
+        	var param1 =  $('input[type="radio"][name="matchingType"]:checked').attr('data-param1'),
+        		param2 =  $('input[type="radio"][name="matchingType"]:checked').attr('data-param2')
+            if (param1 == 'O') {
+                $('.brsParam').html('Book');
+                if(param2 == 'B')
+                	$('.brsParam1').html('Bank');
+                else
+                	$('.brsParam1').html('Book');	
+            } else {
+                $('.brsParam').html('Bank');
+                if(param2 == 'B')
+                	$('.brsParam1').html('Bank');
+                else
+                	$('.brsParam1').html('Book');
+            }
+        });
+        
+        $('#searchParametersForm').bootstrapValidator({
+        	trigger: 'blur',
+			fields : {
+				bankCode : {
+					validators : {
+						notEmpty : {
+							message : 'This field is required'
+						}
 
-<<<<<<< HEAD
-    					}
-    				},
+					}
+				},
     				datetimepickerFrom: {
     		            validators: {
     		                notEmpty: {
@@ -617,9 +656,22 @@
         		dom: 't',
         		data:a
         	}).draw();
+        	
+        	var b = freezeTable.rows({ selected: true }).data();     
+        	console.log(b[0]);        	
+        	$('#freezeTable2').DataTable({
+        		destroy: true,
+        		columnDefs: [
+        	        {
+        	            target: 0,
+        	            visible: false,
+        	            searchable: false
+        	        },
+        	    ],
+        		dom: 't',
+        		data:b
+        	}).draw();
         })
-        
-       
   		
         function logout() {
         	$('.lichfl-ajax-overlay').show();
