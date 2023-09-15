@@ -91,17 +91,18 @@
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333"
 					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<i class="fa fa-user"></i> ${userData} 
+						<i class="fa fa-user"></i> ${userData} ${userData.userName}
 				</a>
 					<div class="dropdown-menu dropdown-menu-right dropdown-default"
 						aria-labelledby="navbarDropdownMenuLink-333">
-						<a class="dropdown-item" href="javascript:void(0)">Back Office: </a>
+						<a class="dropdown-item" href="javascript:void(0)">Back
+							Office: </a>
 					</div>
 					<div class="dropdown-menu dropdown-menu-right dropdown-default"
 						aria-labelledby="navbarDropdownMenuLink-333">
-						<a class="dropdown-item" href="javascript:void(0)" onclick="logout()">Logout</a>
-					</div>
-				</li>
+						<a class="dropdown-item" href="javascript:void(0)"
+							onclick="logout()">Logout</a>
+					</div></li>
 			</ul>
 		</nav>
 		<!-- Navbar -->
@@ -365,6 +366,7 @@
 														<thead>
 															<tr>
 																<th class="th-sm">Match</th>
+																<th class="th-sm">Match ID</th>
 																<th class="th-sm">Tran Code</th>
 																<th class="th-sm">Doc No</th>
 																<th class="th-sm">Doc Date</th>
@@ -381,6 +383,7 @@
 														</thead>
 														<tbody>
 															<tr>
+																<td></td>
 																<td></td>
 																<td></td>
 																<td></td>
@@ -408,6 +411,7 @@
 														<thead>
 															<tr>
 																<th class="th-sm">Match</th>
+																<th class="th-sm">Match ID</th>
 																<th class="th-sm">Tran Code</th>
 																<th class="th-sm">Doc No</th>
 																<th class="th-sm">Doc Date</th>
@@ -424,6 +428,7 @@
 														</thead>
 														<tbody>
 															<tr>
+																<td></td>
 																<td></td>
 																<td></td>
 																<td></td>
@@ -473,226 +478,250 @@
 	<!-- Optional JavaScript -->
 	<script src="resources/js/custom.js"></script>
 	<script type="text/javascript">
-	$(document).ready(function() {
-    	var matchTable,freezeTable;
-    	$('#freezeTable1,#freezeTable2').DataTable({
-    		dom:'t'
-    	});
-    	
-        $('[data-toggle="tooltip"]').tooltip();
+		$(document)
+				.ready(
+						function() {
+							var matchTable, freezeTable;
+							$('#freezeTable1,#freezeTable2').DataTable({
+								dom : 't'
+							});
 
-        $.sessionTimeout({
-            keepAliveUrl: 'resources/keep.html',
-            keepAliveInterval: 300000,
-            ajaxType: 'GET',
-            warnAfter: 300000,
-            redirAfter: 310000,
-            onWarn: function() {
-                $('#modalSessionTimout').modal('show');
-            },
-            onRedir: function() {
-                logout();
-            }
-        });
+							$('[data-toggle="tooltip"]').tooltip();
 
-        window.onbeforeunload = function(evnt) {
-            logout();
-        };
-        
-        $('#datetimepickerFrom').datetimepicker({
-            format: 'DD/MM/YYYY',
-            maxDate: moment()
-        });
-        $('#datetimepickerTo').datetimepicker({
-            format: 'DD/MM/YYYY',
-            maxDate: moment()
-        });
-        //$('#bankCode').select2();
+							$.sessionTimeout({
+								keepAliveUrl : 'resources/keep.html',
+								keepAliveInterval : 300000,
+								ajaxType : 'GET',
+								warnAfter : 300000,
+								redirAfter : 310000,
+								onWarn : function() {
+									$('#modalSessionTimout').modal('show');
+								},
+								onRedir : function() {
+									logout();
+								}
+							});
 
-        $('input[type="radio"][name="matchingType"]').change(function() {            	
-        	var param1 =  $('input[type="radio"][name="matchingType"]:checked').attr('data-param1'),
-        		param2 =  $('input[type="radio"][name="matchingType"]:checked').attr('data-param2')
-            if (param1 == 'O') {
-                $('.brsParam').html('Book');
-                if(param2 == 'B')
-                	$('.brsParam1').html('Bank');
-                else
-                	$('.brsParam1').html('Book');	
-            } else {
-                $('.brsParam').html('Bank');
-                if(param2 == 'B')
-                	$('.brsParam1').html('Bank');
-                else
-                	$('.brsParam1').html('Book');
-            }
-        });
-        
-        $('#searchParametersForm').bootstrapValidator({
-        	trigger: 'blur',
-			fields : {
-				bankCode : {
-					validators : {
-						notEmpty : {
-							message : 'This field is required'
-						}
+							window.onbeforeunload = function(evnt) {
+								logout();
+							};
 
+							$('#datetimepickerFrom').datetimepicker({
+								format : 'DD/MM/YYYY',
+								maxDate : moment()
+							});
+							$('#datetimepickerTo').datetimepicker({
+								format : 'DD/MM/YYYY',
+								maxDate : moment()
+							});
+							//$('#bankCode').select2();
+
+							$('input[type="radio"][name="matchingType"]')
+									.change(
+											function() {
+												var param1 = $(
+														'input[type="radio"][name="matchingType"]:checked')
+														.attr('data-param1'), param2 = $(
+														'input[type="radio"][name="matchingType"]:checked')
+														.attr('data-param2')
+												if (param1 == 'O') {
+													$('.brsParam').html('Book');
+													if (param2 == 'B')
+														$('.brsParam1').html(
+																'Bank');
+													else
+														$('.brsParam1').html(
+																'Book');
+												} else {
+													$('.brsParam').html('Bank');
+													if (param2 == 'B')
+														$('.brsParam1').html(
+																'Bank');
+													else
+														$('.brsParam1').html(
+																'Book');
+												}
+											});
+
+							$('#searchParametersForm')
+									.bootstrapValidator(
+											{
+												trigger : 'blur',
+												fields : {
+													bankCode : {
+														validators : {
+															notEmpty : {
+																message : 'This field is required'
+															}
+
+														}
+													},
+													datetimepickerFrom : {
+														validators : {
+															notEmpty : {
+																message : 'This field is required'
+															},
+															date : {
+																max : 'datetimepickerTo',
+																format : 'DD/MM/YYYY',
+																message : 'From date should be less than To date'
+															}
+														}
+													},
+													datetimepickerTo : {
+														validators : {
+															notEmpty : {
+																message : 'This field is required'
+															},
+															date : {
+																min : 'datetimepickerFrom',
+																format : 'DD/MM/YYYY',
+																message : 'To Date should be greater than from date'
+															}
+														}
+													},
+												},
+											});
+						});
+
+		$('#datetimepickerFrom').change(
+				function() {
+					$('#searchParametersForm').data('bootstrapValidator')
+							.revalidateField('datetimepickerFrom');
+				});
+
+		$('#datetimepickerTo').change(
+				function() {
+					$('#searchParametersForm').data('bootstrapValidator')
+							.revalidateField('datetimepickerTo');
+				});
+
+		$('#bankCode').change(
+				function() {
+					$('#searchParametersForm').data('bootstrapValidator')
+							.revalidateField('bankCode');
+				});
+
+		$('#searhParamBtn').click(
+				function() {
+					$('#searchParametersForm').bootstrapValidator().off(
+							'success.form.bv').on('success.form.bv',
+							function(e) {
+								$('.lichfl-ajax-overlay').show();
+								var data = new FormData(searchParametersForm);
+								console.log(data);
+								$.ajax({
+									url : 'getBookRec',
+									type : 'post',
+									cache : false,
+									data : data,
+									processData : false,
+									contentType : false,
+									success : function(data) {
+										$('.paramTable1').html(data);
+										//$('#loadFreezeTable').removeAttr('disabled');
+										//$('#loadFreezeTable').removeAttr('title');
+										$('.lichfl-ajax-overlay').hide();
+									},
+									error : function(e) {
+										console.log(e);
+										$('.lichfl-ajax-overlay').hide();
+									}
+								});
+							});
+					$('#searchParametersForm').bootstrapValidator('validate');
+				});
+
+		$('#loadFreezeTable').click(
+				function() {
+					var data = new FormData(searchParametersForm);
+					var param2 = $(
+							'input[type="radio"][name="matchingType"]:checked')
+							.attr('data-param2');
+					var tranType = data.get('tranType');
+					if (tranType == 'D') {
+						tranType = 'C'
+					} else {
+						tranType = 'D'
 					}
+					data.set('tranType', tranType);
+					data.set('matchingType', param2);
+					$.ajax({
+						url : 'getFreezeRecords',
+						type : 'post',
+						cache : false,
+						data : data,
+						processData : false,
+						contentType : false,
+						success : function(data) {
+							$('.paramTable2').html(data);
+							//$('#loadFreezeTable').removeAttr('disabled');
+							//$('#loadFreezeTable').removeAttr('title');
+							$('.lichfl-ajax-overlay').hide();
+						},
+						error : function(e) {
+							console.log(e);
+							$('.lichfl-ajax-overlay').hide();
+						}
+					});
+				});
+
+		$('#resetSearchParamBtn').click(function() {
+			$('#searchParametersForm').bootstrapValidator("resetForm", true);
+		});
+
+		$('#loadMatchingResults').click(function() {
+			var a = matchTable.rows({
+				selected : true
+			}).data();
+			console.log(a[0]);
+			$('#freezeTable1').DataTable({
+				destroy : true,
+				columnDefs : [ {
+					target : 0,
+					visible : false,
+					searchable : false
+				}, ],
+				dom : 't',
+				data : a
+			}).draw();
+
+			var b = freezeTable.rows({
+				selected : true
+			}).data();
+			console.log(b[0]);
+			$('#freezeTable2').DataTable({
+				destroy : true,
+				columnDefs : [ {
+					target : 0,
+					visible : false,
+					searchable : false
+				}, ],
+				dom : 't',
+				data : b
+			}).draw();
+		})
+
+		function logout() {
+			$('.lichfl-ajax-overlay').show();
+			$.ajax({
+				url : 'logout',
+				type : 'post',
+				cache : false,
+				data : '',
+				processData : false,
+				contentType : false,
+				success : function(data) {
+					window.location.href = 'login.jsp';
+					$('.lichfl-ajax-overlay').hide();
 				},
-    				datetimepickerFrom: {
-    		            validators: {
-    		                notEmpty: {
-    		                    message: 'This field is required'
-    		                },
-    		                date: {
-    		                    max: 'datetimepickerTo',
-    		                    format: 'DD/MM/YYYY',
-    		                    message: 'From date should be less than To date'
-    		                }
-    		            }
-    		        },
-    		        datetimepickerTo: {
-    		            validators: {
-    		                notEmpty: {
-    		                    message: 'This field is required'
-    		                },
-    		                date: {
-    		                    min: 'datetimepickerFrom',
-    		                    format: 'DD/MM/YYYY',
-    		                    message: 'To Date should be greater than from date'
-    		                }
-    		            }
-    		        },
-    			},
-    		});
-        });
-        
-        $('#datetimepickerFrom').change(function(){
-        	$('#searchParametersForm').data('bootstrapValidator').revalidateField('datetimepickerFrom');
-        });
-        
-        $('#datetimepickerTo').change(function(){
-        	$('#searchParametersForm').data('bootstrapValidator').revalidateField('datetimepickerTo');
-        });
-        
-        $('#bankCode').change(function(){
-        	$('#searchParametersForm').data('bootstrapValidator').revalidateField('bankCode');
-        });
-        
-        $('#searhParamBtn').click(function(){    
-            $('#searchParametersForm').bootstrapValidator().off('success.form.bv').on('success.form.bv', function(e) {
-            	$('.lichfl-ajax-overlay').show();
-            	var data = new FormData(searchParametersForm);
-            	console.log(data);
-        	    $.ajax({
-        	        url: 'getBookRec',
-        	        type: 'post',
-        	        cache: false,
-        	        data: data,
-        	       processData: false,
-        	        contentType: false,
-        	        success: function(data) {        	        	
-        	        	$('.paramTable1').html(data);
-        	        	//$('#loadFreezeTable').removeAttr('disabled');
-        	        	//$('#loadFreezeTable').removeAttr('title');
-        	        	$('.lichfl-ajax-overlay').hide();
-        	        },
-        	    	error: function(e) {
-                		console.log(e);
-                		$('.lichfl-ajax-overlay').hide();
-                	}
-        	    });
-        	});
-        	$('#searchParametersForm').bootstrapValidator('validate');
-        });
-        
-        $('#loadFreezeTable').click(function(){
-        	var data = new FormData(searchParametersForm);
-        	var param2 = $('input[type="radio"][name="matchingType"]:checked').attr('data-param2');
-        	var tranType = data.get('tranType');
-        	if(tranType == 'D'){
-        		tranType = 'C'
-        	} 
-        	else{
-        		tranType = 'D'
-        	}
-        	data.set('tranType',tranType);
-        	data.set('matchingType',param2);
-        	$.ajax({
-    	        url: 'getFreezeRecords',
-    	        type: 'post',
-    	        cache: false,
-    	        data: data,
-    	       processData: false,
-    	        contentType: false,
-    	        success: function(data) {        	        	
-    	        	$('.paramTable2').html(data);
-    	        	//$('#loadFreezeTable').removeAttr('disabled');
-    	        	//$('#loadFreezeTable').removeAttr('title');
-    	        	$('.lichfl-ajax-overlay').hide();
-    	        },
-    	    	error: function(e) {
-            		console.log(e);
-            		$('.lichfl-ajax-overlay').hide();
-            	}
-    	    });
-        });
-        
-        $('#resetSearchParamBtn').click(function (){
-        	 $('#searchParametersForm').bootstrapValidator("resetForm",true); 
-        });
-        
-        $('#loadMatchingResults').click(function(){
-        	var a = matchTable.rows({ selected: true }).data();     
-        	console.log(a[0]);        	
-        	$('#freezeTable1').DataTable({
-        		destroy: true,
-        		columnDefs: [
-        	        {
-        	            target: 0,
-        	            visible: false,
-        	            searchable: false
-        	        },
-        	    ],
-        		dom: 't',
-        		data:a
-        	}).draw();
-        	
-        	var b = freezeTable.rows({ selected: true }).data();     
-        	console.log(b[0]);        	
-        	$('#freezeTable2').DataTable({
-        		destroy: true,
-        		columnDefs: [
-        	        {
-        	            target: 0,
-        	            visible: false,
-        	            searchable: false
-        	        },
-        	    ],
-        		dom: 't',
-        		data:b
-        	}).draw();
-        })
-  		
-        function logout() {
-        	$('.lichfl-ajax-overlay').show();
-        	$.ajax({
-    	        url: 'logout',
-    	        type: 'post',
-    	        cache: false,
-    	        data: '',
-    	        processData: false,
-    	        contentType: false,
-    	        success: function(data) {
-    				window.location.href = 'login.jsp';
-    				$('.lichfl-ajax-overlay').hide();
-    	        },
-    	    	error: function(e) {
-            		console.log(e);   
-            		$('.lichfl-ajax-overlay').show();
-            	}
-    	    });
-        }
-    </script>
+				error : function(e) {
+					console.log(e);
+					$('.lichfl-ajax-overlay').show();
+				}
+			});
+		}
+	</script>
 
 
 </body>

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class BookDto {
 
+	private String broKeyNo;
 	private String match;
 	private String tranCode;
 	private String docNo;

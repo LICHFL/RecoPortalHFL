@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class RecoFilter {
 
+	
 	private String matchingType;
 	private String bankCode;
 	private String datetimepickerFrom;

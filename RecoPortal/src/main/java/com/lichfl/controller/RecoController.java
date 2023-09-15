@@ -61,7 +61,8 @@ public class RecoController {
 	}
 
 	@PostMapping("/main")
-	public String homePage(@AuthenticationPrincipal RecoUserDetails userDetails, Map<String, Object> model) {
+	public String homePage(@AuthenticationPrincipal RecoUserDetails userDetails, Map<String, Object> model)
+			throws Exception {
 
 		String username = userDetails.getUsername();
 		Optional<BrsUserDetails> brsUser = null;
@@ -109,8 +110,15 @@ public class RecoController {
 		List<BookDto> bookDtoList = null;
 
 		try {
-			bookDtoList = recoService.fetchBookResults(recoFilter.getBankCode(), recoFilter.getDatetimepickerFrom(),
-					recoFilter.getDatetimepickerTo(), recoFilter.getMatchingType(), recoFilter.getTranType());
+			/*
+			 * bookDtoList = recoService.fetchBookResults(recoFilter.getBankCode(),
+			 * recoFilter.getDatetimepickerFrom(), recoFilter.getDatetimepickerTo(),
+			 * recoFilter.getMatchingType(), recoFilter.getTranType());
+			 */
+			bookDtoList = recoService.fetchBookResults(recoFilter);
+			
+		//	bookDtoList.forEach(System.out::println);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -128,8 +136,8 @@ public class RecoController {
 		List<BookDto> bookDtoList = null;
 
 		try {
-			bookDtoList = recoService.fetchBookResults(recoFilter.getBankCode(), recoFilter.getDatetimepickerFrom(),
-					recoFilter.getDatetimepickerTo(), recoFilter.getMatchingType(), recoFilter.getTranType());
+			bookDtoList = recoService.fetchBookResults(recoFilter);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 
