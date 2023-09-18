@@ -735,12 +735,14 @@
 				callback: function(b) {
 					console.log(b);
 					if(b == true){
+						var broKey = [];
 						var matchingForm = new FormData();
 						matchingForm.append('matchkey',freezeTable1.column(1).data()[0]);		
 						var b = freezeTable2.column(1).data();						
 						for (var i = 0; i<= b.length-1; i++){
-							matchingForm.append('broKey'+[i],b[i]);
+							broKey.push(b[i]);
 						}
+						matchingForm.append('broKey',broKey);
 						$.ajax({
 							url : 'getFreezeRecords',
 							type : 'post',
@@ -749,7 +751,11 @@
 							contentType : false,
 							data : matchingForm,
 							success : function(data) {
-								console.log('success')
+								bootbox.alert({
+									title: "<i class='fa fa-check'></i> Success",
+									message: "Data has been successfully submitted",
+									buttons: { cancel: { className: "btn-sm btn-primary", label: '<i class="fa fa-times"></i> Ok' }}
+								});
 							},
 							error : function(e) {
 								console.log(e);
