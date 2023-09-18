@@ -16,4 +16,6 @@ public interface RecoService {
 
 	List<BookDto> fetchBookResults(RecoFilter recoFilter) throws Exception;
 
+	String submitMatchingKeys(String matchKey, List<String> broKeyList);
+
 }

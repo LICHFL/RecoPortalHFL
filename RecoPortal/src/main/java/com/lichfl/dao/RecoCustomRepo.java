@@ -3,6 +3,7 @@ package com.lichfl.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.lichfl.model.BookDto;
@@ -20,8 +21,8 @@ public class RecoCustomRepo {
 
 	public List<BookDto> fetchBookResults(RecoFilter recoFilter) {
 
-		String sqlQuery = "SELECT to_char(bro_key_no) as broKeyNo  , to_char(BRO_TRAN_CODE) as tranCode,\r\n" + "       to_char(BRO_DOC_NO) as docNo,\r\n"
-				+ "       to_char(BRO_DOC_DT) as docDate,\r\n"
+		String sqlQuery = "SELECT to_char(bro_key_no) as broKeyNo  , to_char(BRO_TRAN_CODE) as tranCode,\r\n"
+				+ "       to_char(BRO_DOC_NO) as docNo,\r\n" + "       to_char(BRO_DOC_DT) as docDate,\r\n"
 				+ "        to_char(TRIM(LEADING '0' FROM BRO_chq_no))as chequeNo,\r\n"
 				+ "       ---to_char(BRO_chq_no) as chequeNo,\r\n" + "       to_char(BRO_FLEX_27) as pMode,\r\n"
 				+ "       to_char(BRO_VALUE_DT) as valueDate,\r\n" + "       to_char(BRO_FLEX_11) as micrCode,\r\n"
@@ -68,5 +69,8 @@ public class RecoCustomRepo {
 
 		return bookDtoList;
 	}
+
+	
+
 
 }
