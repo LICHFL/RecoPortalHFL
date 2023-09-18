@@ -77,6 +77,9 @@
 	src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
 <script
 	src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+<script
+	src="resources/vendor/bootbox/bootbox.min.js"></script>
+	
 </head>
 
 <body>
@@ -91,18 +94,15 @@
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333"
 					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<i class="fa fa-user"></i> ${userData} ${userData.userName}
+						<i class="fa fa-user"></i> ${userData.userName}
 				</a>
 					<div class="dropdown-menu dropdown-menu-right dropdown-default"
 						aria-labelledby="navbarDropdownMenuLink-333">
-						<a class="dropdown-item" href="javascript:void(0)">Back
-							Office: </a>
+						<a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-map-marker"></i> ${userData.usrBranchCode} </a>
+						<a class="dropdown-item" href="javascript:void(0)" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</a>
 					</div>
-					<div class="dropdown-menu dropdown-menu-right dropdown-default"
-						aria-labelledby="navbarDropdownMenuLink-333">
-						<a class="dropdown-item" href="javascript:void(0)"
-							onclick="logout()">Logout</a>
-					</div></li>
+					
+				</li>
 			</ul>
 		</nav>
 		<!-- Navbar -->
@@ -353,6 +353,9 @@
 														id="loadMatchingResults"
 														title="Please Search Main Screen First">Check
 														Matching</button>
+														<button class="btn btn-sm btn-primary"
+														id="submitMatching">Submit
+														Matching</button>
 												</div>
 											</div>
 											<div class="displayTable1">
@@ -481,7 +484,7 @@
 		$(document)
 				.ready(
 						function() {
-							var matchTable, freezeTable;
+							var matchTable, freezeTable,freezeTable1,freezeTable2;
 							$('#freezeTable1,#freezeTable2').DataTable({
 								dom : 't'
 							});
@@ -675,7 +678,8 @@
 				selected : true
 			}).data();
 			console.log(a[0]);
-			$('#freezeTable1').DataTable({
+			
+			freezeTable1 = $('#freezeTable1').DataTable({
 				destroy : true,
 				columnDefs : [ {
 					target : 0,
@@ -689,8 +693,8 @@
 			var b = freezeTable.rows({
 				selected : true
 			}).data();
-			console.log(b[0]);
-			$('#freezeTable2').DataTable({
+			
+			freezeTable2 = $('#freezeTable2').DataTable({
 				destroy : true,
 				columnDefs : [ {
 					target : 0,
@@ -700,6 +704,7 @@
 				dom : 't',
 				data : b
 			}).draw();
+			
 		})
 
 		function logout() {
@@ -721,6 +726,41 @@
 				}
 			});
 		}
+		
+		$('#submitMatching').click(function(){
+			bootbox.confirm({
+				title: "<i class='fa fa-exclamation-circle'></i> Submit Manual Matching",
+				message: "Do you want to Submit manual matching. Please verify before submittig the data.",
+				buttons: { cancel: { className: "btn-sm btn-default", label: '<i class="fa fa-times"></i> Cancel' }, confirm: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Confirm' } },
+				callback: function(b) {
+					console.log(b);
+					if(b == true){
+						var matchingForm = new FormData();
+						matchingForm.append('matchkey',freezeTable1.column(1).data()[0]);		
+						var b = freezeTable2.column(1).data();						
+						for (var i = 0; i<= b.length-1; i++){
+							matchingForm.append('broKey'+[i],b[i]);
+						}
+						$.ajax({
+							url : 'getFreezeRecords',
+							type : 'post',
+							cache : false,
+							processData : false,
+							contentType : false,
+							data : matchingForm,
+							success : function(data) {
+								console.log('success')
+							},
+							error : function(e) {
+								console.log(e);
+							}
+						});
+					}
+				},
+			});
+		});
+		
+		
 	</script>
 
 

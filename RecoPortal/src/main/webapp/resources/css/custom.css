@@ -686,3 +686,8 @@ table.dataTable>tbody>tr>td.select-checkbox, table.dataTable>tbody>tr>th.select-
 #freezeTable1_wrapper,#freezeTable2_wrapper{
 	margin-top:-30px;
 }
+.navbar .dropdown-menu a {
+	padding: 5px;
+    font-size: 13px;
+    border-bottom: 1px solid #e6e6e6;
+}
