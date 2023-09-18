@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.lichfl.dao.RecoConfigRepo;
 import com.lichfl.dao.RecoCustomRepo;
+import com.lichfl.dao.RecoMatchRepo;
 import com.lichfl.entity.RecoConfig;
 import com.lichfl.model.BookDto;
 import com.lichfl.model.RecoFilter;
@@ -20,6 +21,9 @@ public class RecoServiceImpl implements RecoService {
 
 	@Autowired
 	RecoConfigRepo configRepo;
+
+	@Autowired
+	RecoMatchRepo recoMatchRepo;
 
 	/*
 	 * @Override public List<BookDto> fetchBookResults(String glCode, String
@@ -52,6 +56,29 @@ public class RecoServiceImpl implements RecoService {
 			return recoConfig.getRecoParamValue();
 		} else
 			throw new Exception("Could not fetch payment modes!");
+	}
+
+	@Override
+	public String submitMatchingKeys(String matchKey, List<String> broKeyList) {
+
+		broKeyList.forEach(System.out::println);
+		// System.out.println("broKeyList ::" + broKeyList);
+
+		broKeyList.forEach(key -> {
+
+			System.out.println("key:" + Integer.parseInt(key));
+
+			try {
+				recoMatchRepo.executeMatchProc(Integer.parseInt(key), Integer.parseInt(matchKey),
+						"Manual Matching Confirm by User", 1000, String.valueOf('M'));
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
+			System.out.println("matchKey:" + Integer.parseInt(matchKey));
+		});
+		return matchKey;
+
 	}
 
 }

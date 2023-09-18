@@ -744,7 +744,7 @@
 						}
 						matchingForm.append('broKey',broKey);
 						$.ajax({
-							url : 'getFreezeRecords',
+							url : 'submitMatchData',
 							type : 'post',
 							cache : false,
 							processData : false,

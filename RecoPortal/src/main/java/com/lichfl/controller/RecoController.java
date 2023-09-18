@@ -10,19 +10,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.gson.Gson;
 import com.lichfl.entity.BrsUserDetails;
 import com.lichfl.model.BookDto;
 import com.lichfl.model.RecoFilter;
+import com.lichfl.model.SubmitMatches;
 import com.lichfl.security.RecoUserDetails;
 import com.lichfl.service.BrsUserService;
 import com.lichfl.service.RecoService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -110,15 +114,10 @@ public class RecoController {
 		List<BookDto> bookDtoList = null;
 
 		try {
-			/*
-			 * bookDtoList = recoService.fetchBookResults(recoFilter.getBankCode(),
-			 * recoFilter.getDatetimepickerFrom(), recoFilter.getDatetimepickerTo(),
-			 * recoFilter.getMatchingType(), recoFilter.getTranType());
-			 */
+
 			bookDtoList = recoService.fetchBookResults(recoFilter);
-			
-		//	bookDtoList.forEach(System.out::println);
-			
+			// bookDtoList.forEach(System.out::println);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -144,6 +143,25 @@ public class RecoController {
 		}
 		model.put("bookDtoList", bookDtoList);
 		return "freezeTable";
+
+	}
+
+	@PostMapping("/submitMatchData")
+	public String submitMatchingKeys(SubmitMatches submitMatches) {
+
+		System.out.println("submitMatches :: " + submitMatches);
+
+		if (!(submitMatches.getBroKey() == null && submitMatches.getMatchkey() == null)) {
+
+			String matchKey = submitMatches.getMatchkey();
+			List<String> broKeyList = Arrays.stream(submitMatches.getBroKey().split(",")).collect(Collectors.toList());
+
+			broKeyList.forEach(System.out::println);
+			recoService.submitMatchingKeys(matchKey, broKeyList);
+
+		}
+
+		return "redirect:/main";
 
 	}
 
