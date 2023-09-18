@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.lichfl.entity.BrsUserDetails;
@@ -23,6 +24,7 @@ import com.lichfl.service.BrsUserService;
 import com.lichfl.service.RecoService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.constraints.NotBlank;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -110,15 +112,10 @@ public class RecoController {
 		List<BookDto> bookDtoList = null;
 
 		try {
-			/*
-			 * bookDtoList = recoService.fetchBookResults(recoFilter.getBankCode(),
-			 * recoFilter.getDatetimepickerFrom(), recoFilter.getDatetimepickerTo(),
-			 * recoFilter.getMatchingType(), recoFilter.getTranType());
-			 */
+
 			bookDtoList = recoService.fetchBookResults(recoFilter);
-			
-		//	bookDtoList.forEach(System.out::println);
-			
+			// bookDtoList.forEach(System.out::println);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -144,6 +141,19 @@ public class RecoController {
 		}
 		model.put("bookDtoList", bookDtoList);
 		return "freezeTable";
+
+	}
+
+	@PostMapping("/submitMatchData")
+	@ResponseBody
+	public String submitMatchingKeys(@NotBlank(message = "Match Key cannot be blank") @RequestParam String matchKey,
+			@NotBlank(message = "Bro Key List cannot be blank") @RequestParam String broKeyReqList) {
+
+		List<String> broKeyList = Arrays.stream(broKeyReqList.split(",")).collect(Collectors.toList());
+		System.out.println("matchKey" + matchKey);
+		System.out.println("broKeyReqList" + broKeyReqList);
+
+		return "redirect:/main";
 
 	}
 
