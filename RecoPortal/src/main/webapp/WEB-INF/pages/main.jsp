@@ -732,19 +732,22 @@
 				title: "<i class='fa fa-exclamation-circle'></i> Submit Manual Matching",
 				message: "Do you want to Submit manual matching. Please verify before submittig the data.",
 				buttons: { cancel: { className: "btn-sm btn-default", label: '<i class="fa fa-times"></i> Cancel' }, confirm: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Confirm' } },
-				callback: function(b) {
-					console.log(b);
-					if(b == true){
-						var broKey = [];
+				callback: function(result) {
+					console.log(result);
+					if(result == true){
+						var broKey = {};
 						var matchingForm = new FormData();
-						matchingForm.append('matchkey',freezeTable1.column(1).data()[0]);		
-						var b = freezeTable2.column(1).data();						
-						for (var i = 0; i<= b.length-1; i++){
-							broKey.push(b[i]);
+						var matchkey = freezeTable1.column(1).data()[0];		
+						var b = freezeTable2.column(1).data();
+						var c = freezeTable2.column(11).data();
+						for (var i = 0; i<= b.length-1; i++){							
+							broKey['Key'+i] = {'matchkey':matchkey,'brokey':b[i],'amount':c[i]}							
 						}
-						matchingForm.append('broKey',broKey);
+						console.log(broKey);
+						matchingForm.append('brokey',broKey);
+						console.log(matchingForm);
 						$.ajax({
-							url : 'submitMatchData',
+							url : 'submitMatchData1',
 							type : 'post',
 							cache : false,
 							processData : false,
