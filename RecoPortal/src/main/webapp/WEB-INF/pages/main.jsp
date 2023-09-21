@@ -493,10 +493,10 @@
 
 							$.sessionTimeout({
 								keepAliveUrl : 'resources/keep.html',
-								keepAliveInterval : 300000,
+								keepAliveInterval : 30000000,
 								ajaxType : 'GET',
-								warnAfter : 300000,
-								redirAfter : 310000,
+								warnAfter : 30000000,
+								redirAfter : 31000000,
 								onWarn : function() {
 									$('#modalSessionTimout').modal('show');
 								},
@@ -735,19 +735,18 @@
 				callback: function(result) {
 					console.log(result);
 					if(result == true){
-						var broKey = {};
+						var broKey = [];
 						var matchingForm = new FormData();
 						var matchkey = freezeTable1.column(1).data()[0];		
 						var b = freezeTable2.column(1).data();
 						var c = freezeTable2.column(11).data();
-						for (var i = 0; i<= b.length-1; i++){							
-							broKey['Key'+i] = {'matchkey':matchkey,'brokey':b[i],'amount':c[i]}							
-						}
-						console.log(broKey);
+						for (var i = 0; i<= b.length-1; i++){
+							broKey.push({'matchkey':matchkey,'brokey':b[i],'amount':c[i]});							
+						}				
+						broKey = JSON.stringify(broKey);
 						matchingForm.append('brokey',broKey);
-						console.log(matchingForm);
 						$.ajax({
-							url : 'submitMatchData1',
+							url : 'submitMatchData',
 							type : 'post',
 							cache : false,
 							processData : false,
