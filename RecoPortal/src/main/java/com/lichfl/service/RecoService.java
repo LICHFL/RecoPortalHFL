@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.lichfl.model.BookDto;
 import com.lichfl.model.RecoFilter;
+import com.lichfl.model.SubmitMatches;
 
 public interface RecoService {
 
@@ -16,6 +17,6 @@ public interface RecoService {
 
 	List<BookDto> fetchBookResults(RecoFilter recoFilter) throws Exception;
 
-	String submitMatchingKeys(String matchKey, List<String> broKeyList, String username, double amount);
+	String submitMatchingKeys(List<SubmitMatches> submitMatchesList, String username);
 
 }

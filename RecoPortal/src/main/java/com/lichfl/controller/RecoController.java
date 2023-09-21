@@ -12,10 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.lichfl.entity.BrsUserDetails;
 import com.lichfl.model.BookDto;
@@ -37,6 +39,9 @@ public class RecoController {
 
 	@Autowired
 	private Gson gson;
+
+	@Autowired
+	ObjectMapper objectMapper;
 
 	@Autowired
 	private BrsUserService brsUserService;
@@ -152,37 +157,30 @@ public class RecoController {
 
 	@PostMapping("/submitMatchData")
 	public String submitMatchingKeys(
-			@RequestParam("broKey") 
-			// SubmitMatchRequest matchReq
-			// @RequestBody List<SubmitMatches> req
-			@RequestBody List<SubmitMatches> req, @AuthenticationPrincipal RecoUserDetails userDetails,
-			RedirectAttributes redirectAttributes, HttpServletRequest request) {
+			// @RequestParam("broKey")
+			@RequestParam(value = "brokey") String jsonReq,
+			// @RequestBody MatchRequestWrapper reqWrapper,
+			@AuthenticationPrincipal RecoUserDetails userDetails, RedirectAttributes redirectAttributes,
+			HttpServletRequest request) throws JsonMappingException, JsonProcessingException {
 
-		System.out.println("request :: " + request);
-		System.out.println("submitMatches :: " + req);
+		log.info("request :: " + request);
+		log.info("submitMatches :: " + jsonReq);
 
-		System.out.println("request :: " + request.getParameterNames());
-		System.out.println("RecoController.submitMatchingKeys()");
+		// SubmitMatches[] submitMatchesArray = ;
+
+		List<SubmitMatches> submitMatchesList = Arrays.asList(objectMapper.readValue(jsonReq, SubmitMatches[].class));
+
+		System.out.println("submitMatchesList ::" + submitMatchesList.toString());
 
 		// log.info("submitMatches :: " + submitMatches);
 
 		String username = userDetails.getUsername();
 		double amount = 1000;
 
-		/*
-		 * if (!(submitMatches.getBroKey() == null && submitMatches.getMatchkey() ==
-		 * null)) {
-		 * 
-		 * String matchKey = submitMatches.getMatchkey(); List<String> broKeyList =
-		 * Arrays.stream(submitMatches.getBroKey().split(",")).collect(Collectors.toList
-		 * ());
-		 * 
-		 * broKeyList.forEach(System.out::println); String result =
-		 * recoService.submitMatchingKeys(matchKey, broKeyList, username, amount);
-		 * redirectAttributes.addFlashAttribute("result", result);
-		 * 
-		 * }
-		 */
+
+			String result = recoService.submitMatchingKeys(submitMatchesList , username);
+			redirectAttributes.addFlashAttribute("result", result);
+
 
 		return "redirect:/main";
 

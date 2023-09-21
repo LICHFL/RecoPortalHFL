@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class SubmitMatches {
 
 	private String matchkey;
-	private String broKey;
+	private String brokey;
 	private String amount;
 
 }

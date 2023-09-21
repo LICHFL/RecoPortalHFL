@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SubmitMatchRequest {
+public class MatchRequestWrapper {
 	
 	
-	List<SubmitMatches> matchReq;
+	List<SubmitMatches> broKey;
 
 }

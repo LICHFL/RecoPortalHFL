@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import com.lichfl.dao.RecoConfigRepo;
@@ -12,12 +14,14 @@ import com.lichfl.dao.RecoMatchRepo;
 import com.lichfl.entity.RecoConfig;
 import com.lichfl.model.BookDto;
 import com.lichfl.model.RecoFilter;
+import com.lichfl.model.SubmitMatches;
 import com.lichfl.service.RecoService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@PropertySource("classpath:applConstant.properties")
 public class RecoServiceImpl implements RecoService {
 
 	@Autowired
@@ -28,6 +32,9 @@ public class RecoServiceImpl implements RecoService {
 
 	@Autowired
 	RecoMatchRepo recoMatchRepo;
+
+	@Value("${reco.matchType}")
+	String matchType;
 
 	@Override
 	public List<BookDto> fetchBookResults(RecoFilter recoFilter) throws Exception {
@@ -54,30 +61,28 @@ public class RecoServiceImpl implements RecoService {
 	}
 
 	@Override
-	public String submitMatchingKeys(String matchKey, List<String> broKeyList, String username, double amount) {
-
+	public String submitMatchingKeys(List<SubmitMatches> submitMatchesList, String username) {
+		// TODO Auto-generated method stub
 		String remarks = "Manual Matching Confirm by User as on - " + LocalDateTime.now() + " : username";
-		String message = "";
 
-		broKeyList.forEach(System.out::println);
-		// System.out.println("broKeyList ::" + broKeyList);
+		log.info("match type::" + matchType);
+		submitMatchesList.forEach(System.out::println);
 
-		broKeyList.forEach(key -> {
+		
+		submitMatchesList.forEach(key -> {
 
-			System.out.println("key:" + Integer.parseInt(key));
+			System.out.println("key:" + Integer.parseInt(key.getBrokey()));
 
 			try {
-				recoMatchRepo.executeMatchProc(Integer.parseInt(key), Integer.parseInt(matchKey), remarks, amount,
-						String.valueOf('M'));
+				recoMatchRepo.executeMatchProc(Integer.parseInt(key.getBrokey()), Integer.parseInt(key.getMatchkey()),
+						remarks, Double.parseDouble(key.getAmount()), matchType);
 			} catch (Exception e) {
 				e.printStackTrace();
 				throw new RuntimeException("Failed- Error ::" + e.getMessage());
 			}
 
-			log.info("matchKey:" + Integer.parseInt(matchKey));
 		});
 		return "success";
-
 	}
 
 }
