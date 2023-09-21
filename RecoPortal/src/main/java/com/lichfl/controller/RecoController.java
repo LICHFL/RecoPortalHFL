@@ -156,31 +156,21 @@ public class RecoController {
 	}
 
 	@PostMapping("/submitMatchData")
-	public String submitMatchingKeys(
-			// @RequestParam("broKey")
-			@RequestParam(value = "brokey") String jsonReq,
-			// @RequestBody MatchRequestWrapper reqWrapper,
-			@AuthenticationPrincipal RecoUserDetails userDetails, RedirectAttributes redirectAttributes,
-			HttpServletRequest request) throws JsonMappingException, JsonProcessingException {
+	public String submitMatchingKeys(@RequestParam(value = "brokey") String jsonReq,
+			@AuthenticationPrincipal RecoUserDetails userDetails, RedirectAttributes redirectAttributes)
+			throws JsonMappingException, JsonProcessingException {
 
-		log.info("request :: " + request);
 		log.info("submitMatches :: " + jsonReq);
-
-		// SubmitMatches[] submitMatchesArray = ;
 
 		List<SubmitMatches> submitMatchesList = Arrays.asList(objectMapper.readValue(jsonReq, SubmitMatches[].class));
 
 		System.out.println("submitMatchesList ::" + submitMatchesList.toString());
 
-		// log.info("submitMatches :: " + submitMatches);
-
 		String username = userDetails.getUsername();
 		double amount = 1000;
 
-
-			String result = recoService.submitMatchingKeys(submitMatchesList , username);
-			redirectAttributes.addFlashAttribute("result", result);
-
+		String result = recoService.submitMatchingKeys(submitMatchesList, username);
+		redirectAttributes.addFlashAttribute("result", result);
 
 		return "redirect:/main";
 
