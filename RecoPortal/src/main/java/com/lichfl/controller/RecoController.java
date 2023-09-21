@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -150,24 +151,37 @@ public class RecoController {
 	}
 
 	@PostMapping("/submitMatchData")
-	public String submitMatchingKeys(SubmitMatches submitMatches, @AuthenticationPrincipal RecoUserDetails userDetails,
-			RedirectAttributes redirectAttributes) {
+	public String submitMatchingKeys(
+			// SubmitMatchRequest matchReq
+			// @RequestBody List<SubmitMatches> req
+			@RequestBody List<SubmitMatches> req, @AuthenticationPrincipal RecoUserDetails userDetails,
+			RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
-		log.info("submitMatches :: " + submitMatches);
+		System.out.println("request :: " + request);
+		System.out.println("submitMatches :: " + req);
+
+		System.out.println("request :: " + request.getParameterNames());
+		System.out.println("RecoController.submitMatchingKeys()");
+
+		// log.info("submitMatches :: " + submitMatches);
 
 		String username = userDetails.getUsername();
 		double amount = 1000;
 
-		if (!(submitMatches.getBroKey() == null && submitMatches.getMatchkey() == null)) {
-
-			String matchKey = submitMatches.getMatchkey();
-			List<String> broKeyList = Arrays.stream(submitMatches.getBroKey().split(",")).collect(Collectors.toList());
-
-			broKeyList.forEach(System.out::println);
-			String result = recoService.submitMatchingKeys(matchKey, broKeyList, username, amount);
-			redirectAttributes.addFlashAttribute("result", result);
-
-		}
+		/*
+		 * if (!(submitMatches.getBroKey() == null && submitMatches.getMatchkey() ==
+		 * null)) {
+		 * 
+		 * String matchKey = submitMatches.getMatchkey(); List<String> broKeyList =
+		 * Arrays.stream(submitMatches.getBroKey().split(",")).collect(Collectors.toList
+		 * ());
+		 * 
+		 * broKeyList.forEach(System.out::println); String result =
+		 * recoService.submitMatchingKeys(matchKey, broKeyList, username, amount);
+		 * redirectAttributes.addFlashAttribute("result", result);
+		 * 
+		 * }
+		 */
 
 		return "redirect:/main";
 
