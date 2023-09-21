@@ -1,5 +1,6 @@
 package com.lichfl.serviceImpl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,10 @@ import com.lichfl.model.BookDto;
 import com.lichfl.model.RecoFilter;
 import com.lichfl.service.RecoService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class RecoServiceImpl implements RecoService {
 
 	@Autowired
@@ -25,15 +29,6 @@ public class RecoServiceImpl implements RecoService {
 	@Autowired
 	RecoMatchRepo recoMatchRepo;
 
-	/*
-	 * @Override public List<BookDto> fetchBookResults(String glCode, String
-	 * fromDate, String toDate, String catg, String tranType) throws Exception {
-	 * 
-	 * List<BookDto> resList = customRepo.fetchBookResults(glCode, fromDate, toDate,
-	 * catg, tranType); return resList;
-	 * 
-	 * }
-	 */
 	@Override
 	public List<BookDto> fetchBookResults(RecoFilter recoFilter) throws Exception {
 		List<BookDto> resList = null;
@@ -59,7 +54,10 @@ public class RecoServiceImpl implements RecoService {
 	}
 
 	@Override
-	public String submitMatchingKeys(String matchKey, List<String> broKeyList) {
+	public String submitMatchingKeys(String matchKey, List<String> broKeyList, String username, double amount) {
+
+		String remarks = "Manual Matching Confirm by User as on - " + LocalDateTime.now() + " : username";
+		String message = "";
 
 		broKeyList.forEach(System.out::println);
 		// System.out.println("broKeyList ::" + broKeyList);
@@ -69,15 +67,16 @@ public class RecoServiceImpl implements RecoService {
 			System.out.println("key:" + Integer.parseInt(key));
 
 			try {
-				recoMatchRepo.executeMatchProc(Integer.parseInt(key), Integer.parseInt(matchKey),
-						"Manual Matching Confirm by User", 1000, String.valueOf('M'));
+				recoMatchRepo.executeMatchProc(Integer.parseInt(key), Integer.parseInt(matchKey), remarks, amount,
+						String.valueOf('M'));
 			} catch (Exception e) {
-
 				e.printStackTrace();
+				throw new RuntimeException("Failed- Error ::" + e.getMessage());
 			}
-			System.out.println("matchKey:" + Integer.parseInt(matchKey));
+
+			log.info("matchKey:" + Integer.parseInt(matchKey));
 		});
-		return matchKey;
+		return "success";
 
 	}
 
