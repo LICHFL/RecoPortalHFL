@@ -10,12 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.lichfl.entity.BrsUserDetails;
 import com.lichfl.model.BookDto;
@@ -26,7 +28,6 @@ import com.lichfl.service.BrsUserService;
 import com.lichfl.service.RecoService;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -38,6 +39,9 @@ public class RecoController {
 
 	@Autowired
 	private Gson gson;
+
+	@Autowired
+	ObjectMapper objectMapper;
 
 	@Autowired
 	private BrsUserService brsUserService;
@@ -58,9 +62,14 @@ public class RecoController {
 	}
 
 	@GetMapping("/main")
-	public String mainPage() {
+	public String mainPage(Model model) {
 
-		System.out.println("RecoController.mainPageLoad()");
+		log.info("RecoController.mainPageLoad() : Getmaping");
+
+		String result = (String) model.getAttribute("result");
+		log.info("result :" + result);
+
+		model.addAttribute("result", "result");
 		return "main";
 	}
 
@@ -147,19 +156,31 @@ public class RecoController {
 	}
 
 	@PostMapping("/submitMatchData")
-	public String submitMatchingKeys(SubmitMatches submitMatches) {
+	public String submitMatchingKeys(
+			// @RequestParam("broKey")
+			@RequestParam(value = "brokey") String jsonReq,
+			// @RequestBody MatchRequestWrapper reqWrapper,
+			@AuthenticationPrincipal RecoUserDetails userDetails, RedirectAttributes redirectAttributes,
+			HttpServletRequest request) throws JsonMappingException, JsonProcessingException {
 
-		System.out.println("submitMatches :: " + submitMatches);
+		log.info("request :: " + request);
+		log.info("submitMatches :: " + jsonReq);
 
-		if (!(submitMatches.getBroKey() == null && submitMatches.getMatchkey() == null)) {
+		// SubmitMatches[] submitMatchesArray = ;
 
-			String matchKey = submitMatches.getMatchkey();
-			List<String> broKeyList = Arrays.stream(submitMatches.getBroKey().split(",")).collect(Collectors.toList());
+		List<SubmitMatches> submitMatchesList = Arrays.asList(objectMapper.readValue(jsonReq, SubmitMatches[].class));
 
-			broKeyList.forEach(System.out::println);
-			recoService.submitMatchingKeys(matchKey, broKeyList);
+		System.out.println("submitMatchesList ::" + submitMatchesList.toString());
 
-		}
+		// log.info("submitMatches :: " + submitMatches);
+
+		String username = userDetails.getUsername();
+		double amount = 1000;
+
+
+			String result = recoService.submitMatchingKeys(submitMatchesList , username);
+			redirectAttributes.addFlashAttribute("result", result);
+
 
 		return "redirect:/main";
 

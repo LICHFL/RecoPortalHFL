@@ -1,16 +1,17 @@
 package com.lichfl.model;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class SubmitMatches {
-
-	private String matchkey;
-	private String brokey;
-	private String amount;
+@AllArgsConstructor
+public class MatchRequestWrapper {
+	
+	
+	List<SubmitMatches> broKey;
 
 }

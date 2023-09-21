@@ -77,9 +77,8 @@
 	src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
 <script
 	src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
-<script
-	src="resources/vendor/bootbox/bootbox.min.js"></script>
-	
+<script src="resources/vendor/bootbox/bootbox.min.js"></script>
+
 </head>
 
 <body>
@@ -98,11 +97,11 @@
 				</a>
 					<div class="dropdown-menu dropdown-menu-right dropdown-default"
 						aria-labelledby="navbarDropdownMenuLink-333">
-						<a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-map-marker"></i> ${userData.usrBranchCode} </a>
-						<a class="dropdown-item" href="javascript:void(0)" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</a>
-					</div>
-					
-				</li>
+						<a class="dropdown-item" href="javascript:void(0)"><i
+							class="fa fa-map-marker"></i> ${userData.usrBranchCode} </a> <a
+							class="dropdown-item" href="javascript:void(0)"
+							onclick="logout()"><i class="fa fa-sign-out"></i> Logout</a>
+					</div></li>
 			</ul>
 		</nav>
 		<!-- Navbar -->
@@ -353,8 +352,7 @@
 														id="loadMatchingResults"
 														title="Please Search Main Screen First">Check
 														Matching</button>
-														<button class="btn btn-sm btn-primary"
-														id="submitMatching">Submit
+													<button class="btn btn-sm btn-primary" id="submitMatching">Submit
 														Matching</button>
 												</div>
 											</div>
@@ -744,13 +742,14 @@
 							broKey.push({'matchkey':matchkey,'brokey':b[i],'amount':c[i]});							
 						}				
 						broKey = JSON.stringify(broKey);
+						console.log('broKey :: '+broKey);
 						matchingForm.append('brokey',broKey);
 						$.ajax({
 							url : 'submitMatchData',
 							type : 'post',
 							cache : false,
 							processData : false,
-							contentType : false,
+							contentType: false,
 							data : matchingForm,
 							success : function(data) {
 								bootbox.alert({
