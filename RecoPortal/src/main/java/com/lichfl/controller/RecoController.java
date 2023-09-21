@@ -152,6 +152,7 @@ public class RecoController {
 
 	@PostMapping("/submitMatchData")
 	public String submitMatchingKeys(
+			@RequestParam("broKey") 
 			// SubmitMatchRequest matchReq
 			// @RequestBody List<SubmitMatches> req
 			@RequestBody List<SubmitMatches> req, @AuthenticationPrincipal RecoUserDetails userDetails,
