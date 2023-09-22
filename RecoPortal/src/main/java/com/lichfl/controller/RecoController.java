@@ -48,10 +48,10 @@ public class RecoController {
 
 	private static final String RECO_CODE = "paymode";
 
-	@GetMapping({ "/", "/loginPage" })
+	@GetMapping({ "/login", "/" })
 	public String loginPage(@RequestParam(value = "error", required = false) String error, Model model) {
 
-		System.out.println("RecoController.loginPage()");
+		// System.out.println("RecoController.loginPage()");
 
 		if (error != null) {
 			model.addAttribute("error", true);
@@ -61,19 +61,18 @@ public class RecoController {
 		return "loginPage";
 	}
 
+	/*
+	 * @GetMapping("/main") public String mainPage(Model model) {
+	 * 
+	 * log.info("RecoController.mainPageLoad() : Getmaping");
+	 * 
+	 * String result = (String) model.getAttribute("result"); log.info("result :" +
+	 * result);
+	 * 
+	 * model.addAttribute("result", "result"); return "main"; }
+	 */
+
 	@GetMapping("/main")
-	public String mainPage(Model model) {
-
-		log.info("RecoController.mainPageLoad() : Getmaping");
-
-		String result = (String) model.getAttribute("result");
-		log.info("result :" + result);
-
-		model.addAttribute("result", "result");
-		return "main";
-	}
-
-	@PostMapping("/main")
 	public String homePage(@AuthenticationPrincipal RecoUserDetails userDetails, Map<String, Object> model)
 			throws Exception {
 
@@ -106,7 +105,7 @@ public class RecoController {
 	@GetMapping("/error")
 	public String authenticationFailure(Model model, HttpServletRequest request) {
 
-		System.out.println("RecoController.authenticationFailure()");
+		// System.out.println("RecoController.authenticationFailure()");
 		return "error";
 	}
 
@@ -164,7 +163,6 @@ public class RecoController {
 
 		List<SubmitMatches> submitMatchesList = Arrays.asList(objectMapper.readValue(jsonReq, SubmitMatches[].class));
 
-		System.out.println("submitMatchesList ::" + submitMatchesList.toString());
 
 		String username = userDetails.getUsername();
 		double amount = 1000;
