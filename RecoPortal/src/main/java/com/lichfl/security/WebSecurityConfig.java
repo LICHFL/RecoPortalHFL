@@ -40,9 +40,9 @@ public class WebSecurityConfig {
 		return http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(auth -> {
 			auth.requestMatchers("/addUsers", "/", "/WEB-INF/**", "/resources/**", "/error").permitAll().anyRequest()
 					.authenticated();
-		}).formLogin(form -> form.usernameParameter("username").passwordParameter("password").loginPage("/loginPage")
-				.loginProcessingUrl("/validate").successForwardUrl("/main").failureUrl("/error").permitAll())
-				.logout(logout -> logout.logoutSuccessUrl("/loginPage").deleteCookies("JSESSIONID")
+		}).formLogin(form -> form.usernameParameter("username").passwordParameter("password").loginPage("/login")
+				.loginProcessingUrl("/validate").defaultSuccessUrl("/main").failureUrl("/error").permitAll())
+				.logout(logout -> logout.logoutSuccessUrl("/login").deleteCookies("JSESSIONID")
 						.invalidateHttpSession(true).permitAll())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
 						.maximumSessions(1).maxSessionsPreventsLogin(true).sessionRegistry(sessionRegistry())

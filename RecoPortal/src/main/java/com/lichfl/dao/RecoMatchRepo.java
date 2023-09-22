@@ -1,5 +1,7 @@
 package com.lichfl.dao;
 
+import java.sql.SQLException;
+
 import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.EntityManager;
@@ -13,7 +15,7 @@ public class RecoMatchRepo {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public void executeMatchProc(int broKeyNo, int matchKey, String narration, double amount, String matchType) {
+	public void executeMatchProc(int broKeyNo, int matchKey, String narration, double amount, String matchType)  throws SQLException {
 		StoredProcedureQuery storedProcedure = entityManager.createStoredProcedureQuery("hfl_brs.BRS_MATCH_BANK_RECO");
 
 		// Register input parameters

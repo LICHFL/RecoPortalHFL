@@ -45,7 +45,7 @@
         <h1>Error</h1>
         <p>Oops! Something went wrong.</p>
         <p>We apologize for the inconvenience.</p>
-        <p><a href="/">Back to Home</a></p>
+        <p><a href="/login">Back to Home</a></p>
     </div>
 </body>
 </html>

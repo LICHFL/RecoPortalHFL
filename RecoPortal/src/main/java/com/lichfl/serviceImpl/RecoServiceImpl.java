@@ -1,17 +1,20 @@
 package com.lichfl.serviceImpl;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Service;
 
 import com.lichfl.dao.RecoConfigRepo;
 import com.lichfl.dao.RecoCustomRepo;
 import com.lichfl.dao.RecoMatchRepo;
 import com.lichfl.entity.RecoConfig;
+import com.lichfl.exception.OracleCustomException;
 import com.lichfl.model.BookDto;
 import com.lichfl.model.RecoFilter;
 import com.lichfl.model.SubmitMatches;
@@ -63,12 +66,17 @@ public class RecoServiceImpl implements RecoService {
 	@Override
 	public String submitMatchingKeys(List<SubmitMatches> submitMatchesList, String username) {
 		// TODO Auto-generated method stub
-		String remarks = "Manual Matching Confirm by User as on - " + LocalDateTime.now() + " : username";
+
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("Manual Matching Confirm by -").append(username).append(" User as on - ")
+				.append(LocalDateTime.now()).append(" by : ");
+
+		String remarks = stringBuilder.toString();
+		log.info(remarks);
 
 		log.info("match type::" + matchType);
 		submitMatchesList.forEach(System.out::println);
 
-		
 		submitMatchesList.forEach(key -> {
 
 			System.out.println("key:" + Integer.parseInt(key.getBrokey()));
@@ -76,9 +84,16 @@ public class RecoServiceImpl implements RecoService {
 			try {
 				recoMatchRepo.executeMatchProc(Integer.parseInt(key.getBrokey()), Integer.parseInt(key.getMatchkey()),
 						remarks, Double.parseDouble(key.getAmount()), matchType);
-			} catch (Exception e) {
+			}
+
+			catch (Exception e) {
 				e.printStackTrace();
-				throw new RuntimeException("Failed- Error ::" + e.getMessage());
+
+				ExtractMessage extractMessage = new ExtractMessage();
+
+				String errorMessage = extractMessage.extractErrorMessage(e.getMessage());
+
+				throw new RuntimeException(errorMessage);
 			}
 
 		});

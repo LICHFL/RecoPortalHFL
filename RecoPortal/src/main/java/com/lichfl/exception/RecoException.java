@@ -9,18 +9,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @ControllerAdvice
 public class RecoException {
-	
-	
+
 	@ResponseBody
-	@ExceptionHandler(RuntimeException.class)
-	public Map<String,String> handleRuntimeExceptions(Exception ex)
-	{
-		Map<String,String> error = new HashMap<>();
-		error.put("message", ex.getMessage());;
+	@ExceptionHandler(Exception.class)
+	public Map<String, String> handleRuntimeExceptions(Exception ex) {
+		Map<String, String> error = new HashMap<>();
+		error.put("message", ex.getMessage());
+		;
 		error.put("error", "Y");
 		return error;
-		
-	}
-	
 
+	}
+
+	/*
+	 * @ExceptionHandler(OracleCustomException.class) public Map<String, String>
+	 * handleOracleCustomException(OracleCustomException ex) {
+	 * 
+	 * Map<String, String> error = new HashMap<>(); error.put("message",
+	 * ex.getMessage()); error.put("error", "Y"); return error; }
+	 */
 }
