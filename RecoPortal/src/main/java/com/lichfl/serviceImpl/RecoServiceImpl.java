@@ -1,24 +1,22 @@
 package com.lichfl.serviceImpl;
 
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Service;
 
 import com.lichfl.dao.RecoConfigRepo;
-import com.lichfl.dao.RecoCustomRepo;
+import com.lichfl.dao.RecoMatchRecordsRepo;
 import com.lichfl.dao.RecoMatchRepo;
 import com.lichfl.entity.RecoConfig;
-import com.lichfl.exception.OracleCustomException;
 import com.lichfl.model.BookDto;
 import com.lichfl.model.RecoFilter;
 import com.lichfl.model.SubmitMatches;
 import com.lichfl.service.RecoService;
+import com.lichfl.util.ApplicationConstant;
+import com.lichfl.util.CustomStringUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,23 +26,39 @@ import lombok.extern.slf4j.Slf4j;
 public class RecoServiceImpl implements RecoService {
 
 	@Autowired
-	RecoCustomRepo customRepo;
-
-	@Autowired
 	RecoConfigRepo configRepo;
 
 	@Autowired
 	RecoMatchRepo recoMatchRepo;
 
-	@Value("${reco.matchType}")
-	String matchType;
+	@Autowired
+	RecoMatchRecordsRepo recoMatchRecordsRepo;
+
+	/*
+	 * @Value("${reco.matchType}") String matchType;
+	 */
+
+	@Autowired
+	CustomStringUtil extractMessage;
 
 	@Override
 	public List<BookDto> fetchBookResults(RecoFilter recoFilter) throws Exception {
 		List<BookDto> resList = null;
-
+		/********* add quotes to paymodes after fetching all paymodes *******/
+		/*
+		 * if (recoFilter.getPMode().isEmpty())
+		 * 
+		 * { // // recoFilter.setPMode(extractMessage.addQuoteToStringValue(getPayModes(
+		 * ApplicationConstant.PAYMODE)));
+		 * 
+		 * String paymodes = getPayModes(ApplicationConstant.PAYMODE);
+		 * recoFilter.setPMode(Arrays.stream(paymodes.split(",")).collect(Collectors.
+		 * toList()));
+		 * 
+		 * }
+		 */
 		try {
-			resList = customRepo.fetchBookResults(recoFilter);
+			resList = recoMatchRecordsRepo.fetchBookResults(recoFilter);
 			return resList;
 		} catch (Exception e) {
 			throw new Exception("No Results found for the provided inputs");
@@ -68,13 +82,13 @@ public class RecoServiceImpl implements RecoService {
 		// TODO Auto-generated method stub
 
 		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append("Manual Matching Confirm by -").append(username).append(" User as on - ")
+		stringBuilder.append("Manual Matching Confirmed by -").append(username).append(" User as on - ")
 				.append(LocalDateTime.now()).append(" by : ");
 
 		String remarks = stringBuilder.toString();
 		log.info(remarks);
 
-		log.info("match type::" + matchType);
+		log.info("match type::" + ApplicationConstant.MATCHTYPE);
 		submitMatchesList.forEach(System.out::println);
 
 		submitMatchesList.forEach(key -> {
@@ -83,13 +97,11 @@ public class RecoServiceImpl implements RecoService {
 
 			try {
 				recoMatchRepo.executeMatchProc(Integer.parseInt(key.getBrokey()), Integer.parseInt(key.getMatchkey()),
-						remarks, Double.parseDouble(key.getAmount()), matchType);
+						remarks, Double.parseDouble(key.getAmount()), ApplicationConstant.MATCHTYPE);
 			}
 
 			catch (Exception e) {
 				e.printStackTrace();
-
-				ExtractMessage extractMessage = new ExtractMessage();
 
 				String errorMessage = extractMessage.extractErrorMessage(e.getMessage());
 
