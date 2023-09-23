@@ -26,6 +26,7 @@ import com.lichfl.model.SubmitMatches;
 import com.lichfl.security.RecoUserDetails;
 import com.lichfl.service.BrsUserService;
 import com.lichfl.service.RecoService;
+import com.lichfl.util.ApplicationConstant;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -51,8 +52,6 @@ public class RecoController {
 	@GetMapping({ "/login", "/" })
 	public String loginPage(@RequestParam(value = "error", required = false) String error, Model model) {
 
-		// System.out.println("RecoController.loginPage()");
-
 		if (error != null) {
 			model.addAttribute("error", true);
 			System.out.println(error);
@@ -60,17 +59,6 @@ public class RecoController {
 		}
 		return "loginPage";
 	}
-
-	/*
-	 * @GetMapping("/main") public String mainPage(Model model) {
-	 * 
-	 * log.info("RecoController.mainPageLoad() : Getmaping");
-	 * 
-	 * String result = (String) model.getAttribute("result"); log.info("result :" +
-	 * result);
-	 * 
-	 * model.addAttribute("result", "result"); return "main"; }
-	 */
 
 	@GetMapping("/main")
 	public String homePage(@AuthenticationPrincipal RecoUserDetails userDetails, Map<String, Object> model)
@@ -86,12 +74,10 @@ public class RecoController {
 		List<String> partnerBankList = Arrays.stream(brsUser.get().getBankcode().split(","))
 				.collect(Collectors.toList());
 
-		String paymodes = recoService.getPayModes(RECO_CODE);
+		String paymodes = recoService.getPayModes(ApplicationConstant.PAYMODE);
 
 		List<String> payModeList = Arrays.stream(paymodes.split(",")).collect(Collectors.toList());
 		log.info("payModeList ::" + payModeList);
-
-		// List<String>payModes= Arrays.stream(null)
 
 		log.info("partnerBankList ::" + partnerBankList);
 
@@ -105,7 +91,6 @@ public class RecoController {
 	@GetMapping("/error")
 	public String authenticationFailure(Model model, HttpServletRequest request) {
 
-		// System.out.println("RecoController.authenticationFailure()");
 		return "error";
 	}
 
@@ -162,7 +147,6 @@ public class RecoController {
 		log.info("submitMatches :: " + jsonReq);
 
 		List<SubmitMatches> submitMatchesList = Arrays.asList(objectMapper.readValue(jsonReq, SubmitMatches[].class));
-
 
 		String username = userDetails.getUsername();
 		double amount = 1000;
