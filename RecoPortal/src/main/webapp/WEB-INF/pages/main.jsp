@@ -780,19 +780,21 @@
 								data : matchingForm,
 								success : function(data) {
 									console.log(data)
-									bootbox.alert({
-										title: "<i class='fa fa-check'></i> Success",
-										message: 'Data submitted successfully',
-										buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Ok' }},
-										callback: function(result){
-											matchTable.clear().draw();
-											freezeTable.clear().draw();
-											freezeTable1.clear().draw();
-											freezeTable2.clear().draw();
-											$('#resetSearchParamBtn').click();
-											$('#nav-home-tab').click();
-										}
-									});	
+									if(data.message = "success"){
+										bootbox.alert({
+											title: "<i class='fa fa-check'></i> Success",
+											message: 'Data submitted successfully',
+											buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Ok' }},
+											callback: function(result){
+												matchTable.clear().draw();
+												freezeTable.clear().draw();
+												freezeTable1.clear().draw();
+												freezeTable2.clear().draw();
+												$('#resetSearchParamBtn').click();
+												$('#nav-home-tab').click();
+											}
+										});	
+									}									
 								},
 								error : function(e) {		
 										console.log(e)
