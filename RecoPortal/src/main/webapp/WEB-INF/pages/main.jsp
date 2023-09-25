@@ -328,9 +328,8 @@
 											</label>
 											<div class="row" style="margin-top: -30px">
 												<div class="col-lg-12">
-													<button class="btn btn-sm btn-primary" id="loadFreezeTable"
-														title="Please Search Main Screen First">
-														Load <span class="brsParam1"></span> Results
+													<button class="btn btn-sm btn-primary d-none" id="loadFreezeTable">
+														<i class="fa fa-search"></i> Search <span class="brsParam1"></span> Results
 													</button>
 												</div>
 											</div>
@@ -352,7 +351,7 @@
 														id="loadMatchingResults"
 														title="Please Search Main Screen First">Check
 														Matching</button>
-													<button class="btn btn-sm btn-primary" id="submitMatching">Submit
+													<button class="btn btn-sm btn-primary" id="submitMatching"><i class="fa fa-upload"></i> Submit
 														Matching</button>
 												</div>
 											</div>
@@ -633,7 +632,7 @@
 					$('#searchParametersForm').bootstrapValidator('validate');
 				});
 
-		$('#loadFreezeTable').click(				
+		$('#nav-profile-tab').click(				
 				function() {
 					if(matchTable.rows().count() === 0){
 						bootbox.alert({
@@ -643,6 +642,7 @@
 						});
 					}
 					else{
+						$('.lichfl-ajax-overlay').show();
 						var data = new FormData(searchParametersForm);
 						var param2 = $(
 								'input[type="radio"][name="matchingType"]:checked')
@@ -677,6 +677,7 @@
 				});
 
 		$('#resetSearchParamBtn').click(function() {
+			document.getElementById("searchParametersForm").reset();
 			$('#searchParametersForm').bootstrapValidator("resetForm", true);
 		});
 
@@ -779,29 +780,30 @@
 								data : matchingForm,
 								success : function(data) {
 									console.log(data)
-									if(data.errorStatus = "Y"){
+									bootbox.alert({
+										title: "<i class='fa fa-check'></i> Success",
+										message: 'Data submitted successfully',
+										buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Ok' }},
+										callback: function(result){
+											matchTable.clear().draw();
+											freezeTable.clear().draw();
+											freezeTable1.clear().draw();
+											freezeTable2.clear().draw();
+											$('#resetSearchParamBtn').click();
+											$('#nav-home-tab').click();
+										}
+									});	
+								},
+								error : function(e) {		
+										console.log(e)
 										bootbox.alert({
 											title: "<i class='fa fa-times-circle text-error'></i> Error",
-											message: data.message,
-											buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-times"></i> Ok' }}
+											message: e.responseJSON.message,
+											buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Ok' }}
 										});
-									}
-									else{
-										bootbox.alert({
-											title: "<i class='fa fa-check'></i> Success",
-											message: data.message,
-											buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-times"></i> Ok' }}
-										});
-									}
-									
-								},
-								error : function(e) {
-									console.log(e);
 								}
 							});
 							
-							
-						
 					}
 				},
 			});
