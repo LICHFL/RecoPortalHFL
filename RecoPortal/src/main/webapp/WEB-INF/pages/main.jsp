@@ -244,7 +244,7 @@
 																		</div>
 																	</div>
 																</div>
-																<div class="col">
+																<div class="col d-none">
 																	<label>Order By</label>
 																	<div class="form-group">
 																		<select class="form-control" name="orderBy"
@@ -271,7 +271,7 @@
 																		</select>
 																	</div>
 																</div>
-																<div class="col">
+																<div class="col d-none">
 																	<label>Descending</label>
 																	<div>
 																		<div class="form-group">
