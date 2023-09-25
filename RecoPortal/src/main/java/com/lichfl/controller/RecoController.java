@@ -12,8 +12,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -49,7 +51,7 @@ public class RecoController {
 	@Autowired
 	private BrsUserService brsUserService;
 
-	private static final String RECO_CODE = "paymode";
+	// private static final String RECO_CODE = "paymode";
 
 	@GetMapping({ "/login", "/" })
 	public String loginPage(@RequestParam(value = "error", required = false) String error, Model model) {
@@ -63,8 +65,13 @@ public class RecoController {
 	}
 
 	@GetMapping("/main")
-	public String homePage(@AuthenticationPrincipal RecoUserDetails userDetails, Map<String, Object> model)
+	public String homePage(@AuthenticationPrincipal RecoUserDetails userDetails, Map<String, Object> model
+	// @ModelAttribute("respMessage") RespMessage respMessage
+	)
+
 			throws Exception {
+
+		// log.info("respMessage ::" + respMessage);
 
 		String username = userDetails.getUsername();
 		Optional<BrsUserDetails> brsUser = null;
@@ -86,6 +93,7 @@ public class RecoController {
 		model.put("userData", brsUser.get());
 		model.put("payModeList", payModeList);
 		model.put("partnerBankList", partnerBankList);
+		// model.put("respMessage", respMessage);
 
 		return "main";
 	}
@@ -142,7 +150,8 @@ public class RecoController {
 	}
 
 	@PostMapping("/submitMatchData")
-	public String submitMatchingKeys(@RequestParam(value = "brokey") String jsonReq,
+	@ResponseBody
+	public RespMessage submitMatchingKeys(@RequestParam(value = "brokey") String jsonReq,
 			@AuthenticationPrincipal RecoUserDetails userDetails, RedirectAttributes redirectAttributes)
 			throws JsonMappingException, JsonProcessingException {
 
@@ -157,10 +166,11 @@ public class RecoController {
 
 		RespMessage respMessage = RespMessage.builder().message(result).errorStatus(false).status(HttpStatus.CREATED)
 				.build();
+		return respMessage;
 
-		redirectAttributes.addFlashAttribute("respMessage", respMessage);
+		// redirectAttributes.addFlashAttribute("respMessage", respMessage);
 
-		return "redirect:/main";
+		// return "redirect:/main";
 
 	}
 
