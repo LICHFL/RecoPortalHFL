@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.lichfl.entity.BrsUserDetails;
+import com.lichfl.exception.RespMessage;
 import com.lichfl.model.BookDto;
 import com.lichfl.model.RecoFilter;
 import com.lichfl.model.SubmitMatches;
@@ -152,7 +154,11 @@ public class RecoController {
 		double amount = 1000;
 
 		String result = recoService.submitMatchingKeys(submitMatchesList, username);
-		redirectAttributes.addFlashAttribute("result", result);
+
+		RespMessage respMessage = RespMessage.builder().message(result).errorStatus(false).status(HttpStatus.CREATED)
+				.build();
+
+		redirectAttributes.addFlashAttribute("respMessage", respMessage);
 
 		return "redirect:/main";
 
