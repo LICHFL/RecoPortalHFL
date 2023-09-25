@@ -348,7 +348,7 @@
 											</label>
 											<div class="row" style="margin-top: -30px">
 												<div class="col-lg-12">
-													<button class="btn btn-sm btn-primary"
+													<button class="btn btn-sm btn-primary d-none"
 														id="loadMatchingResults"
 														title="Please Search Main Screen First">Check
 														Matching</button>
@@ -633,45 +633,54 @@
 					$('#searchParametersForm').bootstrapValidator('validate');
 				});
 
-		$('#loadFreezeTable').click(
+		$('#loadFreezeTable').click(				
 				function() {
-					var data = new FormData(searchParametersForm);
-					var param2 = $(
-							'input[type="radio"][name="matchingType"]:checked')
-							.attr('data-param2');
-					var tranType = data.get('tranType');
-					if (tranType == 'D') {
-						tranType = 'C'
-					} else {
-						tranType = 'D'
+					if(matchTable.rows().count() === 0){
+						bootbox.alert({
+							title: "<i class='fa fa-exclamation-triangle'></i> Warning",
+							message: "Please search main screen data",
+							buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Ok' }}
+						});
 					}
-					data.set('tranType', tranType);
-					data.set('matchingType', param2);
-					$.ajax({
-						url : 'getFreezeRecords',
-						type : 'post',
-						cache : false,
-						data : data,
-						processData : false,
-						contentType : false,
-						success : function(data) {
-							$('.paramTable2').html(data);
-							//$('#loadFreezeTable').removeAttr('disabled');
-							//$('#loadFreezeTable').removeAttr('title');
-							$('.lichfl-ajax-overlay').hide();
-						},
-						error : function(e) {
-							console.log(e);
-							$('.lichfl-ajax-overlay').hide();
+					else{
+						var data = new FormData(searchParametersForm);
+						var param2 = $(
+								'input[type="radio"][name="matchingType"]:checked')
+								.attr('data-param2');
+						var tranType = data.get('tranType');
+						if (tranType == 'D') {
+							tranType = 'C'
+						} else {
+							tranType = 'D'
 						}
-					});
+						data.set('tranType', tranType);
+						data.set('matchingType', param2);
+						$.ajax({
+							url : 'getFreezeRecords',
+							type : 'post',
+							cache : false,
+							data : data,
+							processData : false,
+							contentType : false,
+							success : function(data) {
+								$('.paramTable2').html(data);
+								//$('#loadFreezeTable').removeAttr('disabled');
+								//$('#loadFreezeTable').removeAttr('title');
+								$('.lichfl-ajax-overlay').hide();
+							},
+							error : function(e) {
+								console.log(e);
+								$('.lichfl-ajax-overlay').hide();
+							}
+						});
+					}
 				});
 
 		$('#resetSearchParamBtn').click(function() {
 			$('#searchParametersForm').bootstrapValidator("resetForm", true);
 		});
 
-		$('#loadMatchingResults').click(function() {
+		$('#nav-contact-tab').click(function() {
 			var a = matchTable.rows({
 				selected : true
 			}).data();
@@ -726,45 +735,77 @@
 		}
 		
 		$('#submitMatching').click(function(){
+			if (freezeTable1.rows().count() === 0){
+				bootbox.alert({
+					title: "<i class='fa fa-exclamation-triangle'></i> Warning",
+					message: "Please select main screen data",
+					buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Ok' }}
+				});
+			}
+			else if(freezeTable2.rows().count() === 0){
+				bootbox.alert({
+					title: "<i class='fa fa-exclamation-triangle'></i> Warning",
+					message: "Please select freeze screen data",
+					buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Ok' }}
+				});
+			}
+			else{
 			bootbox.confirm({
-				title: "<i class='fa fa-exclamation-circle'></i> Submit Manual Matching",
+				title: "<i class='fa fa-info-circle'></i> Submit Manual Matching",
 				message: "Do you want to Submit manual matching. Please verify before submittig the data.",
 				buttons: { cancel: { className: "btn-sm btn-default", label: '<i class="fa fa-times"></i> Cancel' }, confirm: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Confirm' } },
 				callback: function(result) {
 					console.log(result);
-					if(result == true){
-						var broKey = [];
-						var matchingForm = new FormData();
-						var matchkey = freezeTable1.column(1).data()[0];		
-						var b = freezeTable2.column(1).data();
-						var c = freezeTable2.column(11).data();
-						for (var i = 0; i<= b.length-1; i++){
-							broKey.push({'matchkey':matchkey,'brokey':b[i],'amount':c[i]});							
-						}				
-						broKey = JSON.stringify(broKey);
-						console.log('broKey :: '+broKey);
-						matchingForm.append('brokey',broKey);
-						$.ajax({
-							url : 'submitMatchData',
-							type : 'post',
-							cache : false,
-							processData : false,
-							contentType: false,
-							data : matchingForm,
-							success : function(data) {
-								bootbox.alert({
-									title: "<i class='fa fa-check'></i> Success",
-									message: "Data has been successfully submitted",
-									buttons: { cancel: { className: "btn-sm btn-primary", label: '<i class="fa fa-times"></i> Ok' }}
-								});
-							},
-							error : function(e) {
-								console.log(e);
-							}
-						});
+					if(result == true){						
+						
+							var broKey = [];
+							var matchingForm = new FormData();
+							var matchkey = freezeTable1.column(1).data()[0];		
+							var b = freezeTable2.column(1).data();
+							var c = freezeTable2.column(11).data();
+							
+							for (var i = 0; i<= b.length-1; i++){
+								broKey.push({'matchkey':matchkey,'brokey':b[i],'amount':c[i]});							
+							}				
+							broKey = JSON.stringify(broKey);
+							console.log('broKey :: '+broKey);
+							matchingForm.append('brokey',broKey);
+							$.ajax({
+								url : 'submitMatchData',
+								type : 'post',
+								cache : false,
+								processData : false,
+								contentType: false,
+								data : matchingForm,
+								success : function(data) {
+									console.log(data)
+									if(data.errorStatus = "Y"){
+										bootbox.alert({
+											title: "<i class='fa fa-times-circle text-error'></i> Error",
+											message: data.message,
+											buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-times"></i> Ok' }}
+										});
+									}
+									else{
+										bootbox.alert({
+											title: "<i class='fa fa-check'></i> Success",
+											message: data.message,
+											buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-times"></i> Ok' }}
+										});
+									}
+									
+								},
+								error : function(e) {
+									console.log(e);
+								}
+							});
+							
+							
+						
 					}
 				},
 			});
+			}
 		});
 		
 		
