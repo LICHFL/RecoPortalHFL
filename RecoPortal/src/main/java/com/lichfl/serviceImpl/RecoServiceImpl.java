@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
+import com.lichfl.dao.IRecoCustomRepo;
 import com.lichfl.dao.RecoConfigRepo;
-import com.lichfl.dao.RecoMatchRecordsRepo;
 import com.lichfl.dao.RecoMatchRepo;
+import com.lichfl.dao.RecoReportDao;
 import com.lichfl.entity.RecoConfig;
+import com.lichfl.entity.ReportResponse;
 import com.lichfl.model.BookDto;
 import com.lichfl.model.RecoFilter;
+import com.lichfl.model.ReportParam;
 import com.lichfl.model.SubmitMatches;
 import com.lichfl.service.RecoService;
 import com.lichfl.util.ApplicationConstant;
@@ -32,7 +35,10 @@ public class RecoServiceImpl implements RecoService {
 	RecoMatchRepo recoMatchRepo;
 
 	@Autowired
-	RecoMatchRecordsRepo recoMatchRecordsRepo;
+	IRecoCustomRepo recoCustomRepo;
+
+	@Autowired
+	RecoReportDao recoReportDao;
 
 	/*
 	 * @Value("${reco.matchType}") String matchType;
@@ -45,20 +51,9 @@ public class RecoServiceImpl implements RecoService {
 	public List<BookDto> fetchBookResults(RecoFilter recoFilter) throws Exception {
 		List<BookDto> resList = null;
 		/********* add quotes to paymodes after fetching all paymodes *******/
-		/*
-		 * if (recoFilter.getPMode().isEmpty())
-		 * 
-		 * { // // recoFilter.setPMode(extractMessage.addQuoteToStringValue(getPayModes(
-		 * ApplicationConstant.PAYMODE)));
-		 * 
-		 * String paymodes = getPayModes(ApplicationConstant.PAYMODE);
-		 * recoFilter.setPMode(Arrays.stream(paymodes.split(",")).collect(Collectors.
-		 * toList()));
-		 * 
-		 * }
-		 */
+
 		try {
-			resList = recoMatchRecordsRepo.fetchBookResults(recoFilter);
+			resList = recoCustomRepo.fetchBookResults(recoFilter);
 			return resList;
 		} catch (Exception e) {
 			throw new Exception("No Results found for the provided inputs");
@@ -110,6 +105,40 @@ public class RecoServiceImpl implements RecoService {
 
 		});
 		return "success";
+	}
+
+	@Override
+	public int submitReport(ReportParam reportParam) throws Exception {
+
+		int reportId = recoCustomRepo.submitReport(reportParam);
+
+		return reportId;
+	}
+
+	/*
+	 * @Override public List<ReportResponse> getReportRecords(int reportId) throws
+	 * Exception {
+	 * 
+	 * String str = String.valueOf(reportId); log.info("hrfChildRepId ::" + str);
+	 * 
+	 * //Thread.sleep(2000);
+	 * 
+	 * List<ReportResponse> respList =
+	 * recoReportDao.findByHrfChildRepIdStartsWith(str);
+	 * log.info("respList.size() ::" + respList.size()); if (respList.size() < 1) {
+	 * throw new Exception("Record is not present"); } return respList;
+	 * 
+	 * }
+	 */
+
+	@Override
+	public List<ReportResponse> getReportFiles(String bankCode) throws Exception {
+
+		List<ReportResponse> respList = recoReportDao.findByHrfBankCode(bankCode);
+		if (respList.size() < 1) {
+			throw new Exception("Record is not present");
+		}
+		return respList;
 	}
 
 }

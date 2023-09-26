@@ -1,6 +1,7 @@
 package com.lichfl.controller;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -12,7 +13,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,9 +23,11 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.lichfl.entity.BrsUserDetails;
+import com.lichfl.entity.ReportResponse;
 import com.lichfl.exception.RespMessage;
 import com.lichfl.model.BookDto;
 import com.lichfl.model.RecoFilter;
+import com.lichfl.model.ReportParam;
 import com.lichfl.model.SubmitMatches;
 import com.lichfl.security.RecoUserDetails;
 import com.lichfl.service.BrsUserService;
@@ -172,6 +174,44 @@ public class RecoController {
 
 		// return "redirect:/main";
 
+	}
+
+	@PostMapping("/submitReport")
+	public String submitReport(ReportParam reportParam, Map<String, Object> model) throws Exception {
+		log.info("reportParam" + reportParam);
+
+		int reportId = recoService.submitReport(reportParam);
+		log.info("reportId ::" + reportId);
+
+		/*
+		 * if (reportId > 0) {
+		 * 
+		 * List<ReportResponse> repList = recoService.getReportRecords(reportId);
+		 * log.info("repResponse ::" + repList);
+		 * 
+		 * model.put("repList", repList); }
+		 */
+		model.put("reportId", reportId);
+		log.info("reportId ::" + reportId);
+		return "reportTable";
+
+	}
+
+	@PostMapping("/getReportFiles")
+	public String getReportFiles(Map<String, Object> model, String bankCode) throws Exception {
+
+		// bankCode ="HYHDFCCMS1";
+		List<ReportResponse> reportList = recoService.getReportFiles(bankCode);
+
+		List<ReportResponse> sortedReportList = reportList.stream()
+				.sorted(Comparator.comparing(ReportResponse::getHrfRepId).reversed()).collect(Collectors.toList());
+
+		//sortedReportList.forEach(System.out::println);
+
+		log.info("repResponse ::" + reportList);
+
+		model.put("repList", reportList);
+		return "reportTable";
 	}
 
 }
