@@ -127,6 +127,9 @@
 										<a class="nav-item nav-link" id="nav-contact-tab"
 											data-toggle="tab" href="#nav-contact" role="tab"
 											aria-controls="nav-contact" aria-selected="false">Matching</a>
+											<a class="nav-item nav-link" id="nav-report-tab"
+											data-toggle="tab" href="#nav-report" role="tab"
+											aria-controls="nav-contact" aria-selected="false">Report</a>
 									</div>
 								</nav>
 								<div class="tab-content" id="nav-tabContent">
@@ -450,6 +453,121 @@
 										</section>
 
 									</div>
+									<div class="tab-pane fade" id="nav-report" role="tabpanel" aria-labelledby="nav-report-tab">
+										<form id="reportGenerateForm">										
+												<section class="custom-section">
+													<label class="section-label">Report <span
+														class="brsParam"></span> Parameters
+													</label>
+													<div class="row mb-2" style="margin-top: -30px">
+														<div class="col-sm-12">
+															<div class="row mb-2">
+																<div class="col">
+																<label>Select Report Type</label>
+																	<div>
+																		<div class="form-group">
+																			<div class="form-check form-check-inline">
+																				<input type="radio" class="form-check-input"
+																					id="reportType1" name="reportType" value="OPEN"
+																					required> <label
+																					class="form-check-label" for="reportType1">Open</label>
+																			</div>
+																			<div class="form-check form-check-inline">
+																				<input type="radio" class="form-check-input"
+																					id="reportType2" name="reportType" value="FULL"> 
+																					<label
+																					class="form-check-label" for="reportType2">
+																					Full</label>
+																			</div>
+																			<div class="form-check form-check-inline">
+																				<input type="radio" class="form-check-input"
+																					id="reportType3" name="reportType" value="CASH"> 
+																					<label
+																					class="form-check-label" for="reportType3">
+																					Cash</label>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="col">
+																	<label>Bank Code</label>
+																	<div class="form-group">
+																		<select id="bankCodeRept" name="bankCodeRept"
+																			class="form-control" required>
+																			<option value=" ">--Select--</option>
+																			<c:forEach var="item" items="${partnerBankList}">
+																				<option value="${item}">${item}</option>
+																			</c:forEach>
+
+																		</select>
+																	</div>
+																</div>
+																<div class="col">
+																	<label>From Date</label>
+																	<div class="form-group">
+																		<div class="input-group">
+																			<input type="text"
+																				class="form-control form-control-sm date"
+																				name="datetimepickerFromRept" id="datetimepickerFromRept"
+																				placeholder="From Date" aria-label="From Date"
+																				aria-describedby="datepicker-addon"
+																				autocomplete="off">
+																			<div class="input-group-append">
+																				<span class="input-group-text" id="datepicker-addon">
+																					<i class="fa fa-calendar"></i>
+																				</span>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="col">
+																	<label>To Date</label>
+																	<div class="form-group">
+																		<div class="input-group">
+																			<input type="text"
+																				class="form-control form-control-sm date"
+																				name="datetimepickerToRept" id="datetimepickerToRept"
+																				placeholder="To Date" aria-label="To Date"
+																				aria-describedby="datepicker-addon"
+																				autocomplete="off">
+																			<div class="input-group-append">
+																				<span class="input-group-text" id="datepicker-addon">
+																					<i class="fa fa-calendar"></i>
+																				</span>
+																			</div>
+																		</div>
+																	</div>
+																</div>																																												
+															</div>
+															<div class="row">
+																<div class="col">
+																	<div class="btn-group btn-group-sm" role="group"
+																		aria-label="Basic example">
+																		<button type="button"
+																			class="btn btn-primary btn-sm mr-1"
+																			id="searhReportBtn">
+																			<i class="fa fa-search"></i> Generate
+																		</button>
+																		<button type="button"
+																			class="btn btn-primary btn-sm mr-1"
+																			id="resetReportBtn">
+																			<i class="fa fa-refresh"></i> Refresh
+																		</button>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</section>
+												<section class="custom-section">
+													<label class="section-label">Report Result
+													</label>
+													<div class="reportTable">
+														<%@ include file="reportTable.jsp"%>
+													</div>
+												</section>
+										</form>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -511,6 +629,14 @@
 								maxDate : moment()
 							});
 							$('#datetimepickerTo').datetimepicker({
+								format : 'DD/MM/YYYY',
+								maxDate : moment()
+							});
+							$('#datetimepickerFromRept').datetimepicker({
+								format : 'DD/MM/YYYY',
+								maxDate : moment()
+							});
+							$('#datetimepickerToRept').datetimepicker({
 								format : 'DD/MM/YYYY',
 								maxDate : moment()
 							});
@@ -595,11 +721,29 @@
 					$('#searchParametersForm').data('bootstrapValidator')
 							.revalidateField('datetimepickerTo');
 				});
+		
+		$('#datetimepickerFromRept').change(
+				function() {
+					$('#reportGenerateForm').data('bootstrapValidator')
+							.revalidateField('datetimepickerFromRept');
+				});
+
+		$('#datetimepickerToRept').change(
+				function() {
+					$('#reportGenerateForm').data('bootstrapValidator')
+							.revalidateField('datetimepickerToRept');
+				});
 
 		$('#bankCode').change(
 				function() {
 					$('#searchParametersForm').data('bootstrapValidator')
 							.revalidateField('bankCode');
+				});
+		
+		$('#bankCodeRept').change(
+				function() {
+					$('#reportGenerateForm').data('bootstrapValidator')
+							.revalidateField('bankCodeRept');
 				});
 
 		$('#searhParamBtn').click(
@@ -812,7 +956,72 @@
 			}
 		});
 		
-		
+		$('#reportGenerateForm')
+		.bootstrapValidator(
+				{
+					trigger : 'blur',
+					fields : {
+						bankCodeRept : {
+							validators : {
+								notEmpty : {
+									message : 'This field is required'
+								}
+
+							}
+						},
+						datetimepickerFromRept : {
+							validators : {
+								notEmpty : {
+									message : 'This field is required'
+								},
+								date : {
+									max : 'datetimepickerToRept',
+									format : 'DD/MM/YYYY',
+									message : 'From date should be less than To date'
+								}
+							}
+						},
+						datetimepickerToRept : {
+							validators : {
+								notEmpty : {
+									message : 'This field is required'
+								},
+								date : {
+									min : 'datetimepickerFromRept',
+									format : 'DD/MM/YYYY',
+									message : 'To Date should be greater than from date'
+								}
+							}
+						},
+					},
+				});
+
+		$('#searhReportBtn').click(
+				function() {
+					$('#reportGenerateForm').bootstrapValidator().off(
+							'success.form.bv').on('success.form.bv',
+							function(e) {
+								$('.lichfl-ajax-overlay').show();
+								var data = new FormData(reportGenerateForm);
+								console.log(data);
+								$.ajax({
+									url : 'getBookRec',
+									type : 'post',
+									cache : false,
+									data : data,
+									processData : false,
+									contentType : false,
+									success : function(data) {
+										$('.lichfl-ajax-overlay').hide();
+									},
+									error : function(e) {
+										console.log(e);
+										$('.lichfl-ajax-overlay').hide();
+									}
+								});
+							});
+					$('#reportGenerateForm').bootstrapValidator('validate');
+				});
 	</script>
 
 
