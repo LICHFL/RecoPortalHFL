@@ -1005,7 +1005,7 @@
 								var data = new FormData(reportGenerateForm);
 								console.log(data);
 								$.ajax({
-									url : 'getBookRec',
+									url : 'submitReport',
 									type : 'post',
 									cache : false,
 									data : data,
