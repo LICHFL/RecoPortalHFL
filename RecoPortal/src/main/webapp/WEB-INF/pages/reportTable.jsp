@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <table id="reportTable" class="table table-striped table-hover dataTable no-footer table-responsive mt-2" width="100%">
     <thead>
         <tr>
@@ -24,9 +25,8 @@
                 <td>${rept.hrfReportFileName}</td>
                 <td>${rept.hrfReportRunStart}</td>
                 <td>${rept.hrfReportRunMsg}</td>
-                <td><a href="${rept.hrfReportServerPath}" download>Download</a></td>
+                <td><a href="${rept.hrfReportServerPath}">Download</a></td>
             </tr>
         </c:forEach>
     </tbody>    
 </table>
-

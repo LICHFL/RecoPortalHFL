@@ -757,9 +757,9 @@
 								}
 							});
 
-							window.onbeforeunload = function(evnt) {
+							/*window.onbeforeunload = function(evnt) {
 								logout();
-							};
+							};*/
 
 							$('#datetimepickerFrom').datetimepicker({
 								format : 'DD/MM/YYYY',
@@ -1274,11 +1274,12 @@
 			$('.lichfl-ajax-overlay').show();
 			$.ajax({
 				url : 'getReportFiles',
-				type : 'post',
+				type : 'get',
 				cache : false,
 				processData : false,
 				contentType : false,
 				success : function(data) {
+					console.log(data);
 					$('.lichfl-ajax-overlay').hide();
 					$('.reportTable').html(data);
 				},
