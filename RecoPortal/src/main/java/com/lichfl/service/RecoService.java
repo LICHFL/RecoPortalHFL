@@ -2,14 +2,13 @@ package com.lichfl.service;
 
 import java.util.List;
 
-import com.lichfl.entity.ReportResponse;
 import com.lichfl.model.BookDto;
 import com.lichfl.model.RecoFilter;
 import com.lichfl.model.ReportParam;
+import com.lichfl.model.ReportResponseDto;
 import com.lichfl.model.SubmitMatches;
 
 public interface RecoService {
-
 
 	String getPayModes(String recoCode) throws Exception;
 
@@ -21,6 +20,6 @@ public interface RecoService {
 
 //	List<ReportResponse> getReportRecords(int reportId) throws Exception;
 
-	List<ReportResponse> getReportFiles(String bankCode) throws Exception;
+	List<ReportResponseDto> getReportFiles(String bankCode) throws Exception;
 
 }

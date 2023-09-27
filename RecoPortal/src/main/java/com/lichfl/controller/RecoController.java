@@ -1,7 +1,6 @@
 package com.lichfl.controller;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -23,7 +22,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.lichfl.entity.BrsUserDetails;
-import com.lichfl.entity.ReportResponse;
 import com.lichfl.exception.RespMessage;
 import com.lichfl.model.BookDto;
 import com.lichfl.model.RecoFilter;
@@ -192,7 +190,7 @@ public class RecoController {
 	public String getReportFiles(Map<String, Object> model, String bankCode) throws Exception {
 
 		bankCode = "LUHDFCCMS1";
-		List<ReportResponse> reportList = recoService.getReportFiles(bankCode);
+		List<com.lichfl.model.ReportResponseDto> reportList = recoService.getReportFiles(bankCode);
 
 		reportList.forEach(System.out::println);
 
