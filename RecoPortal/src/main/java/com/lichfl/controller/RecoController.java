@@ -174,16 +174,17 @@ public class RecoController {
 	}
 
 	@PostMapping("/submitReport")
-	public Map<String, Object> submitReport(ReportParam reportParam, Map<String, Object> model) throws Exception {
+	@ResponseBody
+	public int submitReport(ReportParam reportParam, Map<String, Object> model) throws Exception {
 		log.info("reportParam" + reportParam);
 
 		int reportId = recoService.submitReport(reportParam);
 		log.info("reportId ::" + reportId);
 
-		model.put("reportId", reportId);
-		log.info("reportId ::" + reportId);
-		return model;
-	//	return "reportTable";
+		//model.put("reportId", reportId);
+		//log.info("reportId ::" + reportId);
+		return reportId;
+		// return "reportTable";
 
 	}
 
@@ -193,7 +194,6 @@ public class RecoController {
 
 		// Fetch the bankcode ex : LU using the user login authentication
 		Optional<BrsUserDetails> userDetails2 = brsUserService.getUserDetails(userDetails.getUsername());
-		// bankCode = "LUHDFCCMS1";
 
 		log.info("userDetails2.get().getBankcode() ::" + userDetails2.get().getBankcode());
 
@@ -206,7 +206,6 @@ public class RecoController {
 
 		model.put("reportList", reportList);
 		return "reportTable";
-		// return model;
 	}
 
 }
