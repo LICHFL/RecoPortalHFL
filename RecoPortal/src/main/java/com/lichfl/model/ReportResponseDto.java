@@ -18,5 +18,6 @@ public class ReportResponseDto {
 	private String hrfReportRunStart;
 	private String hrfReportRunMsg;
 	private String hrfReportServerPath;
+	private String status;
 
 }
