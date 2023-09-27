@@ -144,7 +144,7 @@ public class RecoServiceImpl implements RecoService {
 		// sort the list and remove the timestamp
 		List<ReportResponseDto> sortedAndModifiedList = reportResponseDtoList.stream()
 				.filter(report -> report.getHrfReportServerPath() != null)
-				.sorted(Comparator.comparingInt(ReportResponseDto::getHrfRepId)).map(report -> {
+				.map(report -> {
 					// Create a new ReportResponse with modified hrfSDt
 					ReportResponseDto repResp = new ReportResponseDto();
 					repResp.setHrfRepId(report.getHrfRepId());
@@ -161,7 +161,9 @@ public class RecoServiceImpl implements RecoService {
 
 					repResp.setHrfReportServerPath(report.getHrfReportServerPath());
 					return repResp;
-				}).collect(Collectors.toList());
+				})
+				.sorted(Comparator.comparingInt(ReportResponseDto::getHrfRepId).reversed())
+				.collect(Collectors.toList());
 		return sortedAndModifiedList;
 	}
 
