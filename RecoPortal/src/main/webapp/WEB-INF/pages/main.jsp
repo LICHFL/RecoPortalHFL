@@ -127,9 +127,12 @@
 										<a class="nav-item nav-link" id="nav-contact-tab"
 											data-toggle="tab" href="#nav-contact" role="tab"
 											aria-controls="nav-contact" aria-selected="false">Matching</a>
+											<a class="nav-item nav-link" id="nav-unmatch-tab"
+											data-toggle="tab" href="#nav-unmatch" role="tab"
+											aria-controls="nav-unmatch" aria-selected="false">Un Matching</a>
 											<a class="nav-item nav-link" id="nav-report-tab"
 											data-toggle="tab" href="#nav-report" role="tab"
-											aria-controls="nav-contact" aria-selected="false">Report</a>
+											aria-controls="nav-report" aria-selected="false">Report</a>
 									</div>
 								</nav>
 								<div class="tab-content" id="nav-tabContent">
@@ -452,7 +455,141 @@
 											</div>
 										</section>
 
-									</div>
+									</div>									
+									<div class="tab-pane fade" id="nav-unmatch" role="tabpanel" aria-labelledby="nav-unmatch-tab">
+										<form id="searchParametersUnmatchForm" method="post" action="main">
+    <section class="custom-section">
+        <label class="section-label">BRS Type</label>
+        <div class="row" style="margin-top: -30px">
+            <div class="col">
+                <div class="form-group">
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="unmatchingType1" name="unmatchingType" value="O" required data-param1="O" data-param2="B">
+                        <label class="form-check-label" for="unmatchingType1">Book V/S Bank</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="unmatchingType2" name="unmatchingType" value="B" data-param1="B" data-param2="O">
+                        <label class="form-check-label" for="unmatchingType2">
+                            Bank V/S Book</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="unmatchingType3" name="unmatchingType" value="B" data-param1="B" data-param2="B">
+                        <label class="form-check-label" for="unmatchingType3">
+                            Bank V/S Bank</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="unmatchingType4" name="unmatchingType" value="O" data-param1="O" data-param2="O">
+                        <label class="form-check-label" for="unmatchingType4">
+                            Book V/S Book</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="custom-section">
+        <label class="section-label">Search <span class="brsParamUnmatch"></span> Parameters
+        </label>
+        <div class="row mb-2" style="margin-top: -30px">
+            <div class="col-sm-12">
+                <div class="row mb-2">
+                    <div class="col">
+                        <label>Bank Code</label>
+                        <div class="form-group">
+                            <select id="bankCodeUnmatch" name="bankCodeUnmatch" class="form-control" required>
+                                <option value=" ">--Select--</option>
+                                <c:forEach var="item" items="${partnerBankList}">
+                                    <option value="${item}">${item}</option>
+                                </c:forEach>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label>From Date</label>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-sm date" name="datetimepickerFromUnmatch" id="datetimepickerFromUnmatch" placeholder="From Date" aria-label="From Date" aria-describedby="datepicker-addon" autocomplete="off">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="datepicker-addon">
+																					<i class="fa fa-calendar"></i>
+																				</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label>To Date</label>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-sm date" name="datetimepickerToUnmatch" id="datetimepickerToUnmatch" placeholder="To Date" aria-label="To Date" aria-describedby="datepicker-addon" autocomplete="off">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="datepicker-addon">
+																					<i class="fa fa-calendar"></i>
+																				</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label>Tran Type</label>
+                        <div>
+                            <div class="form-group">
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input" id="tranTypeUnmatchD" name="tranUnmatchType" value="D" required>
+                                    <label class="form-check-label" for="tranTypeD">DR</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input" id="tranTypeUnmatchC" name="tranUnmatchType" value="C">
+                                    <label class="form-check-label" for="tranTypeC">CR</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                  
+                    <div class="col">
+                        <label>Payment Mode</label>
+                        <div class="form-group">
+                            <select class="form-control" name="pModeUnmatch" id="pModeUnmatch">
+                                <option value="">--Select--</option>
+
+                                <c:forEach var="item" items="${payModeList}">
+                                    <option value="${item}">${item}</option>
+                                </c:forEach>
+
+                            </select>
+                        </div>
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-primary btn-sm mr-1" id="searhParamUnmatchBtn">
+                                <i class="fa fa-search"></i> Search
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm mr-1" id="resetSearchParamUnmatchBtn">
+                                <i class="fa fa-refresh"></i> Refresh
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+
+<section class="custom-section">
+    <label class="section-label">Search <span class="brsParamUnmatch"></span> Results
+    </label>
+    <div class="row" style="margin-top: -30px">
+		<div class="col-lg-12">
+			<button class="btn btn-sm btn-primary" id="submitUnMatching"><i class="fa fa-upload"></i> Submit UnMatching</button>
+												</div>
+											</div>
+    <div class="paramTable3">
+        <%@ include file="unmatchingTable.jsp" %>
+    </div>
+</section>
+										
+									</div>									
 									<div class="tab-pane fade" id="nav-report" role="tabpanel" aria-labelledby="nav-report-tab">
 										<form id="reportGenerateForm">										
 												<section class="custom-section">
@@ -562,7 +699,7 @@
 												<section class="custom-section">
 													<label class="section-label">Report Result
 													</label>
-													<div class="reportTable">
+													<div class="reportTable" style="margin-top: -30px;">
 														<%@ include file="reportTable.jsp"%>
 													</div>
 												</section>
@@ -640,6 +777,14 @@
 								format : 'DD/MM/YYYY',
 								maxDate : moment()
 							});
+							$('#datetimepickerFromUnmatch').datetimepicker({
+								format : 'DD/MM/YYYY',
+								maxDate : moment()
+							});
+							$('#datetimepickerToUnmatch').datetimepicker({
+								format : 'DD/MM/YYYY',
+								maxDate : moment()
+							});
 							//$('#bankCode').select2();
 
 							$('input[type="radio"][name="matchingType"]')
@@ -668,6 +813,21 @@
 																'Book');
 												}
 											});
+							
+							$('input[type="radio"][name="unmatchingType"]')
+							.change(
+									function() {
+										var param1 = $(
+												'input[type="radio"][name="unmatchingType"]:checked')
+												.attr('data-param1'), param2 = $(
+												'input[type="radio"][name="unmatchingType"]:checked')
+												.attr('data-param2')
+										if (param1 == 'O') {
+											$('.brsParamUnmatch').html('Book');													
+										} else {
+											$('.brsParamUnmatch').html('Bank');													
+										}
+									});
 
 							$('#searchParametersForm')
 									.bootstrapValidator(
@@ -709,6 +869,47 @@
 												},
 											});
 						});
+		
+		$('#searchParametersUnmatchForm')
+		.bootstrapValidator(
+				{
+					trigger : 'blur',
+					fields : {
+						bankCodeUnmatch : {
+							validators : {
+								notEmpty : {
+									message : 'This field is required'
+								}
+
+							}
+						},
+						datetimepickerFromUnmatch : {
+							validators : {
+								notEmpty : {
+									message : 'This field is required'
+								},
+								date : {
+									max : 'datetimepickerToUnmatch',
+									format : 'DD/MM/YYYY',
+									message : 'From date should be less than To date'
+								}
+							}
+						},
+						datetimepickerToUnmatch : {
+							validators : {
+								notEmpty : {
+									message : 'This field is required'
+								},
+								date : {
+									min : 'datetimepickerFromUnmatch',
+									format : 'DD/MM/YYYY',
+									message : 'To Date should be greater than from date'
+								}
+							}
+						},
+					},
+				});
+
 
 		$('#datetimepickerFrom').change(
 				function() {
@@ -733,6 +934,18 @@
 					$('#reportGenerateForm').data('bootstrapValidator')
 							.revalidateField('datetimepickerToRept');
 				});
+		
+		$('#datetimepickerFromUnmatch').change(
+				function() {
+					$('#searchParametersUnmatchForm').data('bootstrapValidator')
+							.revalidateField('datetimepickerFromUnmatch');
+				});
+
+		$('#datetimepickerToUnmatch').change(
+				function() {
+					$('#searchParametersUnmatchForm').data('bootstrapValidator')
+							.revalidateField('datetimepickerToUnmatch');
+				});
 
 		$('#bankCode').change(
 				function() {
@@ -744,6 +957,12 @@
 				function() {
 					$('#reportGenerateForm').data('bootstrapValidator')
 							.revalidateField('bankCodeRept');
+				});
+		
+		$('#bankCodeUnmatch').change(
+				function() {
+					$('#searchParametersUnmatchForm').data('bootstrapValidator')
+							.revalidateField('bankCodeUnmatch');
 				});
 
 		$('#searhParamBtn').click(
@@ -774,6 +993,34 @@
 								});
 							});
 					$('#searchParametersForm').bootstrapValidator('validate');
+				});
+		
+		$('#searhParamUnmatchBtn').click(
+				function() {
+					$('#searchParametersUnmatchForm').bootstrapValidator().off(
+							'success.form.bv').on('success.form.bv',
+							function(e) {
+								$('.lichfl-ajax-overlay').show();
+								var data = new FormData(searchParametersUnmatchForm);
+								console.log(data);
+								$.ajax({
+									url : 'getBookRec',
+									type : 'post',
+									cache : false,
+									data : data,
+									processData : false,
+									contentType : false,
+									success : function(data) {
+										console.log("success");
+										$('.lichfl-ajax-overlay').hide();
+									},
+									error : function(e) {
+										console.log(e);
+										$('.lichfl-ajax-overlay').hide();
+									}
+								});
+							});
+					$('#searchParametersUnmatchForm').bootstrapValidator('validate');
 				});
 
 		$('#nav-profile-tab').click(				
@@ -897,7 +1144,7 @@
 			else{
 			bootbox.confirm({
 				title: "<i class='fa fa-info-circle'></i> Submit Manual Matching",
-				message: "Do you want to Submit manual matching. Please verify before submittig the data.",
+				message: "Do you want to Submit manual matching. Please verify before submitting the data.",
 				buttons: { cancel: { className: "btn-sm btn-default", label: '<i class="fa fa-times"></i> Cancel' }, confirm: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Confirm' } },
 				callback: function(result) {
 					console.log(result);
@@ -1021,7 +1268,39 @@
 								});
 							});
 					$('#reportGenerateForm').bootstrapValidator('validate');
-				});
+		});
+		
+		$('#nav-report-tab').click(function(){
+			$('.lichfl-ajax-overlay').show();
+			$.ajax({
+				url : 'getReportFiles',
+				type : 'post',
+				cache : false,
+				processData : false,
+				contentType : false,
+				success : function(data) {
+					$('.lichfl-ajax-overlay').hide();
+					$('.reportTable').html(data);
+				},
+				error : function(e) {
+					console.log(e);
+					$('.lichfl-ajax-overlay').hide();
+				}
+			});
+		});
+		
+		$('#submitUnMatching').click(function(){
+			bootbox.confirm({
+				title: "<i class='fa fa-info-circle'></i> Submit Manual Un-Matching",
+				message: "Do you want to Submit selected records for un-matching. Please verify before submitting the data.",
+				buttons: { cancel: { className: "btn-sm btn-default", label: '<i class="fa fa-times"></i> Cancel' }, confirm: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Confirm' } },
+				callback: function(result) {
+					if(result){
+						console.log('success')	
+					}
+				}
+			});
+		});
 	</script>
 
 
