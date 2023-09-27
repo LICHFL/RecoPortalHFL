@@ -129,10 +129,10 @@
 											aria-controls="nav-contact" aria-selected="false">Matching</a>
 											<a class="nav-item nav-link" id="nav-unmatch-tab"
 											data-toggle="tab" href="#nav-unmatch" role="tab"
-											aria-controls="nav-contact" aria-selected="false">Un Matching</a>
+											aria-controls="nav-unmatch" aria-selected="false">Un Matching</a>
 											<a class="nav-item nav-link" id="nav-report-tab"
 											data-toggle="tab" href="#nav-report" role="tab"
-											aria-controls="nav-contact" aria-selected="false">Report</a>
+											aria-controls="nav-report" aria-selected="false">Report</a>
 									</div>
 								</nav>
 								<div class="tab-content" id="nav-tabContent">
@@ -699,7 +699,7 @@
 												<section class="custom-section">
 													<label class="section-label">Report Result
 													</label>
-													<div class="reportTable">
+													<div class="reportTable" style="margin-top: -30px;">
 														<%@ include file="reportTable.jsp"%>
 													</div>
 												</section>
@@ -1268,7 +1268,26 @@
 								});
 							});
 					$('#reportGenerateForm').bootstrapValidator('validate');
-				});
+		});
+		
+		$('#nav-report-tab').click(function(){
+			$('.lichfl-ajax-overlay').show();
+			$.ajax({
+				url : 'getReportFiles',
+				type : 'post',
+				cache : false,
+				processData : false,
+				contentType : false,
+				success : function(data) {
+					$('.lichfl-ajax-overlay').hide();
+					$('.reportTable').html(data);
+				},
+				error : function(e) {
+					console.log(e);
+					$('.lichfl-ajax-overlay').hide();
+				}
+			});
+		});
 		
 		$('#submitUnMatching').click(function(){
 			bootbox.confirm({
