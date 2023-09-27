@@ -180,11 +180,7 @@ public class RecoController {
 
 		int reportId = recoService.submitReport(reportParam);
 		log.info("reportId ::" + reportId);
-
-		//model.put("reportId", reportId);
-		//log.info("reportId ::" + reportId);
 		return reportId;
-		// return "reportTable";
 
 	}
 
@@ -200,7 +196,7 @@ public class RecoController {
 		List<com.lichfl.model.ReportResponseDto> reportList = recoService
 				.getReportFiles(userDetails2.get().getUsrBranchCode());
 
-		reportList.forEach(System.out::println);
+		// reportList.forEach(System.out::println);
 
 		log.info("repResponse ::" + reportList);
 
