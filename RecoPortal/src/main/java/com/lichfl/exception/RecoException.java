@@ -16,20 +16,9 @@ public class RecoException {
 		RespMessage respMessage = RespMessage.builder().message(ex.getMessage()).errorStatus(true)
 				.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
-		/*
-		 * Map<String, String> error = new HashMap<>(); error.put("message",
-		 * ex.getMessage()); ; error.put("error", "Y");
-		 */
-
 		return new ResponseEntity<>(respMessage, HttpStatus.INTERNAL_SERVER_ERROR);
 
 	}
 
-	/*
-	 * @ExceptionHandler(OracleCustomException.class) public Map<String, String>
-	 * handleOracleCustomException(OracleCustomException ex) {
-	 * 
-	 * Map<String, String> error = new HashMap<>(); error.put("message",
-	 * ex.getMessage()); error.put("error", "Y"); return error; }
-	 */
+
 }

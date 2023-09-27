@@ -12,7 +12,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,6 +25,7 @@ import com.lichfl.entity.BrsUserDetails;
 import com.lichfl.exception.RespMessage;
 import com.lichfl.model.BookDto;
 import com.lichfl.model.RecoFilter;
+import com.lichfl.model.ReportParam;
 import com.lichfl.model.SubmitMatches;
 import com.lichfl.security.RecoUserDetails;
 import com.lichfl.service.BrsUserService;
@@ -160,7 +160,6 @@ public class RecoController {
 		List<SubmitMatches> submitMatchesList = Arrays.asList(objectMapper.readValue(jsonReq, SubmitMatches[].class));
 
 		String username = userDetails.getUsername();
-		double amount = 1000;
 
 		String result = recoService.submitMatchingKeys(submitMatchesList, username);
 
@@ -172,6 +171,33 @@ public class RecoController {
 
 		// return "redirect:/main";
 
+	}
+
+	@PostMapping("/submitReport")
+	public String submitReport(ReportParam reportParam, Map<String, Object> model) throws Exception {
+		log.info("reportParam" + reportParam);
+
+		int reportId = recoService.submitReport(reportParam);
+		log.info("reportId ::" + reportId);
+
+		model.put("reportId", reportId);
+		log.info("reportId ::" + reportId);
+		return "reportTable";
+
+	}
+
+	@PostMapping("/getReportFiles")
+	public String getReportFiles(Map<String, Object> model, String bankCode) throws Exception {
+
+		bankCode = "LUHDFCCMS1";
+		List<com.lichfl.model.ReportResponseDto> reportList = recoService.getReportFiles(bankCode);
+
+		reportList.forEach(System.out::println);
+
+		log.info("repResponse ::" + reportList);
+
+		model.put("repList", reportList);
+		return "reportTable";
 	}
 
 }

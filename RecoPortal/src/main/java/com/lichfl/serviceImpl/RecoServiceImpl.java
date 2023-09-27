@@ -1,18 +1,26 @@
 package com.lichfl.serviceImpl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
+import com.lichfl.dao.IRecoCustomRepo;
 import com.lichfl.dao.RecoConfigRepo;
-import com.lichfl.dao.RecoMatchRecordsRepo;
 import com.lichfl.dao.RecoMatchRepo;
+import com.lichfl.dao.RecoReportDao;
 import com.lichfl.entity.RecoConfig;
+import com.lichfl.entity.ReportResponse;
 import com.lichfl.model.BookDto;
 import com.lichfl.model.RecoFilter;
+import com.lichfl.model.ReportParam;
+import com.lichfl.model.ReportResponseDto;
 import com.lichfl.model.SubmitMatches;
 import com.lichfl.service.RecoService;
 import com.lichfl.util.ApplicationConstant;
@@ -32,7 +40,10 @@ public class RecoServiceImpl implements RecoService {
 	RecoMatchRepo recoMatchRepo;
 
 	@Autowired
-	RecoMatchRecordsRepo recoMatchRecordsRepo;
+	IRecoCustomRepo recoCustomRepo;
+
+	@Autowired
+	RecoReportDao recoReportDao;
 
 	/*
 	 * @Value("${reco.matchType}") String matchType;
@@ -45,20 +56,9 @@ public class RecoServiceImpl implements RecoService {
 	public List<BookDto> fetchBookResults(RecoFilter recoFilter) throws Exception {
 		List<BookDto> resList = null;
 		/********* add quotes to paymodes after fetching all paymodes *******/
-		/*
-		 * if (recoFilter.getPMode().isEmpty())
-		 * 
-		 * { // // recoFilter.setPMode(extractMessage.addQuoteToStringValue(getPayModes(
-		 * ApplicationConstant.PAYMODE)));
-		 * 
-		 * String paymodes = getPayModes(ApplicationConstant.PAYMODE);
-		 * recoFilter.setPMode(Arrays.stream(paymodes.split(",")).collect(Collectors.
-		 * toList()));
-		 * 
-		 * }
-		 */
+
 		try {
-			resList = recoMatchRecordsRepo.fetchBookResults(recoFilter);
+			resList = recoCustomRepo.fetchBookResults(recoFilter);
 			return resList;
 		} catch (Exception e) {
 			throw new Exception("No Results found for the provided inputs");
@@ -110,6 +110,54 @@ public class RecoServiceImpl implements RecoService {
 
 		});
 		return "success";
+	}
+
+	@Override
+	public int submitReport(ReportParam reportParam) throws Exception {
+
+		int reportId = recoCustomRepo.submitReport(reportParam);
+
+		return reportId;
+	}
+
+	@Override
+	public List<ReportResponseDto> getReportFiles(String bankCode) throws Exception {
+
+		List<ReportResponse> respList = recoReportDao.findByHrfBankCode(bankCode);
+		if (respList.size() < 1) {
+			throw new Exception("Record is not present");
+		}
+
+		// copy the list from entity to DTO
+		List<ReportResponseDto> reportResponseDtoList = respList.stream().map(reportResponse -> {
+			ReportResponseDto dto = new ReportResponseDto();
+
+			BeanUtils.copyProperties(reportResponse, dto);
+			return dto;
+
+		}).collect(Collectors.toList());
+
+		BeanUtils.copyProperties(bankCode, respList);
+
+		
+		// sort the list and remove the timestamp 
+		List<ReportResponseDto> sortedAndModifiedList = reportResponseDtoList.stream()
+				.filter(report -> report.getHrfReportServerPath() != null)
+				.sorted(Comparator.comparingInt(ReportResponseDto::getHrfRepId)).map(report -> {
+					// Create a new ReportResponse with modified hrfSDt
+					ReportResponseDto repResp = new ReportResponseDto();
+					repResp.setHrfRepId(report.getHrfRepId());
+					repResp.setHrfChildRepId(report.getHrfChildRepId());
+					repResp.setHrfBankCode(report.getHrfBankCode());
+					repResp.setHrfSDt(report.getHrfSDt().substring(0, 10)); // Apply substring here
+					repResp.setHrfEDt(report.getHrfEDt().substring(0, 10));// Apply substring here
+					repResp.setHrfReportFileName(report.getHrfReportFileName());
+					repResp.setHrfReportRunStart(report.getHrfReportRunStart().substring(0, 10));// Apply substring here
+					repResp.setHrfReportRunMsg(report.getHrfReportRunMsg());
+					repResp.setHrfReportServerPath(report.getHrfReportServerPath());
+					return repResp;
+				}).collect(Collectors.toList());
+		return sortedAndModifiedList;
 	}
 
 }
