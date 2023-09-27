@@ -10,6 +10,6 @@ import com.lichfl.entity.ReportResponse;
 
 public interface RecoReportDao extends JpaRepository<ReportResponse, Integer> {
 
-	List<ReportResponse> findByHrfBankCode(String bankCode);
+	List<ReportResponse> findByHrfBankCodeStartsWith(String bankCode);
 
 }

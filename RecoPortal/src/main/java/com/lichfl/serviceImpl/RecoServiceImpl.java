@@ -123,7 +123,7 @@ public class RecoServiceImpl implements RecoService {
 	@Override
 	public List<ReportResponseDto> getReportFiles(String bankCode) throws Exception {
 
-		List<ReportResponse> respList = recoReportDao.findByHrfBankCode(bankCode);
+		List<ReportResponse> respList = recoReportDao.findByHrfBankCodeStartsWith(bankCode);
 		if (respList.size() < 1) {
 			throw new Exception("Record is not present");
 		}
@@ -139,8 +139,7 @@ public class RecoServiceImpl implements RecoService {
 
 		BeanUtils.copyProperties(bankCode, respList);
 
-		
-		// sort the list and remove the timestamp 
+		// sort the list and remove the timestamp
 		List<ReportResponseDto> sortedAndModifiedList = reportResponseDtoList.stream()
 				.filter(report -> report.getHrfReportServerPath() != null)
 				.sorted(Comparator.comparingInt(ReportResponseDto::getHrfRepId)).map(report -> {
