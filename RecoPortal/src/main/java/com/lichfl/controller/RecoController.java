@@ -162,7 +162,6 @@ public class RecoController {
 		List<SubmitMatches> submitMatchesList = Arrays.asList(objectMapper.readValue(jsonReq, SubmitMatches[].class));
 
 		String username = userDetails.getUsername();
-		double amount = 1000;
 
 		String result = recoService.submitMatchingKeys(submitMatchesList, username);
 
@@ -183,14 +182,6 @@ public class RecoController {
 		int reportId = recoService.submitReport(reportParam);
 		log.info("reportId ::" + reportId);
 
-		/*
-		 * if (reportId > 0) {
-		 * 
-		 * List<ReportResponse> repList = recoService.getReportRecords(reportId);
-		 * log.info("repResponse ::" + repList);
-		 * 
-		 * model.put("repList", repList); }
-		 */
 		model.put("reportId", reportId);
 		log.info("reportId ::" + reportId);
 		return "reportTable";
@@ -200,13 +191,10 @@ public class RecoController {
 	@PostMapping("/getReportFiles")
 	public String getReportFiles(Map<String, Object> model, String bankCode) throws Exception {
 
-		// bankCode ="HYHDFCCMS1";
+		bankCode = "LUHDFCCMS1";
 		List<ReportResponse> reportList = recoService.getReportFiles(bankCode);
 
-		List<ReportResponse> sortedReportList = reportList.stream()
-				.sorted(Comparator.comparing(ReportResponse::getHrfRepId).reversed()).collect(Collectors.toList());
-
-		//sortedReportList.forEach(System.out::println);
+		reportList.forEach(System.out::println);
 
 		log.info("repResponse ::" + reportList);
 

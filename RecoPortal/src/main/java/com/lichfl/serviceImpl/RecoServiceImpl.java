@@ -1,7 +1,9 @@
 package com.lichfl.serviceImpl;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
@@ -115,22 +117,6 @@ public class RecoServiceImpl implements RecoService {
 		return reportId;
 	}
 
-	/*
-	 * @Override public List<ReportResponse> getReportRecords(int reportId) throws
-	 * Exception {
-	 * 
-	 * String str = String.valueOf(reportId); log.info("hrfChildRepId ::" + str);
-	 * 
-	 * //Thread.sleep(2000);
-	 * 
-	 * List<ReportResponse> respList =
-	 * recoReportDao.findByHrfChildRepIdStartsWith(str);
-	 * log.info("respList.size() ::" + respList.size()); if (respList.size() < 1) {
-	 * throw new Exception("Record is not present"); } return respList;
-	 * 
-	 * }
-	 */
-
 	@Override
 	public List<ReportResponse> getReportFiles(String bankCode) throws Exception {
 
@@ -138,7 +124,24 @@ public class RecoServiceImpl implements RecoService {
 		if (respList.size() < 1) {
 			throw new Exception("Record is not present");
 		}
-		return respList;
+
+		List<ReportResponse> sortedAndModifiedList = respList.stream()
+				.filter(report -> report.getHrfReportServerPath() != null)
+				.sorted(Comparator.comparingInt(ReportResponse::getHrfRepId)).map(report -> {
+					// Create a new ReportResponse with modified hrfSDt
+					ReportResponse repResp = new ReportResponse();
+					repResp.setHrfRepId(report.getHrfRepId());
+					repResp.setHrfChildRepId(report.getHrfChildRepId());
+					repResp.setHrfBankCode(report.getHrfBankCode());
+					repResp.setHrfSDt(report.getHrfSDt().substring(0, 10)); // Apply substring here
+					repResp.setHrfEDt(report.getHrfEDt().substring(0, 10));// Apply substring here
+					repResp.setHrfReportFileName(report.getHrfReportFileName());
+					repResp.setHrfReportRunStart(report.getHrfReportRunStart().substring(0, 10));// Apply substring here
+					repResp.setHrfReportRunMsg(report.getHrfReportRunMsg());
+					repResp.setHrfReportServerPath(report.getHrfReportServerPath());
+					return repResp;
+				}).collect(Collectors.toList());
+		return sortedAndModifiedList;
 	}
 
 }
