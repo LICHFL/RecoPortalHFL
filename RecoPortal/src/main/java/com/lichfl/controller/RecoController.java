@@ -174,7 +174,7 @@ public class RecoController {
 	}
 
 	@PostMapping("/submitReport")
-	public String submitReport(ReportParam reportParam, Map<String, Object> model) throws Exception {
+	public Map<String, Object> submitReport(ReportParam reportParam, Map<String, Object> model) throws Exception {
 		log.info("reportParam" + reportParam);
 
 		int reportId = recoService.submitReport(reportParam);
@@ -182,7 +182,8 @@ public class RecoController {
 
 		model.put("reportId", reportId);
 		log.info("reportId ::" + reportId);
-		return "reportTable";
+		return model;
+	//	return "reportTable";
 
 	}
 
