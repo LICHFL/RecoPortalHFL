@@ -186,12 +186,12 @@ public class RecoController {
 
 	}
 
-	@PostMapping("/getReportFiles")
+	@GetMapping("/getReportFiles")
 	public String getReportFiles(Map<String, Object> model, @AuthenticationPrincipal RecoUserDetails userDetails)
 			throws Exception {
 
+		// Fetch the bankcode ex : LU using the user login authentication
 		Optional<BrsUserDetails> userDetails2 = brsUserService.getUserDetails(userDetails.getUsername());
-		// userDetails2.get().getBankcode();
 		// bankCode = "LUHDFCCMS1";
 
 		log.info("userDetails2.get().getBankcode() ::" + userDetails2.get().getBankcode());
@@ -203,8 +203,9 @@ public class RecoController {
 
 		log.info("repResponse ::" + reportList);
 
-		model.put("repList", reportList);
+		model.put("reportList", reportList);
 		return "reportTable";
+		// return model;
 	}
 
 }

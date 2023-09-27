@@ -1274,7 +1274,7 @@
 			$('.lichfl-ajax-overlay').show();
 			$.ajax({
 				url : 'getReportFiles',
-				type : 'post',
+				type : 'get',
 				cache : false,
 				processData : false,
 				contentType : false,
