@@ -1,10 +1,12 @@
 package com.lichfl.serviceImpl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ import com.lichfl.entity.ReportResponse;
 import com.lichfl.model.BookDto;
 import com.lichfl.model.RecoFilter;
 import com.lichfl.model.ReportParam;
+import com.lichfl.model.ReportResponseDto;
 import com.lichfl.model.SubmitMatches;
 import com.lichfl.service.RecoService;
 import com.lichfl.util.ApplicationConstant;
@@ -118,18 +121,31 @@ public class RecoServiceImpl implements RecoService {
 	}
 
 	@Override
-	public List<ReportResponse> getReportFiles(String bankCode) throws Exception {
+	public List<ReportResponseDto> getReportFiles(String bankCode) throws Exception {
 
 		List<ReportResponse> respList = recoReportDao.findByHrfBankCode(bankCode);
 		if (respList.size() < 1) {
 			throw new Exception("Record is not present");
 		}
 
-		List<ReportResponse> sortedAndModifiedList = respList.stream()
+		// copy the list from entity to DTO
+		List<ReportResponseDto> reportResponseDtoList = respList.stream().map(reportResponse -> {
+			ReportResponseDto dto = new ReportResponseDto();
+
+			BeanUtils.copyProperties(reportResponse, dto);
+			return dto;
+
+		}).collect(Collectors.toList());
+
+		BeanUtils.copyProperties(bankCode, respList);
+
+		
+		// sort the list and remove the timestamp 
+		List<ReportResponseDto> sortedAndModifiedList = reportResponseDtoList.stream()
 				.filter(report -> report.getHrfReportServerPath() != null)
-				.sorted(Comparator.comparingInt(ReportResponse::getHrfRepId)).map(report -> {
+				.sorted(Comparator.comparingInt(ReportResponseDto::getHrfRepId)).map(report -> {
 					// Create a new ReportResponse with modified hrfSDt
-					ReportResponse repResp = new ReportResponse();
+					ReportResponseDto repResp = new ReportResponseDto();
 					repResp.setHrfRepId(report.getHrfRepId());
 					repResp.setHrfChildRepId(report.getHrfChildRepId());
 					repResp.setHrfBankCode(report.getHrfBankCode());
