@@ -181,28 +181,36 @@ table.table th{
 }
 .modal-header h6{
 	font-family: "OpenSans-SemiBold";
-    color: #ffffff;
+    color: #000000;
+    font-size: 14px;
 }
 .modal-header{
 	font-family: "OpenSans-SemiBold";
 	font-size:15px;
+	background: #e6e6e6;
 }
-.modal-body input,.modal-body select{
-	font-family: "OpenSans-Regular";
-	font-size:13px;
-	height: 33px !important;
-    
+.modal-title{
+	line-height: 2;
+}
+.modal-header .close {
+    padding: 10px;
+    margin: -10px 0px;
+}
+.modal-body input, .modal-body select {
+    font-family: "OpenSans-Regular";
+    font-size: 11px;
+    height: 25px !important;
 }
 .modal-body textarea{
 	font-family: "OpenSans-Regular";
-	font-size:13px;
+	font-size:12px;
 }
 .modal-body label{
 	font-family: "OpenSans-SemiBold";
-	font-size:13px;
+	font-size:12px;
 }
 .modal-dialog .modal-content .modal-header{
-	padding:.5rem 1rem;
+	padding: 5px;
 }
 .modal-dialog .modal-content .modal-footer{
 	padding:.5rem 1rem;
@@ -591,9 +599,12 @@ table.table tfoot th{
 .form-check-inline{
 	vertical-align: middle;
 }
-#matchingTable_wrapper{
+#matchingTable_wrapper,#unmatchingTable_wrapper,#unmatchingTableView_wrapper{
 	margin-top:-30px;
 	position: relative;
+}
+#unmatchingTableView_wrapper{
+	margin-top:0;
 }
 #freezeTable_wrapper{
 	margin-top:0;
@@ -609,7 +620,7 @@ table.table tfoot th{
     bottom: 4px;
     right: 0;
 }
-#matchingTable_paginate,#freezeTable_paginate{
+#matchingTable_paginate,#unmatchingTable_paginate,#freezeTable_paginate,#unmatchingTableView_paginate{
 	position: absolute;
     bottom: -3px;
     left: 44%;
@@ -690,4 +701,16 @@ table.dataTable>tbody>tr>td.select-checkbox, table.dataTable>tbody>tr>th.select-
 	padding: 5px;
     font-size: 13px;
     border-bottom: 1px solid #e6e6e6;
+}
+.modal-lg{
+	max-width: 90%;
+}
+#unmatchingTable_wrapper{
+	margin-top: 5px;
+}
+.bootbox-body{
+	font-size:14px;
+}
+.modal-title{
+	font-size:15px;
 }
