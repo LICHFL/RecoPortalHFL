@@ -139,6 +139,8 @@ public class RecoServiceImpl implements RecoService {
 
 		BeanUtils.copyProperties(bankCode, respList);
 
+		// String filePath = "\\10.0.1.199"+"\\"+bankCode+"\\"+bankCode+"\\"+"BRS"+"\\";
+
 		// sort the list and remove the timestamp
 		List<ReportResponseDto> sortedAndModifiedList = reportResponseDtoList.stream()
 				.filter(report -> report.getHrfReportServerPath() != null)
@@ -153,6 +155,8 @@ public class RecoServiceImpl implements RecoService {
 					repResp.setHrfReportFileName(report.getHrfReportFileName());
 					repResp.setHrfReportRunStart(report.getHrfReportRunStart().substring(0, 10));// Apply substring here
 					repResp.setHrfReportRunMsg(report.getHrfReportRunMsg());
+					// repResp.setHrfReportServerPath(filePath+report.getHrfReportFileName());
+
 					repResp.setHrfReportServerPath(report.getHrfReportServerPath());
 					return repResp;
 				}).collect(Collectors.toList());
