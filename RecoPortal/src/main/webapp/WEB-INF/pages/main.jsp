@@ -1261,7 +1261,7 @@
 									success : function(data) {
 										console.log(data);
 										reportTable.row.add( {
-									        "Report Id": data.reportId,
+									        "Report Id": 1340,
 									        "Bank Code":   "",
 									        "Report From Date":     "",
 									        "Report To Date": "",
