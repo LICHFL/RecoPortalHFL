@@ -187,15 +187,17 @@ public class RecoController {
 	}
 
 	@PostMapping("/getReportFiles")
-	public String getReportFiles(Map<String, Object> model, @AuthenticationPrincipal RecoUserDetails userDetails) throws Exception {
+	public String getReportFiles(Map<String, Object> model, @AuthenticationPrincipal RecoUserDetails userDetails)
+			throws Exception {
 
-		
-		
 		Optional<BrsUserDetails> userDetails2 = brsUserService.getUserDetails(userDetails.getUsername());
-		//userDetails2.get().getBankcode();
-		//bankCode = "LUHDFCCMS1";
-				
-		List<com.lichfl.model.ReportResponseDto> reportList = recoService.getReportFiles(userDetails2.get().getBankcode());
+		// userDetails2.get().getBankcode();
+		// bankCode = "LUHDFCCMS1";
+
+		log.info("userDetails2.get().getBankcode() ::" + userDetails2.get().getBankcode());
+
+		List<com.lichfl.model.ReportResponseDto> reportList = recoService
+				.getReportFiles(userDetails2.get().getUsrBranchCode());
 
 		reportList.forEach(System.out::println);
 
