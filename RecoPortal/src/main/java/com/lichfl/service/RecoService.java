@@ -10,10 +10,6 @@ import com.lichfl.model.SubmitMatches;
 
 public interface RecoService {
 
-	/*
-	 * List<BookDto> fetchBookResults(String glCode, String fromDate, String toDate,
-	 * String catg, String tranType) throws Exception;
-	 */
 
 	String getPayModes(String recoCode) throws Exception;
 
