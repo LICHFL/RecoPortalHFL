@@ -599,11 +599,11 @@ table.table tfoot th{
 .form-check-inline{
 	vertical-align: middle;
 }
-#matchingTable_wrapper,#unmatchingTable_wrapper,#unmatchingTableView_wrapper{
+#matchingTable_wrapper,#unmatchingTable_wrapper,#unmatchingTableView_wrapper,#reportTable_wrapper{
 	margin-top:-30px;
 	position: relative;
 }
-#unmatchingTableView_wrapper{
+#unmatchingTableView_wrapper,#reportTable_wrapper{
 	margin-top:0;
 }
 #freezeTable_wrapper{
@@ -620,7 +620,7 @@ table.table tfoot th{
     bottom: 4px;
     right: 0;
 }
-#matchingTable_paginate,#unmatchingTable_paginate,#freezeTable_paginate,#unmatchingTableView_paginate{
+#matchingTable_paginate,#unmatchingTable_paginate,#freezeTable_paginate,#unmatchingTableView_paginate,#reportTable_paginate{
 	position: absolute;
     bottom: -3px;
     left: 44%;

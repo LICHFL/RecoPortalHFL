@@ -4,14 +4,14 @@
 <table id="reportTable" class="table table-striped table-hover dataTable no-footer table-responsive mt-2" width="100%">
     <thead>
         <tr>
-            <th class="th-sm" style="width: 10%;">Report Id</th>            
-            <th class="th-sm" style="width: 10%;">Bank Code</th>
-            <th class="th-sm" style="width: 10%;">Report From Date</th>
-            <th class="th-sm" style="width: 10%;">Report To Date</th>
-            <th class="th-sm" style="width: 50%;">File Name</th>
-            <th class="th-sm" style="width: 10%;">Report Run Date</th>
-            <th class="th-sm" style="width: 10%;">Status</th>
-            <th class="th-sm" style="width: 10%;">Download</th>           
+            <th class="th-sm">Report Id</th>            
+            <th class="th-sm">Bank Code</th>
+            <th class="th-sm">Report From Date</th>
+            <th class="th-sm">Report To Date</th>
+            <th class="th-sm">File Name</th>
+            <th class="th-sm">Report Run Date</th>
+            <th class="th-sm">Status</th>
+            <th class="th-sm">Download</th>           
         </tr>
     </thead>
     <tbody>
@@ -24,8 +24,14 @@
                 <td>${rept.hrfReportFileName}</td>
                 <td>${rept.hrfReportRunStart}</td>
                 <td>${rept.hrfReportRunMsg}</td>
-                <td><a href="${rept.hrfReportServerPath}">Download</a></td>
+                <td><a href="${rept.hrfReportServerPath}" download>Download</a></td>
             </tr>
         </c:forEach>
     </tbody>    
 </table>
+<script>
+reportTable = $('#reportTable').DataTable({
+	dom : 'lfrtip'
+});
+
+</script>
