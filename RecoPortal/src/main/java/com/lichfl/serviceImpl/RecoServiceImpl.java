@@ -155,6 +155,8 @@ public class RecoServiceImpl implements RecoService {
 					repResp.setHrfReportFileName(report.getHrfReportFileName());
 					repResp.setHrfReportRunStart(report.getHrfReportRunStart().substring(0, 10));// Apply substring here
 					repResp.setHrfReportRunMsg(report.getHrfReportRunMsg());
+					repResp.setStatus("Generated");
+					;
 					// repResp.setHrfReportServerPath(filePath+report.getHrfReportFileName());
 
 					repResp.setHrfReportServerPath(report.getHrfReportServerPath());
