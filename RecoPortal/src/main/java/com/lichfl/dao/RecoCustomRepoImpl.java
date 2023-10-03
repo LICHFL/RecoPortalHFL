@@ -109,13 +109,14 @@ public class RecoCustomRepoImpl implements IRecoCustomRepo {
 			paramMap = new MapSqlParameterSource().addValue("glCode", recoFilter.getBankCode())
 					.addValue("fromDate", recoFilter.getDatetimepickerFrom())
 					.addValue("toDate", recoFilter.getDatetimepickerTo()).addValue("catg", recoFilter.getMatchingType())
-					.addValue("drCr", recoFilter.getTranType()).addValue("payMode", recoFilter.getPMode());
+					.addValue("drCr", recoFilter.getTranType()).addValue("payMode", recoFilter.getPMode())
+					.addValue("chqNo", recoFilter.getChqNo());
 		} else {
 
 			paramMap = new MapSqlParameterSource().addValue("glCode", recoFilter.getBankCode())
 					.addValue("fromDate", recoFilter.getDatetimepickerFrom())
 					.addValue("toDate", recoFilter.getDatetimepickerTo()).addValue("catg", recoFilter.getMatchingType())
-					.addValue("drCr", recoFilter.getTranType());
+					.addValue("drCr", recoFilter.getTranType()).addValue("chqNo", recoFilter.getChqNo());
 		}
 
 		log.info("sqlQuery ::" + sqlQuery);
