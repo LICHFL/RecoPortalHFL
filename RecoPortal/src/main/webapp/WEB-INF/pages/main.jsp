@@ -699,7 +699,19 @@
 												<section class="custom-section">
 													<label class="section-label">Report Result
 													</label>
-													<div class="reportTable" style="margin-top: -15px;">
+													<div class="row" style="margin-top: -15px;">
+																<div class="col">
+																	<div class="btn-group btn-group-sm" role="group"
+																		aria-label="Basic example">																		
+																		<button type="button"
+																			class="btn btn-primary btn-sm mr-1"
+																			id="refreshReportBtn">
+																			<i class="fa fa-refresh"></i> Refresh
+																		</button>
+																	</div>
+																</div>
+															</div>
+													<div class="reportTable" style="margin-top: 15px;">
 														<%@ include file="reportTable.jsp"%>
 													</div>
 												</section>
@@ -1069,8 +1081,21 @@
 				});
 
 		$('#resetSearchParamBtn').click(function() {
+			matchTable.clear().draw();
 			document.getElementById("searchParametersForm").reset();
 			$('#searchParametersForm').bootstrapValidator("resetForm", true);
+		});
+		
+		
+		$('#resetReportBtn').click(function() {			
+			document.getElementById("reportGenerateForm").reset();
+			$('#reportGenerateForm').bootstrapValidator("resetForm", true);
+		});
+		
+		$('#resetSearchParamUnmatchBtn').click(function() {
+			unmatchTable.clear().draw();
+			document.getElementById("searchParametersUnmatchForm").reset();
+			$('#searchParametersUnmatchForm').bootstrapValidator("resetForm", true);
 		});
 
 		$('#nav-contact-tab').click(function() {
@@ -1263,7 +1288,7 @@
 										console.log(data);
 										bootbox.alert({
 											title: "<i class='fa fa-check'></i> Success",
-											message: "The Report id "+data+"generation is in progress. Kindly refresh after some time to get the report.",
+											message: "The Report id "+data+" generation is in progress. Kindly refresh after some time to get the report status.",
 											buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Ok' }}
 										});
 										$('.lichfl-ajax-overlay').hide();
@@ -1297,13 +1322,18 @@
 			});
 		});
 		
+		$('#refreshReportBtn').click(function(){
+			$('#nav-report-tab').click();
+		});
+		
+		
 		$('#submitUnMatching').click(function(){
 			bootbox.confirm({
 				title: "<i class='fa fa-info-circle'></i> Submit Manual Un-Matching",
 				message: "Do you want to Submit selected records for un-matching. Please verify before submitting the data.",
 				buttons: { cancel: { className: "btn-sm btn-default", label: '<i class="fa fa-times"></i> Cancel' }, confirm: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Confirm' } },
 				callback: function(result) {
-					if(result){
+					if(result){						
 						$.ajax({
 							url : 'getUnmatchRecords',
 							type : 'post',
