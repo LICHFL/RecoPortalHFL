@@ -699,7 +699,7 @@
 												<section class="custom-section">
 													<label class="section-label">Report Result
 													</label>
-													<div class="reportTable" style="margin-top: -30px;">
+													<div class="reportTable" style="margin-top: -15px;">
 														<%@ include file="reportTable.jsp"%>
 													</div>
 												</section>
@@ -736,7 +736,7 @@
 		$(document)
 				.ready(
 						function() {
-							var matchTable, freezeTable,freezeTable1,freezeTable2;
+							var matchTable, freezeTable,freezeTable1,freezeTable2,reportTable;
 							$('#freezeTable1,#freezeTable2').DataTable({
 								dom : 't'
 							});
@@ -757,9 +757,9 @@
 								}
 							});
 
-							window.onbeforeunload = function(evnt) {
+							/*window.onbeforeunload = function(evnt) {
 								logout();
-							};
+							};*/
 
 							$('#datetimepickerFrom').datetimepicker({
 								format : 'DD/MM/YYYY',
@@ -1259,6 +1259,17 @@
 									processData : false,
 									contentType : false,
 									success : function(data) {
+										console.log(data);
+										reportTable.row.add( {
+									        "Report Id": data,
+									        "Bank Code":   "",
+									        "Report From Date":     "",
+									        "Report To Date": "",
+									        "File Name":     "",
+									        "Report Run Date": "",
+									        "Status":       "In Progress",
+									        "Download": "<a href='javascript:void(0)' download>Download</a>"
+									    } ).draw();
 										$('.lichfl-ajax-overlay').hide();
 									},
 									error : function(e) {
@@ -1279,6 +1290,7 @@
 				processData : false,
 				contentType : false,
 				success : function(data) {
+					console.log(data);
 					$('.lichfl-ajax-overlay').hide();
 					$('.reportTable').html(data);
 				},
