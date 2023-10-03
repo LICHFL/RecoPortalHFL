@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import com.lichfl.model.BookDto;
 import com.lichfl.model.RecoFilter;
 import com.lichfl.model.ReportParam;
+import com.lichfl.model.UnmatchDto;
 
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -95,28 +96,25 @@ public class RecoCustomRepoImpl implements IRecoCustomRepo {
 	}
 
 	@Override
-	public List<BookDto> getUnmatchRecords(RecoFilter recoFilter) {
-
-		System.out.println("RecoCustomRepoImpl.getUnmatchRecords()");
-
-		log.info("recoFilter ::" + recoFilter);
+	public List<BookDto> getUnmatchRecords(UnmatchDto unmatchDto) {
 
 		String sqlQuery = unmatchListQuery;
 		MapSqlParameterSource paramMap = null;
-		if (!(recoFilter.getPMode().isBlank())) {
+		if (!(unmatchDto.getPModeUnmatch().isBlank())) {
 			sqlQuery = unmatchListQuery + " " + payModeSql;
 
-			paramMap = new MapSqlParameterSource().addValue("glCode", recoFilter.getBankCode())
-					.addValue("fromDate", recoFilter.getDatetimepickerFrom())
-					.addValue("toDate", recoFilter.getDatetimepickerTo()).addValue("catg", recoFilter.getMatchingType())
-					.addValue("drCr", recoFilter.getTranType()).addValue("payMode", recoFilter.getPMode())
-					.addValue("chqNo", recoFilter.getChqNo());
+			paramMap = new MapSqlParameterSource().addValue("glCode", unmatchDto.getBankCodeUnmatch())
+					.addValue("fromDate", unmatchDto.getDatetimepickerFromUnmatch())
+					.addValue("toDate", unmatchDto.getDatetimepickerToUnmatch())
+					.addValue("catg", unmatchDto.getUnmatchingType()).addValue("drCr", unmatchDto.getTranUnmatchType())
+					.addValue("payMode", unmatchDto.getPModeUnmatch());
+			// .addValue("chqNo", recoFilter.getChqNo());
 		} else {
 
-			paramMap = new MapSqlParameterSource().addValue("glCode", recoFilter.getBankCode())
-					.addValue("fromDate", recoFilter.getDatetimepickerFrom())
-					.addValue("toDate", recoFilter.getDatetimepickerTo()).addValue("catg", recoFilter.getMatchingType())
-					.addValue("drCr", recoFilter.getTranType()).addValue("chqNo", recoFilter.getChqNo());
+			paramMap = new MapSqlParameterSource().addValue("glCode", unmatchDto.getBankCodeUnmatch())
+					.addValue("fromDate", unmatchDto.getDatetimepickerFromUnmatch())
+					.addValue("toDate", unmatchDto.getDatetimepickerToUnmatch())
+					.addValue("catg", unmatchDto.getUnmatchingType()).addValue("drCr", unmatchDto.getTranUnmatchType());
 		}
 
 		log.info("sqlQuery ::" + sqlQuery);

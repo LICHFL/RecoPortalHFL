@@ -22,6 +22,7 @@ import com.lichfl.model.RecoFilter;
 import com.lichfl.model.ReportParam;
 import com.lichfl.model.ReportResponseDto;
 import com.lichfl.model.SubmitMatches;
+import com.lichfl.model.UnmatchDto;
 import com.lichfl.service.RecoService;
 import com.lichfl.util.ApplicationConstant;
 import com.lichfl.util.CustomStringUtil;
@@ -143,8 +144,7 @@ public class RecoServiceImpl implements RecoService {
 
 		// sort the list and remove the timestamp
 		List<ReportResponseDto> sortedAndModifiedList = reportResponseDtoList.stream()
-				.filter(report -> report.getHrfReportServerPath() != null)
-				.map(report -> {
+				.filter(report -> report.getHrfReportServerPath() != null).map(report -> {
 					// Create a new ReportResponse with modified hrfSDt
 					ReportResponseDto repResp = new ReportResponseDto();
 					repResp.setHrfRepId(report.getHrfRepId());
@@ -161,26 +161,24 @@ public class RecoServiceImpl implements RecoService {
 
 					repResp.setHrfReportServerPath(report.getHrfReportServerPath());
 					return repResp;
-				})
-				.sorted(Comparator.comparingInt(ReportResponseDto::getHrfRepId).reversed())
-				.limit(50)
+				}).sorted(Comparator.comparingInt(ReportResponseDto::getHrfRepId).reversed()).limit(50)
 				.collect(Collectors.toList());
 		return sortedAndModifiedList;
 	}
 
 	@Override
-	public List<BookDto> getUnmatchRecords(RecoFilter recoFilter) throws Exception {
-	
+	public List<BookDto> getUnmatchRecords(UnmatchDto unmatchDto) throws Exception {
+
 		List<BookDto> resList = null;
 		/********* add quotes to paymodes after fetching all paymodes *******/
 
 		try {
-			resList = recoCustomRepo.getUnmatchRecords(recoFilter);
+			resList = recoCustomRepo.getUnmatchRecords(unmatchDto);
 			return resList;
 		} catch (Exception e) {
 			throw new Exception("No Results found for the provided inputs");
 		}
-		
+
 	}
 
 }
