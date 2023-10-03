@@ -27,6 +27,8 @@ import com.lichfl.model.BookDto;
 import com.lichfl.model.RecoFilter;
 import com.lichfl.model.ReportParam;
 import com.lichfl.model.SubmitMatches;
+import com.lichfl.model.UnmatchDto;
+import com.lichfl.model.UnmatchDto;
 import com.lichfl.security.RecoUserDetails;
 import com.lichfl.service.BrsUserService;
 import com.lichfl.service.RecoService;
@@ -207,16 +209,18 @@ public class RecoController {
 	}
 
 	@PostMapping("/getUnmatchRecords")
-	public String getUnmatchRecords(RecoFilter recoFilter, Map<String, Object> model) {
+	public String getUnmatchRecords(UnmatchDto unmatchDto, Map<String, Object> model) {
+		
+		System.out.println("RecoController.getUnmatchRecords()");
 
-		log.info("recoFilter::" + recoFilter);
+		log.info("unmatchDto::" + unmatchDto);
 
 		List<BookDto> bookDtoList = null;
 
 		try {
 
-			bookDtoList = recoService.getUnmatchRecords(recoFilter);
-			// bookDtoList.forEach(System.out::println);
+			bookDtoList = recoService.getUnmatchRecords(unmatchDto);
+			 bookDtoList.forEach(System.out::println);
 
 		} catch (Exception e) {
 			e.printStackTrace();

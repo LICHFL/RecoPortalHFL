@@ -7,6 +7,7 @@ import com.lichfl.model.RecoFilter;
 import com.lichfl.model.ReportParam;
 import com.lichfl.model.ReportResponseDto;
 import com.lichfl.model.SubmitMatches;
+import com.lichfl.model.UnmatchDto;
 
 public interface RecoService {
 
@@ -22,6 +23,6 @@ public interface RecoService {
 
 	List<ReportResponseDto> getReportFiles(String bankCode) throws Exception;
 
-	List<BookDto> getUnmatchRecords(RecoFilter recoFilter) throws Exception;
+	List<BookDto> getUnmatchRecords(UnmatchDto unmatchDto) throws Exception;
 
 }
