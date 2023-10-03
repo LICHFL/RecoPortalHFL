@@ -22,4 +22,6 @@ public interface RecoService {
 
 	List<ReportResponseDto> getReportFiles(String bankCode) throws Exception;
 
+	List<BookDto> getUnmatchRecords(RecoFilter recoFilter) throws Exception;
+
 }

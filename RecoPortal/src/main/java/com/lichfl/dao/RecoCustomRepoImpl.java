@@ -29,6 +29,9 @@ public class RecoCustomRepoImpl implements IRecoCustomRepo {
 	@Value("${reco.matchListQuery}")
 	String getMatchListQuery;
 
+	@Value("${reco.unmatchListQuery}")
+	String unmatchListQuery;
+
 	@Value("${reco.payModeSql}")
 	String payModeSql;
 
@@ -89,6 +92,36 @@ public class RecoCustomRepoImpl implements IRecoCustomRepo {
 
 		return reportId.intValue();
 
+	}
+
+	@Override
+	public List<BookDto> getUnmatchRecords(RecoFilter recoFilter) {
+
+		System.out.println("RecoCustomRepoImpl.getUnmatchRecords()");
+
+		log.info("recoFilter ::" + recoFilter);
+
+		String sqlQuery = unmatchListQuery;
+		MapSqlParameterSource paramMap = null;
+		if (!(recoFilter.getPMode().isBlank())) {
+			sqlQuery = unmatchListQuery + " " + payModeSql;
+
+			paramMap = new MapSqlParameterSource().addValue("glCode", recoFilter.getBankCode())
+					.addValue("fromDate", recoFilter.getDatetimepickerFrom())
+					.addValue("toDate", recoFilter.getDatetimepickerTo()).addValue("catg", recoFilter.getMatchingType())
+					.addValue("drCr", recoFilter.getTranType()).addValue("payMode", recoFilter.getPMode())
+					.addValue("chqNo", recoFilter.getChqNo());
+		} else {
+
+			paramMap = new MapSqlParameterSource().addValue("glCode", recoFilter.getBankCode())
+					.addValue("fromDate", recoFilter.getDatetimepickerFrom())
+					.addValue("toDate", recoFilter.getDatetimepickerTo()).addValue("catg", recoFilter.getMatchingType())
+					.addValue("drCr", recoFilter.getTranType()).addValue("chqNo", recoFilter.getChqNo());
+		}
+
+		log.info("sqlQuery ::" + sqlQuery);
+		List<BookDto> bookDtoList = namedJdbcTemplate.query(sqlQuery, paramMap, new BookDtoRowMapper());
+		return bookDtoList;
 	}
 
 }

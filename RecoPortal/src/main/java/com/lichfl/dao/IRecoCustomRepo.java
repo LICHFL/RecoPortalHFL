@@ -12,4 +12,6 @@ public interface IRecoCustomRepo {
 
 	public int submitReport(ReportParam reportParam) throws Exception;
 
+	public List<BookDto> getUnmatchRecords(RecoFilter recoFilter);
+
 }

@@ -13,8 +13,7 @@ import lombok.Setter;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 @Table(name = "VW_BRS_USER_DETAILS")
 public class BrsUserDetails {
 

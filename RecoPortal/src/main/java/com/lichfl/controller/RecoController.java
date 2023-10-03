@@ -174,16 +174,19 @@ public class RecoController {
 	}
 
 	@PostMapping("/submitReport")
-	public Map<String, Object> submitReport(ReportParam reportParam, Map<String, Object> model) throws Exception {
+//	public Map<String, Object> submitReport(ReportParam reportParam, Map<String, Object> model) throws Exception {
+	public int submitReport(ReportParam reportParam, Map<String, Object> model) throws Exception {
 		log.info("reportParam" + reportParam);
 
 		int reportId = recoService.submitReport(reportParam);
 		log.info("reportId ::" + reportId);
+		return reportId;
 
-		model.put("reportId", reportId);
-		log.info("reportId ::" + reportId);
-		return model;
-	//	return "reportTable";
+		/*
+		 * model.put("reportId", reportId); log.info("reportId ::" + reportId); return
+		 * model;
+		 */
+		// return "reportTable";
 
 	}
 
@@ -200,12 +203,33 @@ public class RecoController {
 		List<com.lichfl.model.ReportResponseDto> reportList = recoService
 				.getReportFiles(userDetails2.get().getUsrBranchCode());
 
-		reportList.forEach(System.out::println);
+		// reportList.forEach(System.out::println);
 
 		log.info("repResponse ::" + reportList);
 
 		model.put("repList", reportList);
 		return "reportTable";
+	}
+
+	@PostMapping("/getUnmatchRecords")
+	public String getUnmatchRecords(RecoFilter recoFilter, Map<String, Object> model) {
+
+		log.info("recoFilter::" + recoFilter);
+
+		List<BookDto> bookDtoList = null;
+
+		try {
+
+			bookDtoList = recoService.getUnmatchRecords(recoFilter);
+			// bookDtoList.forEach(System.out::println);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		model.put("bookDtoList", bookDtoList);
+		return "unmatchingTable";
+
 	}
 
 }

@@ -757,6 +757,7 @@
 								}
 							});
 
+
 							/*window.onbeforeunload = function(evnt) {
 								logout();
 							};*/
