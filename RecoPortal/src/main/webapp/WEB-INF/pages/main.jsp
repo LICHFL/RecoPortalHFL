@@ -1005,15 +1005,15 @@
 								var data = new FormData(searchParametersUnmatchForm);
 								console.log(data);
 								$.ajax({
-									url : 'getBookRec',
+									url : 'getUnmatchRecords',
 									type : 'post',
 									cache : false,
 									data : data,
 									processData : false,
 									contentType : false,
-									success : function(data) {
-										console.log("success");
+									success : function(data) {										
 										$('.lichfl-ajax-overlay').hide();
+										$('.paramTable3').html(data);
 									},
 									error : function(e) {
 										console.log(e);
@@ -1304,7 +1304,22 @@
 				buttons: { cancel: { className: "btn-sm btn-default", label: '<i class="fa fa-times"></i> Cancel' }, confirm: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Confirm' } },
 				callback: function(result) {
 					if(result){
-						console.log('success')	
+						$.ajax({
+							url : 'getUnmatchRecords',
+							type : 'post',
+							cache : false,
+							processData : false,
+							contentType : false,
+							success : function(data) {
+								console.log(data);
+								$('.lichfl-ajax-overlay').hide();
+								$('.paramTable3').html(data);
+							},
+							error : function(e) {
+								console.log(e);
+								$('.lichfl-ajax-overlay').hide();
+							}
+						});	
 					}
 				}
 			});
