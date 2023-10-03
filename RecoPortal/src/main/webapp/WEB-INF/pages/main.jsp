@@ -757,9 +757,7 @@
 								}
 							});
 
-							window.onbeforeunload = function(evnt) {
-								logout();
-							};
+							
 
 							$('#datetimepickerFrom').datetimepicker({
 								format : 'DD/MM/YYYY',

@@ -163,8 +163,24 @@ public class RecoServiceImpl implements RecoService {
 					return repResp;
 				})
 				.sorted(Comparator.comparingInt(ReportResponseDto::getHrfRepId).reversed())
+				.limit(50)
 				.collect(Collectors.toList());
 		return sortedAndModifiedList;
+	}
+
+	@Override
+	public List<BookDto> getUnmatchRecords(RecoFilter recoFilter) throws Exception {
+	
+		List<BookDto> resList = null;
+		/********* add quotes to paymodes after fetching all paymodes *******/
+
+		try {
+			resList = recoCustomRepo.getUnmatchRecords(recoFilter);
+			return resList;
+		} catch (Exception e) {
+			throw new Exception("No Results found for the provided inputs");
+		}
+		
 	}
 
 }

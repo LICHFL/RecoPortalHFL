@@ -203,5 +203,26 @@ public class RecoController {
 		model.put("reportList", reportList);
 		return "reportTable";
 	}
+	
+	@PostMapping("/getUnmatchRecords")
+	public String getUnmatchRecords(RecoFilter recoFilter, Map<String, Object> model) {
+
+		log.info("recoFilter::" + recoFilter);
+
+		List<BookDto> bookDtoList = null;
+
+		try {
+
+			bookDtoList = recoService.getUnmatchRecords(recoFilter);
+			// bookDtoList.forEach(System.out::println);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		model.put("bookDtoList", bookDtoList);
+		return "unmatchingTable";
+
+	}
 
 }
