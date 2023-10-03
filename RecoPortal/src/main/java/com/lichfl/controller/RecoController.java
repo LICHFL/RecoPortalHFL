@@ -174,23 +174,18 @@ public class RecoController {
 	}
 
 	@PostMapping("/submitReport")
+	@ResponseBody
 //	public Map<String, Object> submitReport(ReportParam reportParam, Map<String, Object> model) throws Exception {
-	public int submitReport(ReportParam reportParam, Map<String, Object> model) throws Exception {
+	public String submitReport(ReportParam reportParam, Map<String, Object> model) throws Exception {
 		log.info("reportParam" + reportParam);
 
 		int reportId = recoService.submitReport(reportParam);
 		log.info("reportId ::" + reportId);
-		return reportId;
-
-		/*
-		 * model.put("reportId", reportId); log.info("reportId ::" + reportId); return
-		 * model;
-		 */
-		// return "reportTable";
+		return String.valueOf(reportId);
 
 	}
 
-	@PostMapping("/getReportFiles")
+	@GetMapping("/getReportFiles")
 	public String getReportFiles(Map<String, Object> model, @AuthenticationPrincipal RecoUserDetails userDetails)
 			throws Exception {
 
@@ -207,7 +202,7 @@ public class RecoController {
 
 		log.info("repResponse ::" + reportList);
 
-		model.put("repList", reportList);
+		model.put("reportList", reportList);
 		return "reportTable";
 	}
 
