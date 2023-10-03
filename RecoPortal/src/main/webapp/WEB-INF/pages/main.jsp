@@ -1260,16 +1260,11 @@
 									contentType : false,
 									success : function(data) {
 										console.log(data);
-										reportTable.row.add( {
-									        "Report Id": data,
-									        "Bank Code":   "",
-									        "Report From Date":     "",
-									        "Report To Date": "",
-									        "File Name":     "",
-									        "Report Run Date": "",
-									        "Status":       "In Progress",
-									        "Download": "<a href='javascript:void(0)' download>Download</a>"
-									    } ).draw();
+										bootbox.alert({
+											title: "<i class='fa fa-check'></i> Success",
+											message: "The Report id "+data+"generation is in progress. Kindly refresh after some time to get the report.",
+											buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Ok' }}
+										});
 										$('.lichfl-ajax-overlay').hide();
 									},
 									error : function(e) {
