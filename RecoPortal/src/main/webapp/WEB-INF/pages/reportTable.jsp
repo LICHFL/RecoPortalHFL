@@ -23,7 +23,7 @@
                 <td>${rept.hrfEDt}</td>
                 <td>${rept.hrfReportFileName}</td>
                 <td>${rept.hrfReportRunStart}</td>
-                <td>${rept.hrfReportRunMsg}</td>
+                <td>${rept.status}</td>
                 <td><a href="${rept.hrfReportServerPath}" download>Download</a></td>
             </tr>
         </c:forEach>
