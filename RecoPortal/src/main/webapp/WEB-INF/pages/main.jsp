@@ -1175,54 +1175,73 @@
 				callback: function(result) {
 					console.log(result);
 					if(result == true){						
-						
-							var broKey = [];
-							var matchingForm = new FormData();
-							var matchkey = freezeTable1.column(1).data()[0];		
-							var b = freezeTable2.column(1).data();
-							var c = freezeTable2.column(11).data();
 							
-							for (var i = 0; i<= b.length-1; i++){
-								broKey.push({'matchkey':matchkey,'brokey':b[i],'amount':c[i]});							
-							}				
-							broKey = JSON.stringify(broKey);
-							console.log('broKey :: '+broKey);
-							matchingForm.append('brokey',broKey);
-							$.ajax({
-								url : 'submitMatchData',
-								type : 'post',
-								cache : false,
-								processData : false,
-								contentType: false,
-								data : matchingForm,
-								success : function(data) {
-									console.log(data)
-									if(data.message = "success"){
-										bootbox.alert({
-											title: "<i class='fa fa-check'></i> Success",
-											message: 'Data submitted successfully',
-											buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Ok' }},
-											callback: function(result){
-												matchTable.clear().draw();
-												freezeTable.clear().draw();
-												freezeTable1.clear().draw();
-												freezeTable2.clear().draw();
-												$('#resetSearchParamBtn').click();
-												$('#nav-home-tab').click();
-											}
-										});	
-									}									
-								},
-								error : function(e) {		
-										console.log(e)
-										bootbox.alert({
-											title: "<i class='fa fa-times-circle text-error'></i> Error",
-											message: e.responseJSON.message,
-											buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Ok' }}
-										});
-								}
-							});
-							
+							let unadjamtMainTable = freezeTable1.column(11).data()[0];
+							let unadjamtFreezeTable = freezeTable2.column(11).data();
+							console.log(unadjamtMainTable);
+							console.log(unadjamtFreezeTable);
+							let unadjamtFreezeTableSum = 0;
+							for(let i = 0;i < unadjamtFreezeTable.length;i++){
+								unadjamtFreezeTableSum += parseInt(unadjamtFreezeTable[i]);								
+							}
+							console.log(unadjamtFreezeTableSum);
+							let matchDifference = parseInt(unadjamtMainTable) - parseInt(unadjamtFreezeTableSum);
+							console.log(matchDifference);
+							if(matchDifference > 50 || matchDifference < 0){
+								bootbox.alert({
+									title: "<i class='fa fa-times-circle text-error'></i> Error",
+									message: 'Matching Difference is ' + matchDifference + '.</br></br> 1. The difference should be less than 50.<br/>2. The difference should not be negative.<br/>Kindly verify the unadjusted amounts.',
+									buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Ok' }}
+								});
+							}
+							else{
+								var broKey = [];
+								var matchingForm = new FormData();
+								var matchkey = freezeTable1.column(1).data()[0];		
+								var b = freezeTable2.column(1).data();
+								var c = freezeTable2.column(11).data();
+								
+								for (var i = 0; i<= b.length-1; i++){
+									broKey.push({'matchkey':matchkey,'brokey':b[i],'amount':c[i]});							
+								}				
+								broKey = JSON.stringify(broKey);
+								console.log('broKey :: '+broKey);
+								matchingForm.append('brokey',broKey);
+								$.ajax({
+									url : 'submitMatchDatass', //change to submitMatchData
+									type : 'post',
+									cache : false,
+									processData : false,
+									contentType: false,
+									data : matchingForm,
+									success : function(data) {
+										console.log(data)
+										if(data.message = "success"){
+											bootbox.alert({
+												title: "<i class='fa fa-check'></i> Success",
+												message: 'Data submitted successfully',
+												buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Ok' }},
+												callback: function(result){
+													matchTable.clear().draw();
+													freezeTable.clear().draw();
+													freezeTable1.clear().draw();
+													freezeTable2.clear().draw();
+													$('#resetSearchParamBtn').click();
+													$('#nav-home-tab').click();
+												}
+											});	
+										}									
+									},
+									error : function(e) {		
+											console.log(e)
+											bootbox.alert({
+												title: "<i class='fa fa-times-circle text-error'></i> Error",
+												message: e.responseJSON.message,
+												buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Ok' }}
+											});
+									}
+								});
+							}
 					}
 				},
 			});
