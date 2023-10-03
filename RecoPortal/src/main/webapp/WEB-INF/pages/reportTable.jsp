@@ -11,7 +11,7 @@
             <th class="th-sm">File Name</th>
             <th class="th-sm">Report Run Date</th>
             <th class="th-sm">Status</th>
-            <th class="th-sm">Download</th>           
+            <!--<th class="th-sm">Download</th>    -->         
         </tr>
     </thead>
     <tbody>
@@ -23,8 +23,8 @@
                 <td>${rept.hrfEDt}</td>
                 <td>${rept.hrfReportFileName}</td>
                 <td>${rept.hrfReportRunStart}</td>
-                <td>${rept.status}</td>
-                <td><a href="${rept.hrfReportServerPath}" download>Download</a></td>
+                <td>${rept.status} on Shared Path</td>
+                <!--<td><a href="${rept.hrfReportServerPath}" download>Download</a></td>-->
             </tr>
         </c:forEach>
     </tbody>    

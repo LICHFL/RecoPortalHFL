@@ -1005,15 +1005,15 @@
 								var data = new FormData(searchParametersUnmatchForm);
 								console.log(data);
 								$.ajax({
-									url : 'getBookRec',
+									url : 'getUnmatchRecords',
 									type : 'post',
 									cache : false,
 									data : data,
 									processData : false,
 									contentType : false,
-									success : function(data) {
-										console.log("success");
+									success : function(data) {										
 										$('.lichfl-ajax-overlay').hide();
+										$('.paramTable3').html(data);
 									},
 									error : function(e) {
 										console.log(e);
@@ -1261,16 +1261,11 @@
 									contentType : false,
 									success : function(data) {
 										console.log(data);
-										reportTable.row.add( {
-									        "Report Id": data,
-									        "Bank Code":   "",
-									        "Report From Date":     "",
-									        "Report To Date": "",
-									        "File Name":     "",
-									        "Report Run Date": "",
-									        "Status":       "In Progress",
-									        "Download": "<a href='javascript:void(0)' download>Download</a>"
-									    } ).draw();
+										bootbox.alert({
+											title: "<i class='fa fa-check'></i> Success",
+											message: "The Report id "+data+"generation is in progress. Kindly refresh after some time to get the report.",
+											buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Ok' }}
+										});
 										$('.lichfl-ajax-overlay').hide();
 									},
 									error : function(e) {
@@ -1309,7 +1304,22 @@
 				buttons: { cancel: { className: "btn-sm btn-default", label: '<i class="fa fa-times"></i> Cancel' }, confirm: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Confirm' } },
 				callback: function(result) {
 					if(result){
-						console.log('success')	
+						$.ajax({
+							url : 'getUnmatchRecords',
+							type : 'post',
+							cache : false,
+							processData : false,
+							contentType : false,
+							success : function(data) {
+								console.log(data);
+								$('.lichfl-ajax-overlay').hide();
+								$('.paramTable3').html(data);
+							},
+							error : function(e) {
+								console.log(e);
+								$('.lichfl-ajax-overlay').hide();
+							}
+						});	
 					}
 				}
 			});

@@ -22,6 +22,7 @@
         </tr>
     </thead>
     <tbody>       
+    <c:forEach items="${bookDtoList}" var="book">
             <tr>
                 <td></td>
                 <td>${book.broKeyNo}</td>
@@ -37,9 +38,9 @@
                 <td>${book.orgAmnt}</td>
                 <td>${book.unadjAmnt}</td>
                 <td>${book.drCr}</td>
-                <td><button id="viewMatchedRecords" class="btn btn-sm btn-primary py-1 m-0"><i class="fa fa-eye"></i> View</button></td>
+                <td><button id="viewMatchedRecords" class="btn btn-sm btn-primary py-1 m-0" data-brokey="${book.broKeyNo}"><i class="fa fa-eye"></i> View</button></td>
             </tr>
-      
+      </c:forEach>
     </tbody>
     <tfoot>
         <tr>
