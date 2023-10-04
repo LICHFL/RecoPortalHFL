@@ -1208,7 +1208,7 @@
 								console.log('broKey :: '+broKey);
 								matchingForm.append('brokey',broKey);
 								$.ajax({
-									url : 'submitMatchDatass', //change to submitMatchData
+									url : 'submitMatchData', //change to submitMatchData
 									type : 'post',
 									cache : false,
 									processData : false,
