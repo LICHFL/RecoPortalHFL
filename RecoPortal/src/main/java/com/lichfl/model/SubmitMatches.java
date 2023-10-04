@@ -12,5 +12,6 @@ public class SubmitMatches {
 	private String matchkey;
 	private String brokey;
 	private String amount;
+	private String brsType;
 
 }
