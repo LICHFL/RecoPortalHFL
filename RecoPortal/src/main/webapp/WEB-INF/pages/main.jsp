@@ -118,15 +118,9 @@
 							<div class="col-sm-12 query-table-loader">
 								<nav>
 									<div class="nav nav-tabs" id="nav-tab" role="tablist">
-										<a class="nav-item nav-link active" id="nav-home-tab"
-											data-toggle="tab" href="#nav-home" role="tab"
-											aria-controls="nav-home" aria-selected="true">Main</a> <a
-											class="nav-item nav-link" id="nav-profile-tab"
-											data-toggle="tab" href="#nav-profile" role="tab"
-											aria-controls="nav-profile" aria-selected="false">Freeze</a>
-										<a class="nav-item nav-link" id="nav-contact-tab"
-											data-toggle="tab" href="#nav-contact" role="tab"
-											aria-controls="nav-contact" aria-selected="false">Matching</a>
+										<a class="nav-item nav-link active" id="nav-manual-tab"
+											data-toggle="tab" href="#nav-manual" role="tab"
+											aria-controls="nav-manual" aria-selected="true">Manual Matching</a> 
 											<a class="nav-item nav-link d-none" id="nav-unmatch-tab"
 											data-toggle="tab" href="#nav-unmatch" role="tab"
 											aria-controls="nav-unmatch" aria-selected="false">Un Matching</a>
@@ -135,8 +129,23 @@
 											aria-controls="nav-report" aria-selected="false">Report</a>
 									</div>
 								</nav>
-								<div class="tab-content" id="nav-tabContent">
-									<div class="tab-pane fade show active" id="nav-home"
+								<div class="tab-content" id="nav-tabContent1">
+									<div class="tab-pane fade show active" id="nav-manual">
+										<nav>
+											<div class="nav nav-tabs" id="nav-tab" role="tablist">		
+											<a class="nav-item nav-link active" id="nav-home-tab"
+												data-toggle="tab" href="#nav-home" role="tab"
+												aria-controls="nav-home" aria-selected="true">Main</a> <a
+												class="nav-item nav-link" id="nav-profile-tab"
+												data-toggle="tab" href="#nav-profile" role="tab"
+												aria-controls="nav-profile" aria-selected="false">Freeze</a>
+											<a class="nav-item nav-link" id="nav-contact-tab"
+												data-toggle="tab" href="#nav-contact" role="tab"
+												aria-controls="nav-contact" aria-selected="false">Matching</a>
+											</div>
+										</nav>
+										<div class="tab-content" id="nav-tabContent">
+											<div class="tab-pane fade show active" id="nav-home"
 										role="tabpanel" aria-labelledby="nav-home-tab">
 										<div class="query-table-container pr-0 mb-2">
 											<form id="searchParametersForm" method="post" action="main">
@@ -148,28 +157,28 @@
 																<div class="form-check form-check-inline">
 																	<input type="radio" class="form-check-input"
 																		id="matchingType1" name="matchingType" value="O"
-																		required data-param1="O" data-param2="B"> <label
+																		required data-param1="O" data-param2="B" data-brs="Book_VS_Bank"> <label
 																		class="form-check-label" for="matchingType1">Book
 																		V/S Bank</label>
 																</div>
 																<div class="form-check form-check-inline">
 																	<input type="radio" class="form-check-input"
 																		id="matchingType2" name="matchingType" value="B"
-																		data-param1="B" data-param2="O"> <label
+																		data-param1="B" data-param2="O" data-brs="Bank_VS_Book"> <label
 																		class="form-check-label" for="matchingType2">
 																		Bank V/S Book</label>
 																</div>
 																<div class="form-check form-check-inline">
 																	<input type="radio" class="form-check-input"
 																		id="matchingType3" name="matchingType" value="B"
-																		data-param1="B" data-param2="B"> <label
+																		data-param1="B" data-param2="B" data-brs="Bank_VS_Bank"> <label
 																		class="form-check-label" for="matchingType3">
 																		Bank V/S Bank</label>
 																</div>
 																<div class="form-check form-check-inline">
 																	<input type="radio" class="form-check-input"
 																		id="matchingType4" name="matchingType" value="O"
-																		data-param1="O" data-param2="O"> <label
+																		data-param1="O" data-param2="O" data-brs="Book_VS_Book"> <label
 																		class="form-check-label" for="matchingType4">
 																		Book V/S Book</label>
 																</div>
@@ -455,7 +464,9 @@
 											</div>
 										</section>
 
-									</div>									
+									</div>	
+										</div>
+									</div>
 									<div class="tab-pane fade" id="nav-unmatch" role="tabpanel" aria-labelledby="nav-unmatch-tab">
 										<form id="searchParametersUnmatchForm" method="post" action="main">
     <section class="custom-section">
@@ -589,7 +600,7 @@
     </div>
 </section>
 										
-									</div>									
+									</div>
 									<div class="tab-pane fade" id="nav-report" role="tabpanel" aria-labelledby="nav-report-tab">
 										<form id="reportGenerateForm">										
 												<section class="custom-section">
@@ -757,12 +768,22 @@
 
 							$.sessionTimeout({
 								keepAliveUrl : 'resources/keep.html',
-								keepAliveInterval : 30000000,
+								keepAliveInterval : 600000,//600000,
 								ajaxType : 'GET',
-								warnAfter : 30000000,
-								redirAfter : 31000000,
+								warnAfter : 600000,//600000,
+								redirAfter : 630000,
 								onWarn : function() {
-									$('#modalSessionTimout').modal('show');
+									bootbox.confirm({
+										title: "<i class='fa fa-info-circle'></i> Session Time Out",
+										message: "Screen has been idle for 10 min. Application will log out.",
+										buttons: { cancel: { className: "btn-sm btn-default", label: '<i class="fa fa-times"></i> Cancel' }, confirm: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Logout' } },
+										callback: function(result) {
+											if(result){
+												logout();
+											}
+											
+											}
+										});
 								},
 								onRedir : function() {
 									logout();
@@ -995,7 +1016,7 @@
 									contentType : false,
 									success : function(data) {
 										$('.paramTable1').html(data);
-										//$('#loadFreezeTable').removeAttr('disabled');
+										$('input[type="radio"][name="matchingType"]').attr('disabled','disabled');
 										//$('#loadFreezeTable').removeAttr('title');
 										$('.lichfl-ajax-overlay').hide();
 									},
@@ -1042,7 +1063,10 @@
 						bootbox.alert({
 							title: "<i class='fa fa-exclamation-triangle'></i> Warning",
 							message: "Please search main screen data",
-							buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Ok' }}
+							buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Ok' }},
+							callback: function(result){
+								$('#nav-home-tab').click();
+							}
 						});
 					}
 					else{
@@ -1082,6 +1106,9 @@
 
 		$('#resetSearchParamBtn').click(function() {
 			matchTable.clear().draw();
+			freezeTable.clear().draw();
+			$('.brsParam,.brsParam1').html('');
+			$('input[type="radio"][name="matchingType"]').removeAttr('disabled');
 			document.getElementById("searchParametersForm").reset();
 			$('#searchParametersForm').bootstrapValidator("resetForm", true);
 		});
@@ -1187,7 +1214,7 @@
 							console.log(unadjamtFreezeTableSum);
 							let matchDifference = parseInt(unadjamtMainTable) - parseInt(unadjamtFreezeTableSum);
 							console.log(matchDifference);
-							if(matchDifference > 50 || matchDifference < 0){
+							if(matchDifference > 50 && matchDifference < 0){
 								bootbox.alert({
 									title: "<i class='fa fa-times-circle text-error'></i> Error",
 									message: 'Matching Difference is ' + matchDifference + '.</br></br> 1. The difference should be less than 50.<br/>2. The difference should not be negative.<br/>Kindly verify the unadjusted amounts.',
@@ -1197,18 +1224,19 @@
 							else{
 								var broKey = [];
 								var matchingForm = new FormData();
-								var matchkey = freezeTable1.column(1).data()[0];		
+								var matchkey = freezeTable1.column(1).data()[0];
+								var brsType = $('input[type="radio"][name="matchingType"]:checked').attr('data-brs');
 								var b = freezeTable2.column(1).data();
 								var c = freezeTable2.column(11).data();
 								
 								for (var i = 0; i<= b.length-1; i++){
-									broKey.push({'matchkey':matchkey,'brokey':b[i],'amount':c[i]});							
+									broKey.push({'matchkey':matchkey,'brokey':b[i],'amount':c[i],'brsType':brsType});							
 								}				
 								broKey = JSON.stringify(broKey);
 								console.log('broKey :: '+broKey);
 								matchingForm.append('brokey',broKey);
 								$.ajax({
-									url : 'submitMatchData', //change to submitMatchData
+									url : 'submitMatchData1', //change to submitMatchData
 									type : 'post',
 									cache : false,
 									processData : false,
@@ -1225,7 +1253,7 @@
 													matchTable.clear().draw();
 													freezeTable.clear().draw();
 													freezeTable1.clear().draw();
-													freezeTable2.clear().draw();
+													freezeTable2.clear().draw();													
 													$('#resetSearchParamBtn').click();
 													$('#nav-home-tab').click();
 												}

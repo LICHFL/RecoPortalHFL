@@ -540,7 +540,10 @@ input.invisible{
     font-size: 12px;
 }
 .nav-link{
-	font-size: 13px;
+	font-size: 12px;
+}
+.nav-link.active{
+	background-color: #e1f1fd !important;
 }
 form label,
 .modal-body label,
