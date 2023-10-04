@@ -181,7 +181,7 @@
 																		data-param1="O" data-param2="O" data-brs="Book_VS_Book"> <label
 																		class="form-check-label" for="matchingType4">
 																		Book V/S Book</label>
-																</div>
+																</div>																
 															</div>
 														</div>
 													</div>
@@ -381,19 +381,19 @@
 														<thead>
 															<tr>
 																<th class="th-sm">Match</th>
-																<th class="th-sm">Match ID</th>
-																<th class="th-sm">Tran Code</th>
-																<th class="th-sm">Doc No</th>
-																<th class="th-sm">Doc Date</th>
-																<th class="th-sm">Cheque No</th>
-																<th class="th-sm">P mode</th>
-																<th class="th-sm">Value Date</th>
-																<th class="th-sm">Micr Code</th>
-																<th class="th-sm">Loan Ac</th>
-																<th class="th-sm">PLF Receipt No</th>
-																<th class="th-sm">Org Amt</th>
-																<th class="th-sm">Unadj Amt</th>
-																<th class="th-sm">Dr/Cr</th>
+													            <th class="th-sm">Match ID</th>
+													            <th class="th-sm">Tran Code</th>
+													            <th class="th-sm">Doc No</th>
+													            <th class="th-sm">Doc Date</th>
+													            <th class="th-sm">Cheque No</th>
+													            <th class="th-sm">Org Amt</th>
+													            <th class="th-sm">Unadj Amt</th>
+													            <th class="th-sm">Dr/Cr</th>
+													            <th class="th-sm">P mode</th>
+													            <th class="th-sm">Value Date</th>
+													            <th class="th-sm">Micr Code</th>
+													            <th class="th-sm">Loan Ac</th>
+													            <th class="th-sm">PLF Receipt No</th>
 															</tr>
 														</thead>
 														<tbody>
@@ -426,19 +426,19 @@
 														<thead>
 															<tr>
 																<th class="th-sm">Match</th>
-																<th class="th-sm">Match ID</th>
-																<th class="th-sm">Tran Code</th>
-																<th class="th-sm">Doc No</th>
-																<th class="th-sm">Doc Date</th>
-																<th class="th-sm">Cheque No</th>
-																<th class="th-sm">P mode</th>
-																<th class="th-sm">Value Date</th>
-																<th class="th-sm">Micr Code</th>
-																<th class="th-sm">Loan Ac</th>
-																<th class="th-sm">PLF Receipt No</th>
-																<th class="th-sm">Org Amt</th>
-																<th class="th-sm">Unadj Amt</th>
-																<th class="th-sm">Dr/Cr</th>
+													            <th class="th-sm">Match ID</th>
+													            <th class="th-sm">Tran Code</th>
+													            <th class="th-sm">Doc No</th>
+													            <th class="th-sm">Doc Date</th>
+													            <th class="th-sm">Cheque No</th>
+													            <th class="th-sm">Org Amt</th>
+													            <th class="th-sm">Unadj Amt</th>
+													            <th class="th-sm">Dr/Cr</th>
+													            <th class="th-sm">P mode</th>
+													            <th class="th-sm">Value Date</th>
+													            <th class="th-sm">Micr Code</th>
+													            <th class="th-sm">Loan Ac</th>
+													            <th class="th-sm">PLF Receipt No</th>
 															</tr>
 														</thead>
 														<tbody>
@@ -1016,18 +1016,25 @@
 									contentType : false,
 									success : function(data) {
 										$('.paramTable1').html(data);
-										$('input[type="radio"][name="matchingType"]').attr('disabled','disabled');
+										$('input[type="radio"][name="matchingType"]').attr('onclick','javascript: return false;').addClass('disable');										
 										//$('#loadFreezeTable').removeAttr('title');
 										$('.lichfl-ajax-overlay').hide();
 									},
 									error : function(e) {
 										console.log(e);
 										$('.lichfl-ajax-overlay').hide();
+										bootbox.alert({
+											title: "<i class='fa fa-times-circle text-error'></i> Error",
+											message: "Something Went wrong,Kindly logout and Retry again or contact system administrator.",
+											buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Ok' }}
+										});
 									}
 								});
 							});
 					$('#searchParametersForm').bootstrapValidator('validate');
 				});
+		
+		
 		
 		$('#searhParamUnmatchBtn').click(
 				function() {
@@ -1051,6 +1058,11 @@
 									error : function(e) {
 										console.log(e);
 										$('.lichfl-ajax-overlay').hide();
+										bootbox.alert({
+											title: "<i class='fa fa-times-circle text-error'></i> Error",
+											message: "Something Went wrong,Kindly logout and Retry again or contact system administrator.",
+											buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Ok' }}
+										});
 									}
 								});
 							});
@@ -1099,6 +1111,11 @@
 							error : function(e) {
 								console.log(e);
 								$('.lichfl-ajax-overlay').hide();
+								bootbox.alert({
+									title: "<i class='fa fa-times-circle text-error'></i> Error",
+									message: "Something Went wrong,Kindly logout and Retry again or contact system administrator.",
+									buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Ok' }}
+								});
 							}
 						});
 					}
@@ -1108,7 +1125,7 @@
 			matchTable.clear().draw();
 			freezeTable.clear().draw();
 			$('.brsParam,.brsParam1').html('');
-			$('input[type="radio"][name="matchingType"]').removeAttr('disabled');
+			$('input[type="radio"][name="matchingType"]').removeAttr('onclick').removeClass('disable');
 			document.getElementById("searchParametersForm").reset();
 			$('#searchParametersForm').bootstrapValidator("resetForm", true);
 		});
@@ -1203,8 +1220,8 @@
 					console.log(result);
 					if(result == true){						
 							
-							let unadjamtMainTable = freezeTable1.column(11).data()[0];
-							let unadjamtFreezeTable = freezeTable2.column(11).data();
+							let unadjamtMainTable = freezeTable1.column(7).data()[0];
+							let unadjamtFreezeTable = freezeTable2.column(7).data();
 							console.log(unadjamtMainTable);
 							console.log(unadjamtFreezeTable);
 							let unadjamtFreezeTableSum = 0;
@@ -1227,7 +1244,7 @@
 								var matchkey = freezeTable1.column(1).data()[0];
 								var brsType = $('input[type="radio"][name="matchingType"]:checked').attr('data-brs');
 								var b = freezeTable2.column(1).data();
-								var c = freezeTable2.column(11).data();
+								var c = freezeTable2.column(7).data();
 								
 								for (var i = 0; i<= b.length-1; i++){
 									broKey.push({'matchkey':matchkey,'brokey':b[i],'amount':c[i],'brsType':brsType});							
@@ -1343,6 +1360,11 @@
 									error : function(e) {
 										console.log(e);
 										$('.lichfl-ajax-overlay').hide();
+										bootbox.alert({
+											title: "<i class='fa fa-times-circle text-error'></i> Error",
+											message: "Something Went wrong,Kindly logout and Retry again or contact system administrator.",
+											buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Ok' }}
+										});
 									}
 								});
 							});
@@ -1365,6 +1387,11 @@
 				error : function(e) {
 					console.log(e);
 					$('.lichfl-ajax-overlay').hide();
+					bootbox.alert({
+						title: "<i class='fa fa-times-circle text-error'></i> Error",
+						message: "Something Went wrong,Kindly logout and Retry again or contact system administrator.",
+						buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Ok' }}
+					});
 				}
 			});
 		});
@@ -1395,6 +1422,11 @@
 							error : function(e) {
 								console.log(e);
 								$('.lichfl-ajax-overlay').hide();
+								bootbox.alert({
+									title: "<i class='fa fa-times-circle text-error'></i> Error",
+									message: "Something Went wrong,Kindly logout and Retry again or contact system administrator.",
+									buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Ok' }}
+								});
 							}
 						});	
 					}
