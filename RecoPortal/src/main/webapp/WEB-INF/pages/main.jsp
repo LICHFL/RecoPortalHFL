@@ -1307,7 +1307,7 @@
 										console.log(data);
 										bootbox.alert({
 											title: "<i class='fa fa-check'></i> Success",
-											message: "The Report id "+data+" generation is in progress. Kindly refresh after some time to get the report status.",
+											message: "The Report generation is successful. Kindly check report on the shared path.",
 											buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Ok' }}
 										});
 										$('.lichfl-ajax-overlay').hide();
