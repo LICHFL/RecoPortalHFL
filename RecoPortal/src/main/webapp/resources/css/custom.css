@@ -718,3 +718,10 @@ table.dataTable>tbody>tr>td.select-checkbox, table.dataTable>tbody>tr>th.select-
 .modal-title{
 	font-size:15px;
 }
+.disable{
+	accent-color: #787878;
+
+}
+.disable>label{
+	color: #787878;
+}
