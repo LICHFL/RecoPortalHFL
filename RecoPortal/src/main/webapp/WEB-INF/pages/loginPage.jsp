@@ -40,8 +40,7 @@
 					<b>RECO PORTAL 
 				</h4>
 				<p>
-					The new BRS application provides you a simple interface to resolve
-					the BRS issues. <a
+					The new BRS application provides you a simple interface to reconcile data.  <a
 						href="http://10.0.0.196/upload/IT/writeups/Feedback_Portal.pdf"
 						class="writeuplink" target="_blank"> <i
 						class="fa fa-info-circle fa-fw"></i> Click here
