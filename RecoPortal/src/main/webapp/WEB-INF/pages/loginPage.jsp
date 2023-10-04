@@ -41,7 +41,7 @@
 				</h4>
 				<p>
 					The new BRS application provides you a simple interface to reconcile data.  <a
-						href="http://10.0.0.196/upload/IT/writeups/Feedback_Portal.pdf"
+						href="http://10.0.0.196/upload/IT/writeups/RECO_PORTAL_WRITEUP.pdf"
 						class="writeuplink" target="_blank"> <i
 						class="fa fa-info-circle fa-fw"></i> Click here
 					</a> for the detailed write-up of the Reco Portal.
@@ -77,7 +77,7 @@
 					<div class="m-t-20 m-b-40 p-b-40 text-inverse d-none">
 						Account Locked? Click <a href="">here</a> unlock.
 					</div>
-					<div class="notification">
+					<div class="notification d-none">
 						<i class="fa fa-exclamation-triangle fa-fw"></i> <span class="msg">${error}</span>
 					</div>
 
@@ -90,7 +90,7 @@
 				<div class="write-up row d-none">
 					<div class="col-sm-12">
 						<i class="fa fa-exclamation-triangle fa-fw text-warning"></i> <a
-							href="http://10.0.0.196/upload/IT/writeups/Feedback_Portal.pdf"
+							href="http://10.0.0.96/upload/IT/writeups/RECO_PORTAL_WRITEUP.pdf"
 							target="_blank"> Click here </a> for detailed write-up of BRS
 						application.
 					</div>
