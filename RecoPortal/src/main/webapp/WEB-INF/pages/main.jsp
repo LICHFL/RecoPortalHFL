@@ -1214,7 +1214,7 @@
 							console.log(unadjamtFreezeTableSum);
 							let matchDifference = parseInt(unadjamtMainTable) - parseInt(unadjamtFreezeTableSum);
 							console.log(matchDifference);
-							if(matchDifference > 50 && matchDifference < 0){
+							if(matchDifference > 50 || matchDifference < 0){
 								bootbox.alert({
 									title: "<i class='fa fa-times-circle text-error'></i> Error",
 									message: 'Matching Difference is ' + matchDifference + '.</br></br> 1. The difference should be less than 50.<br/>2. The difference should not be negative.<br/>Kindly verify the unadjusted amounts.',
@@ -1236,7 +1236,7 @@
 								console.log('broKey :: '+broKey);
 								matchingForm.append('brokey',broKey);
 								$.ajax({
-									url : 'submitMatchData1', //change to submitMatchData
+									url : 'submitMatchData', //change to submitMatchData
 									type : 'post',
 									cache : false,
 									processData : false,
