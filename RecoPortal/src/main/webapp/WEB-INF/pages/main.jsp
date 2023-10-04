@@ -127,7 +127,7 @@
 										<a class="nav-item nav-link" id="nav-contact-tab"
 											data-toggle="tab" href="#nav-contact" role="tab"
 											aria-controls="nav-contact" aria-selected="false">Matching</a>
-											<a class="nav-item nav-link" id="nav-unmatch-tab"
+											<a class="nav-item nav-link d-none" id="nav-unmatch-tab"
 											data-toggle="tab" href="#nav-unmatch" role="tab"
 											aria-controls="nav-unmatch" aria-selected="false">Un Matching</a>
 											<a class="nav-item nav-link" id="nav-report-tab"
@@ -1307,7 +1307,7 @@
 										console.log(data);
 										bootbox.alert({
 											title: "<i class='fa fa-check'></i> Success",
-											message: "The Report id "+data+" generation is in progress. Kindly refresh after some time to get the report status.",
+											message: "The Report generation is successful. Kindly check report on the shared path.",
 											buttons: { ok: { className: "btn-sm btn-primary", label: '<i class="fa fa-check"></i> Ok' }}
 										});
 										$('.lichfl-ajax-overlay').hide();
