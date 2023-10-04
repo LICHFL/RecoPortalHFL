@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
@@ -82,11 +84,18 @@ public class RecoServiceImpl implements RecoService {
 	public String submitMatchingKeys(List<SubmitMatches> submitMatchesList, String username) {
 		// TODO Auto-generated method stub
 
+		Optional<String> brsType = submitMatchesList.stream().map(SubmitMatches::getBrsType).filter(Objects::nonNull)
+				.findFirst();
+
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("Manual Matching Confirmed by -").append(username).append(" User as on - ")
-				.append(LocalDateTime.now()).append(" by : ");
+				.append(" Match Type ::").append(brsType.isPresent() ? brsType.get() : "")
+				.append(" : ")
+				.append(LocalDateTime.now())
+				.append(" by : ");
 
 		String remarks = stringBuilder.toString();
+		
 		log.info(remarks);
 
 		log.info("match type::" + ApplicationConstant.MATCHTYPE);
