@@ -95,7 +95,7 @@
 				        </tr>
 				    </thead>
 				    <tbody>
-				        <c:forEach items="${bookDtoList}" var="book">
+				        <c:forEach items="${bookDtoList2}" var="book">
 				            <tr>
 				                <td>
 				                    
@@ -217,5 +217,26 @@ unmatchTableView = $('#unmatchingTableView').DataTable({
 
 $('#viewMatchedRecords').click(function(){
 	$('#viewMatchedModal').modal('show');
+	var viewMatchBroKey = $(this).attr('data-brokey');
+	var viewMatchData = new FormData();
+	viewMatchData.set('matchBroKey',viewMatchBroKey);
+	console.log(viewMatchBroKey);
+	$.ajax({
+		url : 'getUnmatchRecords',
+		type : 'post',
+		data: viewMatchData,
+		cache : false,
+		processData : false,
+		contentType : false,
+		success : function(data) {
+			console.log(data);
+			$('.lichfl-ajax-overlay').hide();
+			//$('.paramTable3').html(data);
+		},
+		error : function(e) {
+			console.log(e);
+			$('.lichfl-ajax-overlay').hide();
+		}
+	});	
 });
 </script>
