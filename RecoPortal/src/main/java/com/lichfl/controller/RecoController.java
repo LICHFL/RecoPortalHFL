@@ -100,8 +100,10 @@ public class RecoController {
 	}
 
 	@GetMapping("/error")
-	public String authenticationFailure(Model model, HttpServletRequest request) {
-
+	public String authenticationFailure(Map<String, Object> model , HttpServletRequest request) {
+		
+		model.put("errorMessage", "Please enter valid login details !!");
+		
 		return "error";
 	}
 
