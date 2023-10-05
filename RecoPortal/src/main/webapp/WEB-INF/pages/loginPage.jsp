@@ -99,11 +99,11 @@
 					style="font-size: 11px; position: absolute; bottom: 15px; right: 8%;">
 					<i class="fa fa-file-pdf-o text-danger" style="font-size: 15px;"></i>
 					<a class="pr-2"
-						href="http://10.0.0.196/upload/IT/writeups/Change_Domain_Password.pdf"
+						href="http://10.0.0.96/upload/IT/writeups/Change_Domain_Password.pdf"
 						title="Steps to change Domain password." target="_blank">
 						Change Domain Password </a> <i class="fa fa-file-pdf-o text-danger"
 						style="font-size: 15px;"></i> <a class=""
-						href="http://10.0.0.196/upload/IT/writeups/MSOutlook_Configuration.pdf"
+						href="http://10.0.0.96/upload/IT/writeups/MSOutlook_Configuration.pdf"
 						title="Steps to configure MS Outlook application." target="_blank">
 						Outlook Configuration </a>
 				</div>

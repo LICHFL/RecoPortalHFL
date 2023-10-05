@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
@@ -82,11 +84,16 @@ public class RecoServiceImpl implements RecoService {
 	public String submitMatchingKeys(List<SubmitMatches> submitMatchesList, String username) {
 		// TODO Auto-generated method stub
 
+		Optional<String> brsType = submitMatchesList.stream().map(SubmitMatches::getBrsType).filter(Objects::nonNull)
+				.findFirst();
+
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("Manual Matching Confirmed by -").append(username).append(" User as on - ")
+				.append(" Match Type ::").append(brsType.isPresent() ? brsType.get() : "").append(" : ")
 				.append(LocalDateTime.now()).append(" by : ");
 
 		String remarks = stringBuilder.toString();
+
 		log.info(remarks);
 
 		log.info("match type::" + ApplicationConstant.MATCHTYPE);
@@ -94,11 +101,15 @@ public class RecoServiceImpl implements RecoService {
 
 		submitMatchesList.forEach(key -> {
 
-			System.out.println("key:" + Integer.parseInt(key.getBrokey()));
+			log.info(key.toString());
+			// System.out.println("key:" + Integer.parseInt(key.getBrokey()));
 
 			try {
-				recoMatchRepo.executeMatchProc(Integer.parseInt(key.getBrokey()), Integer.parseInt(key.getMatchkey()),
+
+				recoMatchRepo.executeMatchProc(Integer.parseInt(key.getMatchkey()), Integer.parseInt(key.getBrokey()),
 						remarks, Double.parseDouble(key.getAmount()), ApplicationConstant.MATCHTYPE);
+
+				log.info("Calling submit proc");
 			}
 
 			catch (Exception e) {

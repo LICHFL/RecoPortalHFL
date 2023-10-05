@@ -53,7 +53,6 @@ public class RecoController {
 	@Autowired
 	private BrsUserService brsUserService;
 
-	// private static final String RECO_CODE = "paymode";
 
 	@GetMapping({ "/login", "/" })
 	public String loginPage(@RequestParam(value = "error", required = false) String error, Model model) {
@@ -73,7 +72,6 @@ public class RecoController {
 
 			throws Exception {
 
-		// log.info("respMessage ::" + respMessage);
 
 		String username = userDetails.getUsername();
 		Optional<BrsUserDetails> brsUser = null;
@@ -83,6 +81,7 @@ public class RecoController {
 		}
 
 		List<String> partnerBankList = Arrays.stream(brsUser.get().getBankcode().split(","))
+				 .filter(s -> !s.contains("CMS2"))
 				.collect(Collectors.toList());
 
 		String paymodes = recoService.getPayModes(ApplicationConstant.PAYMODE);
@@ -101,8 +100,10 @@ public class RecoController {
 	}
 
 	@GetMapping("/error")
-	public String authenticationFailure(Model model, HttpServletRequest request) {
-
+	public String authenticationFailure(Map<String, Object> model , HttpServletRequest request) {
+		
+		//model.put("errorMessage", "Please enter valid login details !!");
+		
 		return "error";
 	}
 
@@ -220,7 +221,7 @@ public class RecoController {
 		try {
 
 			bookDtoList = recoService.getUnmatchRecords(unmatchDto);
-			 bookDtoList.forEach(System.out::println);
+			// bookDtoList.forEach(System.out::println);
 
 		} catch (Exception e) {
 			e.printStackTrace();
