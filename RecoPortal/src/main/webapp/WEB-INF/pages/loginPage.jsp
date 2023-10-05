@@ -41,7 +41,7 @@
 				</h4>
 				<p>
 					The new BRS application provides you a simple interface to reconcile data.  <a
-						href="http://10.0.0.196/upload/IT/writeups/RECO_PORTAL_WRITEUP.pdf"
+						href="http://10.0.0.96/upload/IT/writeups/RECO_PORTAL_WRITEUP.pdf"
 						class="writeuplink" target="_blank"> <i
 						class="fa fa-info-circle fa-fw"></i> Click here
 					</a> for the detailed write-up of the Reco Portal.
