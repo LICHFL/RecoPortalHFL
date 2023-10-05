@@ -89,13 +89,11 @@ public class RecoServiceImpl implements RecoService {
 
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("Manual Matching Confirmed by -").append(username).append(" User as on - ")
-				.append(" Match Type ::").append(brsType.isPresent() ? brsType.get() : "")
-				.append(" : ")
-				.append(LocalDateTime.now())
-				.append(" by : ");
+				.append(" Match Type ::").append(brsType.isPresent() ? brsType.get() : "").append(" : ")
+				.append(LocalDateTime.now()).append(" by : ");
 
 		String remarks = stringBuilder.toString();
-		
+
 		log.info(remarks);
 
 		log.info("match type::" + ApplicationConstant.MATCHTYPE);
@@ -103,11 +101,15 @@ public class RecoServiceImpl implements RecoService {
 
 		submitMatchesList.forEach(key -> {
 
-			System.out.println("key:" + Integer.parseInt(key.getBrokey()));
+			log.info(key.toString());
+			// System.out.println("key:" + Integer.parseInt(key.getBrokey()));
 
 			try {
-				recoMatchRepo.executeMatchProc(Integer.parseInt(key.getBrokey()), Integer.parseInt(key.getMatchkey()),
+
+				recoMatchRepo.executeMatchProc(Integer.parseInt(key.getMatchkey()), Integer.parseInt(key.getBrokey()),
 						remarks, Double.parseDouble(key.getAmount()), ApplicationConstant.MATCHTYPE);
+
+				log.info("Calling submit proc");
 			}
 
 			catch (Exception e) {
