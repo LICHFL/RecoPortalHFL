@@ -91,7 +91,7 @@
 					<div class="col-sm-12">
 						<i class="fa fa-exclamation-triangle fa-fw text-warning"></i> <a
 							href="http://10.0.0.96/upload/IT/writeups/RECO_PORTAL_WRITEUP.pdf"
-							target="_blank"> Click here </a> for detailed write-up of BRS
+							target="_blank"> Click here </a> for detailed write-up of RECO PORTAL
 						application.
 					</div>
 				</div>
