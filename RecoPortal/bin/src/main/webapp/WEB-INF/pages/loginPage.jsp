@@ -62,7 +62,8 @@
 			<!-- end login-header -->
 			<!-- begin login-content -->
 			<div class="login-content">
-				<form id="loginForm" class="margin-bottom-0">
+				<form id="loginForm" class="margin-bottom-0" action="validate"
+					method="post">
 					<div class="form-group m-b-15">
 						<input type="text" class="form-control form-control-lg"
 							placeholder="SR Number" name="username">

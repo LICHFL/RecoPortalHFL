@@ -5,63 +5,65 @@
     <thead>
         <tr>
             <th class="th-sm">Match</th>
+            <th class="th-sm">Match ID</th>
             <th class="th-sm">Tran Code</th>
             <th class="th-sm">Doc No</th>
             <th class="th-sm">Doc Date</th>
             <th class="th-sm">Cheque No</th>
+            <th class="th-sm">Org Amt</th>
+            <th class="th-sm">Unadj Amt</th>
+            <th class="th-sm">Dr/Cr</th>
             <th class="th-sm">P mode</th>
             <th class="th-sm">Value Date</th>
             <th class="th-sm">Micr Code</th>
             <th class="th-sm">Loan Ac</th>
             <th class="th-sm">PLF Receipt No</th>
-            <th class="th-sm">Org Amt</th>
-            <th class="th-sm">Unadj Amt</th>
-            <th class="th-sm">Dr/Cr</th>
         </tr>
     </thead>
     <tbody>
         <c:forEach items="${bookDtoList}" var="book">
             <tr>
                 <td>
-                    <input type="checkbox" name="" id="">
+                    
                 </td>
+                <td>${book.broKeyNo}</td>
                 <td>${book.tranCode}</td>
                 <td>${book.docNo}</td>
                 <td>${book.docDate}</td>
                 <td>${book.chequeNo}</td>
+                <td>${book.orgAmnt}</td>
+                <td>${book.unadjAmnt}</td>
+                <td>${book.drCr}</td>
                 <td>${book.payMode}</td>
-
                 <td>${book.valueDate}</td>
                 <td>${book.micrCode}</td>
                 <td>${book.loanNo}</td>
                 <td>${book.receiptNo}</td>
-                <td>${book.orgAmnt}</td>
-                <td>${book.unadjAmnt}</td>
-                <td>${book.drCr}</td>
             </tr>
         </c:forEach>
     </tbody>
     <tfoot>
         <tr>
-            <th class="th-sm">Match</th>
-            <th class="th-sm">Search Tran Code</th>
-            <th class="th-sm">Search Doc No</th>
-            <th class="th-sm">Search Doc Date</th>
-            <th class="th-sm">Search Cheque No</th>
-            <th class="th-sm">Search P mode</th>
-            <th class="th-sm">Search Value Date</th>
-            <th class="th-sm">Search Micr Code</th>
-            <th class="th-sm">Search Loan Ac</th>
-            <th class="th-sm">Search PLF Receipt No</th>
-            <th class="th-sm">Search Org Amt</th>
-            <th class="th-sm">Search Unadj Amt</th>
-            <th class="th-sm">Search Dr/Cr</th>
+           <th class="th-sm">Match</th>
+            <th class="th-sm">Match ID</th>
+            <th class="th-sm">Tran Code</th>
+            <th class="th-sm">Doc No</th>
+            <th class="th-sm">Doc Date</th>
+            <th class="th-sm">Cheque No</th>
+            <th class="th-sm">Org Amt</th>
+            <th class="th-sm">Unadj Amt</th>
+            <th class="th-sm">Dr/Cr</th>
+            <th class="th-sm">P mode</th>
+            <th class="th-sm">Value Date</th>
+            <th class="th-sm">Micr Code</th>
+            <th class="th-sm">Loan Ac</th>
+            <th class="th-sm">PLF Receipt No</th>
         </tr>
     </tfoot>
 </table>
 <script>
 
-$('#matchingTable').dataTable({
+matchTable = $('#matchingTable').DataTable({
     initComplete: function() {
         this.api()
             .columns()
@@ -81,11 +83,23 @@ $('#matchingTable').dataTable({
                     }
                 });
             });
-    },
+    },   
     dom: 'lfrtipB',
     buttons: [
         'excelHtml5'
-    ]
+    ],
+    columnDefs: [
+        {
+            orderable: false,
+            className: 'select-checkbox',
+            targets: 0
+        },
+        { "width": "20%", "targets": 0 }
+    ],
+    select: {
+        style: 'single',
+        selector: 'td:first-child'
+    },
 });
 
 </script>

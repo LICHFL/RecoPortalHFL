@@ -19,5 +19,5 @@ public class RecoFilter {
 	private String desc;
 	private String orderBy;
 	private String pMode;
-
+	private String chqNo;
 }

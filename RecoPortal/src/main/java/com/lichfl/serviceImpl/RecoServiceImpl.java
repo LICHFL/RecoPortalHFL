@@ -1,30 +1,194 @@
 package com.lichfl.serviceImpl;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
-import com.lichfl.dao.RecoCustomRepo;
-import com.lichfl.dao.RecoCustomRepoTemplate;
+import com.lichfl.dao.IRecoCustomRepo;
+import com.lichfl.dao.RecoConfigRepo;
+import com.lichfl.dao.RecoMatchRepo;
+import com.lichfl.dao.RecoReportDao;
+import com.lichfl.entity.RecoConfig;
+import com.lichfl.entity.ReportResponse;
 import com.lichfl.model.BookDto;
+import com.lichfl.model.RecoFilter;
+import com.lichfl.model.ReportParam;
+import com.lichfl.model.ReportResponseDto;
+import com.lichfl.model.SubmitMatches;
+import com.lichfl.model.UnmatchDto;
 import com.lichfl.service.RecoService;
+import com.lichfl.util.ApplicationConstant;
+import com.lichfl.util.CustomStringUtil;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
+@PropertySource("classpath:applConstant.properties")
 public class RecoServiceImpl implements RecoService {
 
 	@Autowired
-	RecoCustomRepo customRepo;
+	RecoConfigRepo configRepo;
 
 	@Autowired
-	RecoCustomRepoTemplate cecoCustomRepoTemplate; // TO be corrected
+	RecoMatchRepo recoMatchRepo;
+
+	@Autowired
+	IRecoCustomRepo recoCustomRepo;
+
+	@Autowired
+	RecoReportDao recoReportDao;
+
+	/*
+	 * @Value("${reco.matchType}") String matchType;
+	 */
+
+	@Autowired
+	CustomStringUtil extractMessage;
 
 	@Override
-	public List<BookDto> fetchBookResults(String glCode, String fromDate, String toDate, String catg, String tranType)
-			throws Exception {
+	public List<BookDto> fetchBookResults(RecoFilter recoFilter) throws Exception {
+		List<BookDto> resList = null;
+		/********* add quotes to paymodes after fetching all paymodes *******/
 
-		List<BookDto> resList = customRepo.fetchBookResults(glCode, fromDate, toDate, catg, tranType);
-		return resList;
+		try {
+			resList = recoCustomRepo.fetchBookResults(recoFilter);
+			return resList;
+		} catch (Exception e) {
+			throw new Exception("No Results found for the provided inputs");
+		}
+
+	}
+
+	@Override
+	public String getPayModes(String recoCode) throws Exception {
+		RecoConfig recoConfig = null;
+
+		recoConfig = configRepo.findByRecoCode(recoCode);
+		if (!(recoConfig.getRecoParamValue().isBlank() || recoConfig.getRecoParamValue().isEmpty())) {
+			return recoConfig.getRecoParamValue();
+		} else
+			throw new Exception("Could not fetch payment modes!");
+	}
+
+	@Override
+	public String submitMatchingKeys(List<SubmitMatches> submitMatchesList, String username) {
+		// TODO Auto-generated method stub
+
+		Optional<String> brsType = submitMatchesList.stream().map(SubmitMatches::getBrsType).filter(Objects::nonNull)
+				.findFirst();
+
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("Manual Matching Confirmed by -").append(username).append(" User as on - ")
+				.append(" Match Type ::").append(brsType.isPresent() ? brsType.get() : "").append(" : ")
+				.append(LocalDateTime.now()).append(" by : ");
+
+		String remarks = stringBuilder.toString();
+
+		log.info(remarks);
+
+		log.info("match type::" + ApplicationConstant.MATCHTYPE);
+		submitMatchesList.forEach(System.out::println);
+
+		submitMatchesList.forEach(key -> {
+
+			log.info(key.toString());
+			// System.out.println("key:" + Integer.parseInt(key.getBrokey()));
+
+			try {
+
+				recoMatchRepo.executeMatchProc(Integer.parseInt(key.getMatchkey()), Integer.parseInt(key.getBrokey()),
+						remarks, Double.parseDouble(key.getAmount()), ApplicationConstant.MATCHTYPE);
+
+				log.info("Calling submit proc");
+			}
+
+			catch (Exception e) {
+				e.printStackTrace();
+
+				String errorMessage = extractMessage.extractErrorMessage(e.getMessage());
+
+				throw new RuntimeException(errorMessage);
+			}
+
+		});
+		return "success";
+	}
+
+	@Override
+	public int submitReport(ReportParam reportParam) throws Exception {
+
+		int reportId = recoCustomRepo.submitReport(reportParam);
+
+		return reportId;
+	}
+
+	@Override
+	public List<ReportResponseDto> getReportFiles(String bankCode) throws Exception {
+
+		List<ReportResponse> respList = recoReportDao.findByHrfBankCodeStartsWith(bankCode);
+		if (respList.size() < 1) {
+			throw new Exception("Record is not present");
+		}
+
+		// copy the list from entity to DTO
+		List<ReportResponseDto> reportResponseDtoList = respList.stream().map(reportResponse -> {
+			ReportResponseDto dto = new ReportResponseDto();
+
+			BeanUtils.copyProperties(reportResponse, dto);
+			return dto;
+
+		}).collect(Collectors.toList());
+
+		BeanUtils.copyProperties(bankCode, respList);
+
+		// String filePath = "\\10.0.1.199"+"\\"+bankCode+"\\"+bankCode+"\\"+"BRS"+"\\";
+
+		// sort the list and remove the timestamp
+		List<ReportResponseDto> sortedAndModifiedList = reportResponseDtoList.stream()
+				.filter(report -> report.getHrfReportServerPath() != null).map(report -> {
+					// Create a new ReportResponse with modified hrfSDt
+					ReportResponseDto repResp = new ReportResponseDto();
+					repResp.setHrfRepId(report.getHrfRepId());
+					repResp.setHrfChildRepId(report.getHrfChildRepId());
+					repResp.setHrfBankCode(report.getHrfBankCode());
+					repResp.setHrfSDt(report.getHrfSDt().substring(0, 10)); // Apply substring here
+					repResp.setHrfEDt(report.getHrfEDt().substring(0, 10));// Apply substring here
+					repResp.setHrfReportFileName(report.getHrfReportFileName());
+					repResp.setHrfReportRunStart(report.getHrfReportRunStart().substring(0, 10));// Apply substring here
+					repResp.setHrfReportRunMsg(report.getHrfReportRunMsg());
+					repResp.setStatus("Generated");
+					;
+					// repResp.setHrfReportServerPath(filePath+report.getHrfReportFileName());
+
+					repResp.setHrfReportServerPath(report.getHrfReportServerPath());
+					return repResp;
+				}).sorted(Comparator.comparingInt(ReportResponseDto::getHrfRepId).reversed()).limit(50)
+				.collect(Collectors.toList());
+		return sortedAndModifiedList;
+	}
+
+	@Override
+	public List<BookDto> getUnmatchRecords(UnmatchDto unmatchDto) throws Exception {
+
+		List<BookDto> resList = null;
+		/********* add quotes to paymodes after fetching all paymodes *******/
+
+		try {
+			resList = recoCustomRepo.getUnmatchRecords(unmatchDto);
+			return resList;
+		} catch (Exception e) {
+			throw new Exception("No Results found for the provided inputs");
+		}
 
 	}
 

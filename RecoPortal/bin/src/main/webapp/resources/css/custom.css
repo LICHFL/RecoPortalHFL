@@ -591,8 +591,12 @@ table.table tfoot th{
 .form-check-inline{
 	vertical-align: middle;
 }
-#paginationFullNumbers_wrapper{
+#matchingTable_wrapper{
 	margin-top:-30px;
+	position: relative;
+}
+#freezeTable_wrapper{
+	margin-top:0;
 	position: relative;
 }
 .dataTables_filter{
@@ -605,7 +609,7 @@ table.table tfoot th{
     bottom: 4px;
     right: 0;
 }
-#paginationFullNumbers_paginate{
+#matchingTable_paginate,#freezeTable_paginate{
 	position: absolute;
     bottom: -3px;
     left: 44%;
@@ -639,4 +643,46 @@ table.table tfoot th{
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+table.dataTable>tbody>tr.selected>td.select-checkbox:before, table.dataTable>tbody>tr.selected>th.select-checkbox:before {
+    border: 1px solid #0075ff;
+    background: #0075ff;
+}
+table.dataTable>tbody>tr.selected>td.select-checkbox:after, table.dataTable>tbody>tr.selected>th.select-checkbox:after {
+    content: "✓";
+    content: "\f00c";   
+    margin-top: -5px;
+    margin-left: -6px;
+    text-align: center;
+    font: normal normal normal 14px/1 FontAwesome;
+    color: #fff;
+    font-size: 12px;
+}    
+table.dataTable>tbody>tr>td.select-checkbox:before, table.dataTable>tbody>tr>td.select-checkbox:after, table.dataTable>tbody>tr>th.select-checkbox:before, table.dataTable>tbody>tr>th.select-checkbox:after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 14px;
+    height: 14px;
+    box-sizing: border-box;
+}
+table.dataTable>tbody>tr>td.select-checkbox, table.dataTable>tbody>tr>th.select-checkbox{
+	caret-color: transparent;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {    
+    line-height: 22px;
+    font-size: 11px;
+}
+.form-group {
+    margin-bottom: 0;
+}
+.bv-form .help-block {
+    margin-bottom: 0;
+    display: block;
+    color: red;
+    font-size: 11px;
+}
+#freezeTable1_wrapper,#freezeTable2_wrapper{
+	margin-top:-30px;
 }
